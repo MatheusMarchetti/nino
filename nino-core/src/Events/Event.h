@@ -6,14 +6,6 @@
 
 namespace nino
 {
-//	template<typename T>
-//	struct EventType
-//	{
-//		EventType(const T& type) : eventType(type) {}
-//
-//		T eventType;
-//	};
-
 	class CORE_API Event
 	{
 	public:
