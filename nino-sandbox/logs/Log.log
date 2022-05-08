@@ -1,0 +1,18 @@
+[2022-05-08 01:01:31.380] [NINO-CORE] [info] Initializing subsystems...
+[2022-05-08 01:01:31.387] [NINO-CORE] [info] Window subsystem initialized!
+[2022-05-08 01:01:31.387] [NINO-CORE] [info] Event subsystem initialized!
+[2022-05-08 01:01:31.388] [NINO-CORE] [info] All subsystems initialized
+[2022-05-08 01:01:31.388] [APP] [info] SandboxApp started
+[2022-05-08 01:01:33.986] [NINO-CORE] [warning] Created event: WindowClosedEvent
+[2022-05-08 01:01:33.987] [NINO-CORE] [warning] Event received on queue: WindowClosedEvent
+[2022-05-08 01:01:33.987] [NINO-CORE] [warning] First event on queue: WindowClosedEvent
+[2022-05-08 01:01:33.987] [NINO-CORE] [warning] Number of events on queue: 1
+[2022-05-08 01:01:33.994] [NINO-CORE] [warning] Current event: WindowClosedEvent
+[2022-05-08 01:01:33.994] [NINO-CORE] [warning] Received event on Application: WindowClosedEvent
+[2022-05-08 01:01:33.994] [NINO-CORE] [warning] Checking if event type match...
+[2022-05-08 01:01:33.994] [NINO-CORE] [warning] Base event type ID: 11320446968952405881
+[2022-05-08 01:01:33.994] [NINO-CORE] [warning] Current event type ID: 11320446968952405881
+[2022-05-08 01:01:33.995] [NINO-CORE] [warning] Event typed matched! Dispatching...
+[2022-05-08 01:01:33.995] [NINO-CORE] [warning] Received event on OnWindowClose: WindowClosedEvent
+[2022-05-08 01:01:33.995] [NINO-CORE] [warning] Event handled!
+[2022-05-08 01:01:33.995] [APP] [info] Closing SandboxApp

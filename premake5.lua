@@ -42,12 +42,13 @@ project (corename)
 
     includedirs
     {
-        "%{prj.name}/src/"
+        "%{prj.name}/src/",
+        "%{prj.name}/vendor/spdlog/include"
     }
 
     postbuildcommands
     {
-        ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" ..outputdir.. "/App/\"")
+        ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" ..outputdir.. "/"..appname.."/\"")
     }
 
     filter "configurations:Debug"
@@ -87,7 +88,8 @@ project (appname)
     includedirs
     {
         "%{prj.name}/src/",
-        corename.."/src"
+        corename.."/src",
+        corename.."/vendor/spdlog/include"
     }
 
     filter "configurations:Debug"
@@ -104,3 +106,5 @@ filter "configurations:Release"
     defines "CORE_RELEASE"
     runtime "Release"
     optimize "On"
+
+    kind "WindowedApp"
