@@ -11,6 +11,7 @@ namespace nino
 		void Show();
 
 		HWND& GetWindow() { return m_Window; }
+		void Resize(uint32_t width, uint32_t height);
 
 	private:
 		HWND m_Window;

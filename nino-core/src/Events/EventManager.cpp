@@ -1,6 +1,8 @@
 #include "corepch.h"
 #include "EventManager.h"
 
+#include "Events/WindowEvents.h"
+
 namespace nino
 {
 	std::queue<std::shared_ptr<Event>> EventManager::m_EventQueue;
@@ -8,6 +10,7 @@ namespace nino
 
 	void EventManager::Create()
 	{
+		m_CurrentEvent = nullptr;
 		NINO_CORE_INFO(L"Event subsystem initialized!");
 	}
 
@@ -28,20 +31,14 @@ namespace nino
 		{
 			m_CurrentEvent = m_EventQueue.front();
 			m_EventQueue.pop();
-			NINO_CORE_WARN(L"Current event: {}", m_CurrentEvent->ToString());
  
 			m_EventCallback(*m_CurrentEvent);
-
-
 		}
 	}
 
 	void EventManager::QueueEvents(const std::shared_ptr<Event>& event)
 	{
-		NINO_CORE_WARN(L"Event received on queue: {}", event->ToString());
 		m_EventQueue.push(event);
-		NINO_CORE_WARN(L"First event on queue: {}", m_EventQueue.front()->ToString());
-		NINO_CORE_WARN(L"Number of events on queue: {}", m_EventQueue.size());
 	}
 
 	LRESULT EventManager::EventHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -50,6 +47,11 @@ namespace nino
 		{
 		case WM_SIZE:
 		{
+			uint32_t width = LOWORD(lParam);
+			uint32_t height = HIWORD(lParam);
+
+			std::shared_ptr<WindowResizedEvent> resizedEvent = std::make_shared<WindowResizedEvent>(width, height);
+			EventManager::QueueEvents(resizedEvent);
 
 			break;
 		}
@@ -57,7 +59,6 @@ namespace nino
 		case WM_DESTROY:
 		{
 			std::shared_ptr<WindowClosedEvent> closedEvent = std::make_shared<WindowClosedEvent>();
-			NINO_CORE_WARN(L"Created event: {}", closedEvent->ToString());
 			EventManager::QueueEvents(closedEvent);
 
 			break;

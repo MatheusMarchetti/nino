@@ -3,7 +3,6 @@
 #include "Core.h"
 
 #include "Events/Event.h"
-#include "Events/WindowEvents.h"
 
 #include <queue>
 
@@ -28,13 +27,8 @@ namespace nino
 		template<typename T>
 		static void Dispatch(std::function<bool(T&)> func)
 		{
-			NINO_CORE_WARN(L"Checking if event type match...");
-			NINO_CORE_WARN(L"Base event type ID: {}", typeid(T).hash_code());
-			NINO_CORE_WARN(L"Current event type ID: {}", m_CurrentEvent->GetEventID());
-
 			if (typeid(T).hash_code() == m_CurrentEvent->GetEventID())
 			{
-				NINO_CORE_WARN(L"Event typed matched! Dispatching...");
 				m_CurrentEvent->Handled = func(*(T*)&(*m_CurrentEvent));
 			}
 		}

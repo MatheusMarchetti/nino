@@ -3,8 +3,14 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Events/EventManager.h"
+
 #include "Events/Event.h"
+#include "Events/EventManager.h"
+#include "Events/WindowEvents.h"
+
+#include "LayerStack.h"
+
+#include "Timestep.h"
 
 namespace nino
 {
@@ -18,10 +24,16 @@ namespace nino
 
 		void Run();
 
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* overlay);
+		void PopLayer(Layer* layer);
+		void PopOverlay(Layer* overlay);
+
 	private:
 		friend int CORE_API CreateApplication(Application* app, const wchar_t* className);
 		void Initialize(const wchar_t* className);
-		bool OnWindowClose(Event& event);
+		bool OnWindowClose(WindowClosedEvent& event);
+		bool OnWindowResize(WindowResizedEvent& event);
 
 	private:
 		bool shouldRun = true;
@@ -29,6 +41,7 @@ namespace nino
 		uint32_t m_Height;
 		Window m_Window;
 		EventManager m_EventManager;
+		LayerStack m_LayerStack;
 	};
 
 }

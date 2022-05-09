@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <memory>
 #include <functional>
+#include <vector>
 
 /*ENGINE STUFF*/
 #include "Log.h"

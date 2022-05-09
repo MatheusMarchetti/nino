@@ -34,6 +34,12 @@ namespace nino
 		ShowWindow(m_Window, SW_SHOW);
 	}
 
+	void Window::Resize(uint32_t width, uint32_t height)
+	{
+		m_Width = width;
+		m_Height = height;
+	}
+
 	LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		EventManager* const pWnd = reinterpret_cast<EventManager*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
