@@ -1,13 +1,13 @@
 #include "corepch.h"
 #include "Application.h"
 
-#include "LayerStack.h"
-
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
 		: m_Width(clientWidth), m_Height(clientHeight)
-	{}
+	{
+		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+	}
 
 	Application::~Application()
 	{}
@@ -29,8 +29,31 @@ namespace nino
 	void Application::Initialize(const wchar_t* className)
 	{
 		m_Window.Create(className, m_Width, m_Height);
-		m_EventManager.Create();
-		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+	}
+
+
+	void Application::Run()
+	{
+		m_Window.Show();
+
+		uint64_t countsPerSecond;
+		uint64_t currentTime;
+		uint64_t previousTime = 0;
+		double secondsPerCount;
+
+		while (shouldRun)
+		{
+			m_EventManager.CollectWindowsEvents();
+			m_EventManager.ProcessEvents();
+
+			Timestep timestep;
+			timestep.Tick();
+
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnUpdate(timestep);
+			}
+		}
 	}
 
 	bool Application::OnWindowClose(WindowClosedEvent& event)
@@ -48,40 +71,6 @@ namespace nino
 		m_Window.Resize(m_Width, m_Height);
 
 		return true;
-	}
-
-	void Application::Run()
-	{
-		m_Window.Show();
-
-		uint64_t countsPerSecond;
-		uint64_t currentTime;
-		uint64_t previousTime = 0;
-		double secondsPerCount;
-
-		while (shouldRun)
-		{
-			QueryPerformanceFrequency((LARGE_INTEGER*)&countsPerSecond);
-			secondsPerCount = 1.0 / (double)countsPerSecond;
-
-			QueryPerformanceCounter((LARGE_INTEGER*)&currentTime);
-
-			Timestep timestep = (currentTime - previousTime) * secondsPerCount;
-
-			previousTime = currentTime;
-
-			m_EventManager.CollectWindowsEvents();
-			m_EventManager.ProcessEvents();
-
-			if (timestep > 1.0f) timestep = 0.0f;
-
-			NINO_CORE_TRACE(L"Timestep: {}", timestep);
-
-			for (Layer* layer : m_LayerStack)
-			{
-				layer->OnUpdate(timestep);
-			}
-		}
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -106,19 +95,9 @@ namespace nino
 
 	int CreateApplication(Application* app, const wchar_t* className)
 	{
-		Log::Init();
-
-		NINO_CORE_INFO("Initializing subsystems...");
-
 		app->Initialize(className);
-
-		NINO_CORE_INFO("All subsystems initialized");
-
-		NINO_INFO(L"{0} started", className);
 		
 		app->Run();
-
-		NINO_INFO(L"Closing {}", className);
 
 		delete app;
 

@@ -131,6 +131,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\ApplicationLayer.h" />
+    <ClInclude Include="src\CustomEvents.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\ApplicationLayer.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
   </ItemGroup>
@@ -138,10 +142,6 @@
     <ProjectReference Include="..\nino-core\nino-core.vcxproj">
       <Project>{8FA16E00-FB0B-2377-444A-D41CB0F300CC}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\ApplicationLayer.h" />
-    <ClInclude Include="src\CustomEvents.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,10 +8,11 @@ namespace nino
 	std::queue<std::shared_ptr<Event>> EventManager::m_EventQueue;
 	std::shared_ptr<Event> EventManager::m_CurrentEvent;
 
-	void EventManager::Create()
+	EventManager::EventManager()
 	{
 		m_CurrentEvent = nullptr;
-		NINO_CORE_INFO(L"Event subsystem initialized!");
+
+		NINO_CORE_INFO(L"Event subsystem initialized");
 	}
 
 	void EventManager::CollectWindowsEvents()

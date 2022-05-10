@@ -11,13 +11,11 @@ namespace nino
 	class CORE_API EventManager
 	{
 	public:
-		EventManager() {}
+		EventManager();
 		~EventManager() {}
 		EventManager(EventManager const&) = delete;
 		void operator=(EventManager const&) = delete;
 		
-		void Create();
-
 		void CollectWindowsEvents();
 		void SetEventCallback(const std::function<void(Event&)>& callback) { m_EventCallback = callback; }
 		void ProcessEvents();

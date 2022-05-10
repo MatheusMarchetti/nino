@@ -21,17 +21,16 @@ project (corename)
     kind "SharedLib"
     staticruntime "Off"
     location (corename)
-    defines "CORE_BUILD_DLL"
-
+    
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
-
+    
     pchheader "corepch.h"
     pchsource (corename.."/src/corepch.cpp")
-
-    links
+    
+    defines 
     {
-
+        "CORE_BUILD_DLL"
     }
 
     files
@@ -88,7 +87,7 @@ project (appname)
     includedirs
     {
         "%{prj.name}/src/",
-        corename.."/src",
+        corename.."/src/",
         corename.."/vendor/spdlog/include"
     }
 
@@ -103,8 +102,7 @@ filter "configurations:Profiling"
     optimize "On"
 
 filter "configurations:Release"
+    kind "WindowedApp"
     defines "CORE_RELEASE"
     runtime "Release"
     optimize "On"
-
-    kind "WindowedApp"

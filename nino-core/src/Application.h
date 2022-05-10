@@ -39,9 +39,10 @@ namespace nino
 		bool shouldRun = true;
 		uint32_t m_Width;
 		uint32_t m_Height;
-		Window m_Window;
+		Log m_Log;
 		EventManager m_EventManager;
 		LayerStack m_LayerStack;
+		Window m_Window;
 	};
 
 }

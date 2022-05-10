@@ -13,6 +13,7 @@ namespace nino
 	class CORE_API Log
 	{
 	public:
+		Log() { Init(); }
 		static void Init();
 
 		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
