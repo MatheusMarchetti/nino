@@ -51,7 +51,7 @@ namespace nino
 			uint32_t width = LOWORD(lParam);
 			uint32_t height = HIWORD(lParam);
 
-			std::shared_ptr<WindowResizedEvent> resizedEvent = std::make_shared<WindowResizedEvent>(width, height);
+			Ref<WindowResizedEvent> resizedEvent = CreateRef<WindowResizedEvent>(width, height);
 			EventManager::QueueEvents(resizedEvent);
 
 			break;
@@ -59,7 +59,7 @@ namespace nino
 
 		case WM_DESTROY:
 		{
-			std::shared_ptr<WindowClosedEvent> closedEvent = std::make_shared<WindowClosedEvent>();
+			Ref<WindowClosedEvent> closedEvent = CreateRef<WindowClosedEvent>();
 			EventManager::QueueEvents(closedEvent);
 
 			break;

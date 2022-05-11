@@ -12,6 +12,8 @@
 
 #include "Timestep.h"
 
+#include "Renderer/Renderer.h"
+
 namespace nino
 {
 	class CORE_API Application
@@ -40,9 +42,10 @@ namespace nino
 		uint32_t m_Width;
 		uint32_t m_Height;
 		Log m_Log;
+		Window m_Window;
 		EventManager m_EventManager;
 		LayerStack m_LayerStack;
-		Window m_Window;
+		Renderer m_Renderer;
 	};
 
 }

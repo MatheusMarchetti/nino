@@ -12,7 +12,7 @@ void ApplicationLayer::OnDetach()
 
 void ApplicationLayer::OnUpdate(nino::Timestep ts)
 {
-	std::shared_ptr<PlayerMovedEvent> playerMoved = std::make_shared<PlayerMovedEvent>(PlayerX, PlayerY);
+	nino::Ref<PlayerMovedEvent> playerMoved = nino::CreateRef<PlayerMovedEvent>(PlayerX, PlayerY);
 	nino::EventManager::QueueEvents(playerMoved);
 
 //	PlayerX += 1.0f * ts;

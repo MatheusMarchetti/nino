@@ -2,6 +2,8 @@
 
 #include "Core.h"
 
+#include "Renderer/RendererAPI.h"
+
 namespace nino
 {
 	class CORE_API Window
@@ -11,11 +13,8 @@ namespace nino
 		void Show();
 
 		HWND& GetWindow() { return m_Window; }
-		void Resize(uint32_t width, uint32_t height);
 
 	private:
 		HWND m_Window;
-		uint32_t m_Width = 0;
-		uint32_t m_Height = 0;
 	};
 }

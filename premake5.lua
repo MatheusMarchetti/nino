@@ -33,6 +33,12 @@ project (corename)
         "CORE_BUILD_DLL"
     }
 
+    links
+    {
+        "d3d12",
+        "dxgi"
+    }
+
     files
     {
         "%{prj.name}/src/**.cpp",
@@ -42,7 +48,8 @@ project (corename)
     includedirs
     {
         "%{prj.name}/src/",
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/vendor/spdlog/include",
+        "%{prj.name}/vendor/d3d12/include"
     }
 
     postbuildcommands
@@ -88,7 +95,8 @@ project (appname)
     {
         "%{prj.name}/src/",
         corename.."/src/",
-        corename.."/vendor/spdlog/include"
+        corename.."/vendor/spdlog/include",
+        corename.."/vendor/d3d12/include"
     }
 
     filter "configurations:Debug"

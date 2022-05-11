@@ -10,6 +10,8 @@
 #include <memory>
 #include <functional>
 #include <vector>
+#include <unordered_map>
+#include <wrl.h>
 
 /*ENGINE STUFF*/
 #include "Log.h"

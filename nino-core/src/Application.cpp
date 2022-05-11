@@ -4,7 +4,7 @@
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
-		: m_Width(clientWidth), m_Height(clientHeight)
+		: m_Width(std::max(1u, clientWidth)), m_Height(std::max(1u, clientHeight))
 	{
 		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 	}
@@ -29,6 +29,7 @@ namespace nino
 	void Application::Initialize(const wchar_t* className)
 	{
 		m_Window.Create(className, m_Width, m_Height);
+		m_Renderer.Create(m_Window.GetWindow(), m_Width, m_Height);
 	}
 
 
@@ -68,7 +69,7 @@ namespace nino
 		m_Width = event.GetWidth();
 		m_Height = event.GetHeight();
 
-		m_Window.Resize(m_Width, m_Height);
+		m_Renderer.Resize(m_Width, m_Height);
 
 		return true;
 	}

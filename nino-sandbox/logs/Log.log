@@ -1,0 +1,5 @@
+[2022-05-10 23:39:40.864] [NINO-CORE] [info] Event subsystem initialized
+[2022-05-10 23:39:40.869] [NINO-CORE] [info] Window subsystem initialized!
+[2022-05-10 23:39:40.904] [NINO-CORE] [info] Selected adapter: AMD Radeon RX 5600 XT
+[2022-05-10 23:39:40.988] [NINO-CORE] [info] Direct3D12 initialized.
+[2022-05-10 23:39:40.988] [NINO-CORE] [info] Renderer subsystem initialized.
