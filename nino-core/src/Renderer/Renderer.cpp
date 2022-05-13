@@ -24,9 +24,9 @@ namespace nino
 		m_RendererAPI.Clear(r, g, b, a);
 	}
 
-	void Renderer::SubmitVertices(const void* vertices, size_t numElements, size_t ElementSize)
+	void Renderer::SubmitVertices()
 	{
-		m_RendererAPI.CreateVertexBuffer(vertices, numElements, ElementSize);
+		m_RendererAPI.CreateVertexBuffer();
 	}
 
 	void Renderer::Render()

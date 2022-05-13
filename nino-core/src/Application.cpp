@@ -7,6 +7,7 @@ namespace nino
 	{
 		m_Window.Create(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight));
 		m_Renderer.Create(m_Window.GetWindow(), std::max(1u, clientWidth), std::max(1u, clientHeight));
+		m_Renderer.ToggleVSync(true);
 		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 	}
 
@@ -30,18 +31,6 @@ namespace nino
 	{
 		m_Window.Show();
 
-		uint64_t countsPerSecond;
-		uint64_t currentTime;
-		uint64_t previousTime = 0;
-		double secondsPerCount;
-
-		Vertex vertices[3] =
-		{
-			DirectX::XMFLOAT3(0.0, 0.5f, 0.0f),DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f),
-			DirectX::XMFLOAT3(0.5f, 0.0f, 0.0f),DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f),
-			DirectX::XMFLOAT3(-0.5f, 0.0f, 0.0f),DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f)
-		};
-
 		while (shouldRun)
 		{
 			m_EventManager.CollectWindowsEvents();
@@ -52,7 +41,7 @@ namespace nino
 
 			//Renderer test
 			m_Renderer.Clear(0.2f, 0.8f, 0.5f, 1.0f);
-			m_Renderer.SubmitVertices(vertices, _countof(vertices), sizeof(Vertex));
+			m_Renderer.SubmitVertices();
 
 			for (Layer* layer : m_LayerStack)
 			{

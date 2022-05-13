@@ -12,7 +12,7 @@ namespace nino
 		void Create(HWND& window, const uint32_t& width, const uint32_t& height);
 
 		void Clear(float r, float g, float b, float a);
-		void SubmitVertices(const void* vertices, size_t numElements, size_t ElementSize);
+		void SubmitVertices();
 		void Render();
 		
 		void ToggleVSync(bool vsync);

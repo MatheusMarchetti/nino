@@ -13,8 +13,8 @@ namespace nino
 {
 	struct Vertex
 	{
-		DirectX::XMFLOAT3 position;
-		DirectX::XMFLOAT3 color;
+		float position[3];
+		float color[3];
 	};
 
 	class CORE_API RendererAPI
@@ -31,7 +31,7 @@ namespace nino
 		void CreatePipelineState();
 		void CreateViewport();
 
-		void CreateVertexBuffer(const void* vertices, size_t numElements, size_t ElementSize);
+		void CreateVertexBuffer();
 
 		void ToggleVSync(bool vsync);
 
@@ -77,12 +77,13 @@ namespace nino
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> m_RootSignature;
 		Microsoft::WRL::ComPtr<ID3D12PipelineState> m_PSO;
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_VertexBuffer;
-		Microsoft::WRL::ComPtr<ID3D12Resource> m_StagingBuffer;
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_IndexBuffer;
 
 		CD3DX12_CPU_DESCRIPTOR_HANDLE m_rtvHandle;
 
 		D3D12_VIEWPORT m_Viewport;
 		D3D12_RECT m_ScissorRect;
 		D3D12_VERTEX_BUFFER_VIEW m_VertexBufferView;
+		D3D12_INDEX_BUFFER_VIEW m_IndexBufferView;
 	};
 }

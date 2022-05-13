@@ -308,16 +308,19 @@ namespace nino
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(m_RTVDescriptorHeap->GetCPUDescriptorHandleForHeapStart());
 		rtvHandle.ptr += m_CurrentBackBufferIndex * m_RTVOffsetSize;
 
-		m_CommandList[m_CurrentBackBufferIndex]->SetPipelineState(m_PSO.Get());
 		m_CommandList[m_CurrentBackBufferIndex]->SetGraphicsRootSignature(m_RootSignature.Get());
-		m_CommandList[m_CurrentBackBufferIndex]->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		m_CommandList[m_CurrentBackBufferIndex]->IASetVertexBuffers(0, 1, &m_VertexBufferView);
-		m_CommandList[m_CurrentBackBufferIndex]->RSSetViewports(1, &m_Viewport);
-		m_CommandList[m_CurrentBackBufferIndex]->RSSetScissorRects(1, &m_ScissorRect);
-
-		m_CommandList[m_CurrentBackBufferIndex]->DrawInstanced(1, 3, 0, 0);
+		m_CommandList[m_CurrentBackBufferIndex]->SetPipelineState(m_PSO.Get());
 
 		m_CommandList[m_CurrentBackBufferIndex]->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+
+		m_CommandList[m_CurrentBackBufferIndex]->RSSetViewports(1, &m_Viewport);
+		m_CommandList[m_CurrentBackBufferIndex]->RSSetScissorRects(1, &m_ScissorRect);
+		m_CommandList[m_CurrentBackBufferIndex]->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		m_CommandList[m_CurrentBackBufferIndex]->IASetVertexBuffers(0, 1, &m_VertexBufferView);
+		m_CommandList[m_CurrentBackBufferIndex]->IASetIndexBuffer(&m_IndexBufferView);
+
+		m_CommandList[m_CurrentBackBufferIndex]->DrawIndexedInstanced(3, 1, 0, 0, 0);
+
 
 		CD3DX12_RESOURCE_BARRIER renderToPresent = CD3DX12_RESOURCE_BARRIER::Transition(m_Buffers[m_CurrentBackBufferIndex].Get(),
 			D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
@@ -331,7 +334,7 @@ namespace nino
 
 		ThrowOnError(m_DirectCommandQueue->Signal(m_Fences[m_CurrentBackBufferIndex].Get(), m_FenceValues[m_CurrentBackBufferIndex]));
 
-		m_SwapChain->Present(0, 0);
+		m_SwapChain->Present(m_VSync ? 1 : 0, 0);
 
 		WaitForPreviousFrame();
 
@@ -444,34 +447,87 @@ namespace nino
 		m_ScissorRect.bottom = m_Height;
 	}
 
-	void RendererAPI::CreateVertexBuffer(const void* vertices, size_t numElements, size_t ElementSize)
+	void RendererAPI::CreateVertexBuffer()
 	{
-		size_t bufferSize = numElements * ElementSize;
+		Vertex vertices[3] =
+		{
+			{{0.5f, -0.5f, 0.0f},{1.0f, 0.0f, 0.0f}},
+			{{-0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}},
+			{{0.0f, 0.5f, 0.0f},{0.0f, 0.0f, 1.0f}}
+		};
 
-		ThrowOnError(m_Device->CreateCommittedResource(&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT), D3D12_HEAP_FLAG_NONE,
-			&CD3DX12_RESOURCE_DESC::Buffer(bufferSize), D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&m_VertexBuffer)));
+		uint32_t indices[3] = { 0, 1, 2 };
 
-		m_VertexBuffer->SetName(L"Vertex buffer resource");
+		size_t vertexBufferSize = sizeof(vertices);
+		size_t indexBufferSize = sizeof(indices);
 
-		ThrowOnError(m_Device->CreateCommittedResource(&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD), D3D12_HEAP_FLAG_NONE,
-			&CD3DX12_RESOURCE_DESC::Buffer(bufferSize), D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&m_StagingBuffer)));
+		D3D12_HEAP_PROPERTIES vertexHeapProps = {};
+		vertexHeapProps.Type = D3D12_HEAP_TYPE_UPLOAD;
+		vertexHeapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
+		vertexHeapProps.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
+		vertexHeapProps.CreationNodeMask = 1;
+		vertexHeapProps.VisibleNodeMask = 1;
 
-		m_StagingBuffer->SetName(L"Upload buffer resource");
+		D3D12_RESOURCE_DESC vertexDesc = {};
+		vertexDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+		vertexDesc.Alignment = 0;
+		vertexDesc.Width = vertexBufferSize;
+		vertexDesc.Height = 1;
+		vertexDesc.DepthOrArraySize = 1;
+		vertexDesc.MipLevels = 1;
+		vertexDesc.Format = DXGI_FORMAT_UNKNOWN;
+		vertexDesc.SampleDesc.Count = 1;
+		vertexDesc.SampleDesc.Quality = 0;
+		vertexDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+		vertexDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
 
-		D3D12_SUBRESOURCE_DATA vertexData = {};
-		vertexData.pData = vertices;
-		vertexData.RowPitch = bufferSize;
-		vertexData.SlicePitch = bufferSize;
+		ThrowOnError(m_Device->CreateCommittedResource(&vertexHeapProps, D3D12_HEAP_FLAG_NONE, &vertexDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&m_VertexBuffer)));
 
-		UpdateSubresources(m_CommandList[m_CurrentBackBufferIndex].Get(), m_VertexBuffer.Get(), m_StagingBuffer.Get(), 0, 0, 1, &vertexData);
+		UINT8* pVertexData;
 
-		CD3DX12_RESOURCE_BARRIER copyToVertexBuffer = CD3DX12_RESOURCE_BARRIER::Transition(m_VertexBuffer.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
+		D3D12_RANGE readRange = {};
+		readRange.Begin = 0;
+		readRange.End = 0;
 
-		m_CommandList[m_CurrentBackBufferIndex]->ResourceBarrier(1, &copyToVertexBuffer);
+		ThrowOnError(m_VertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexData)));
+		memcpy(pVertexData, vertices, vertexBufferSize);
+		m_VertexBuffer->Unmap(0, nullptr);
 
 		m_VertexBufferView.BufferLocation = m_VertexBuffer->GetGPUVirtualAddress();
-		m_VertexBufferView.SizeInBytes = bufferSize;
-		m_VertexBufferView.StrideInBytes = ElementSize;
+		m_VertexBufferView.SizeInBytes = vertexBufferSize;
+		m_VertexBufferView.StrideInBytes = sizeof(Vertex);
+
+		D3D12_HEAP_PROPERTIES indexHeapProps = {};
+		indexHeapProps.Type = D3D12_HEAP_TYPE_UPLOAD;
+		indexHeapProps.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
+		indexHeapProps.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;
+		indexHeapProps.CreationNodeMask = 1;
+		indexHeapProps.VisibleNodeMask = 1;
+
+		D3D12_RESOURCE_DESC indexDesc = {};
+		indexDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+		indexDesc.Alignment = 0;
+		indexDesc.Width = indexBufferSize;
+		indexDesc.Height = 1;
+		indexDesc.DepthOrArraySize = 1;
+		indexDesc.MipLevels = 1;
+		indexDesc.Format = DXGI_FORMAT_UNKNOWN;
+		indexDesc.SampleDesc.Count = 1;
+		indexDesc.SampleDesc.Quality = 0;
+		indexDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+		indexDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
+
+		ThrowOnError(m_Device->CreateCommittedResource(&indexHeapProps, D3D12_HEAP_FLAG_NONE, &indexDesc, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&m_IndexBuffer)));
+
+		UINT8* pIndexData;
+
+		ThrowOnError(m_IndexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pIndexData)));
+		memcpy(pIndexData, indices, indexBufferSize);
+		m_IndexBuffer->Unmap(0, nullptr);
+
+		m_IndexBufferView.BufferLocation = m_IndexBuffer->GetGPUVirtualAddress();
+		m_IndexBufferView.Format = DXGI_FORMAT_R32_UINT;
+		m_IndexBufferView.SizeInBytes = indexBufferSize;
 	}
 
 	void RendererAPI::ToggleVSync(bool vsync)
