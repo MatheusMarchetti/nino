@@ -36,7 +36,9 @@ project (corename)
     links
     {
         "d3d12",
-        "dxgi"
+        "dxgi",
+        "dxguid",
+        "d3dcompiler"
     }
 
     files

@@ -4,8 +4,9 @@
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
-		: m_Width(std::max(1u, clientWidth)), m_Height(std::max(1u, clientHeight))
 	{
+		m_Window.Create(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight));
+		m_Renderer.Create(m_Window.GetWindow(), std::max(1u, clientWidth), std::max(1u, clientHeight));
 		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 	}
 
@@ -15,7 +16,6 @@ namespace nino
 	void Application::OnEvent(Event& event)
 	{
 		EventManager::Dispatch<WindowClosedEvent>(BIND_EVENT(Application::OnWindowClose));
-		EventManager::Dispatch<WindowResizedEvent>(BIND_EVENT(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++)
 		{
@@ -26,13 +26,6 @@ namespace nino
 		}
 	}
 
-	void Application::Initialize(const wchar_t* className)
-	{
-		m_Window.Create(className, m_Width, m_Height);
-		m_Renderer.Create(m_Window.GetWindow(), m_Width, m_Height);
-	}
-
-
 	void Application::Run()
 	{
 		m_Window.Show();
@@ -42,6 +35,13 @@ namespace nino
 		uint64_t previousTime = 0;
 		double secondsPerCount;
 
+		Vertex vertices[3] =
+		{
+			DirectX::XMFLOAT3(0.0, 0.5f, 0.0f),DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f),
+			DirectX::XMFLOAT3(0.5f, 0.0f, 0.0f),DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f),
+			DirectX::XMFLOAT3(-0.5f, 0.0f, 0.0f),DirectX::XMFLOAT3(0.5f, 0.5f, 0.5f)
+		};
+
 		while (shouldRun)
 		{
 			m_EventManager.CollectWindowsEvents();
@@ -50,26 +50,22 @@ namespace nino
 			Timestep timestep;
 			timestep.Tick();
 
+			//Renderer test
+			m_Renderer.Clear(0.2f, 0.8f, 0.5f, 1.0f);
+			m_Renderer.SubmitVertices(vertices, _countof(vertices), sizeof(Vertex));
+
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate(timestep);
 			}
+
+			m_Renderer.Render();
 		}
 	}
 
 	bool Application::OnWindowClose(WindowClosedEvent& event)
 	{
 		shouldRun = false;
-
-		return true;
-	}
-
-	bool Application::OnWindowResize(WindowResizedEvent& event)
-	{
-		m_Width = event.GetWidth();
-		m_Height = event.GetHeight();
-
-		m_Renderer.Resize(m_Width, m_Height);
 
 		return true;
 	}
@@ -94,10 +90,8 @@ namespace nino
 		m_LayerStack.DetachOverlay(overlay);
 	}
 
-	int CreateApplication(Application* app, const wchar_t* className)
+	int CreateApplication(Application* app)
 	{
-		app->Initialize(className);
-		
 		app->Run();
 
 		delete app;

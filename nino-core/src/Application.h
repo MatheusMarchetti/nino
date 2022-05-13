@@ -18,6 +18,9 @@ namespace nino
 {
 	class CORE_API Application
 	{
+	private:
+		friend int CORE_API CreateApplication(Application* app);
+
 	public:
 		Application(const uint32_t& clientWidth, const uint32_t& clientHeight);
 		virtual ~Application();
@@ -32,15 +35,10 @@ namespace nino
 		void PopOverlay(Layer* overlay);
 
 	private:
-		friend int CORE_API CreateApplication(Application* app, const wchar_t* className);
-		void Initialize(const wchar_t* className);
 		bool OnWindowClose(WindowClosedEvent& event);
-		bool OnWindowResize(WindowResizedEvent& event);
 
 	private:
 		bool shouldRun = true;
-		uint32_t m_Width;
-		uint32_t m_Height;
 		Log m_Log;
 		Window m_Window;
 		EventManager m_EventManager;
@@ -52,14 +50,14 @@ namespace nino
 
 #ifdef CORE_RELEASE
 #define InitializeEngine(appclass) \
-	int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) \
+	int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) \
 	{ \
-		return nino::CreateApplication(new appclass(), L#appclass); \
+		return nino::CreateApplication(new appclass()); \
 	}
 #else
 #define InitializeEngine(appclass) \
 	int main() \
 	{ \
-		return nino::CreateApplication(new appclass(), L#appclass); \
+		return nino::CreateApplication(new appclass()); \
 	}
 #endif

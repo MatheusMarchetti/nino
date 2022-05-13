@@ -10,9 +10,13 @@ namespace nino
 	{
 	public:
 		void Create(HWND& window, const uint32_t& width, const uint32_t& height);
-		void Resize(const uint32_t& width, const uint32_t& height);
-		void ToggleVSync(bool vsync);
 
+		void Clear(float r, float g, float b, float a);
+		void SubmitVertices(const void* vertices, size_t numElements, size_t ElementSize);
+		void Render();
+		
+		void ToggleVSync(bool vsync);
+		
 	private:
 		uint32_t m_Width;
 		uint32_t m_Height;
