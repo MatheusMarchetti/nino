@@ -1,0 +1,43 @@
+#include "corepch.h"
+#include "Renderer.h"
+
+#include "Window.h"
+#include "Renderer/GraphicsAPI.h"
+#include "Renderer/CommandManager.h"
+#include "Renderer/GraphicsContext.h"
+#include "Renderer/BackBuffer.h"
+
+namespace nino
+{
+	struct RendererData
+	{
+		std::shared_ptr<BackBuffer> BackBuffers;
+	};
+
+	static RendererData s_Data;
+	bool Renderer::s_VSync = false;
+
+	Renderer::Renderer(std::shared_ptr<Window> window)
+		: m_AspectRatio((float)window->GetWidth() / (float)window->GetHeight())
+	{
+		m_GraphicsAPI = std::make_shared<GraphicsAPI>();
+		m_CommandManager = std::make_shared<CommandManager>(m_GraphicsAPI);
+		m_GraphicsContext = std::make_shared<GraphicsContext>(window->GetWindow(), window->GetWidth(), window->GetHeight(), m_CommandManager);
+
+		s_Data.BackBuffers = std::make_shared<BackBuffer>(window->GetWidth(), window->GetHeight(), m_GraphicsAPI, m_GraphicsContext, m_CommandManager);
+
+		NINO_CORE_INFO(L"Renderer subsystem initialized!");
+	}
+
+	void Renderer::Clear(float color[4], float depth)
+	{
+		s_Data.BackBuffers->Clear(color, depth);
+	}
+
+	void Renderer::Draw()
+	{
+		s_Data.BackBuffers->SetViewport();
+		s_Data.BackBuffers->Present(s_VSync);
+	}
+}
+

@@ -1,18 +1,28 @@
 #include "corepch.h"
 #include "Application.h"
 
+#include "Window.h"
+#include "Events/EventManager.h"
+#include "Renderer/Renderer.h"
+
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
 	{
-		m_Window.Create(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight));
-		m_Renderer.Create(m_Window.GetWindow(), std::max(1u, clientWidth), std::max(1u, clientHeight));
-		m_Renderer.ToggleVSync(true);
-		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+		m_EventManager = std::make_shared<EventManager>();
+		m_Window = std::make_shared<Window>(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight));
+		m_Renderer = std::make_shared<Renderer>(m_Window);
+
+		m_EventManager->SetEventCallback(BIND_EVENT(Application::OnEvent));
 	}
 
 	Application::~Application()
 	{}
+
+	void Application::SetWindowTitle(const wchar_t* name)
+	{
+		SetWindowText(m_Window->GetWindow(), name);
+	}
 
 	void Application::OnEvent(Event& event)
 	{
@@ -29,26 +39,27 @@ namespace nino
 
 	void Application::Run()
 	{
-		m_Window.Show();
+		m_Window->Show();
+		Renderer::ToggleVSync(true);
+
+		float color[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
 		while (shouldRun)
 		{
-			m_EventManager.CollectWindowsEvents();
-			m_EventManager.ProcessEvents();
+			Renderer::Clear(color);
+
+			m_EventManager->CollectWindowsEvents();
+			m_EventManager->ProcessEvents();
 
 			Timestep timestep;
 			timestep.Tick();
-
-			//Renderer test
-			m_Renderer.Clear(0.2f, 0.8f, 0.5f, 1.0f);
-			m_Renderer.SubmitVertices();
 
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate(timestep);
 			}
 
-			m_Renderer.Render();
+			Renderer::Draw();
 		}
 	}
 
@@ -79,8 +90,10 @@ namespace nino
 		m_LayerStack.DetachOverlay(overlay);
 	}
 
-	int CreateApplication(Application* app)
+	int CreateApplication(Application* app, const wchar_t* name)
 	{
+		app->SetWindowTitle(name);
+
 		app->Run();
 
 		delete app;

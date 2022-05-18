@@ -26,13 +26,17 @@
     <ClInclude Include="src\Renderer\Renderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\RendererAPI.h">
+    <ClInclude Include="src\Renderer\GraphicsAPI.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Timestep.h" />
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
+    <ClInclude Include="src\Renderer\BackBuffer.h" />
+    <ClInclude Include="src\Renderer\GraphicsCore.h" />
+    <ClInclude Include="src\Renderer\CommandManager.h" />
+    <ClInclude Include="src\Renderer\GraphicsContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -44,10 +48,13 @@
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\RendererAPI.cpp">
+    <ClCompile Include="src\Renderer\GraphicsAPI.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\corepch.cpp" />
+    <ClCompile Include="src\Renderer\BackBuffer.cpp" />
+    <ClCompile Include="src\Renderer\CommandManager.cpp" />
+    <ClCompile Include="src\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

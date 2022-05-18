@@ -7,7 +7,8 @@ namespace nino
 {
 	LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 
-	void Window::Create(const wchar_t* className, const uint32_t& width, const uint32_t& height)
+	Window::Window(const wchar_t* className, const uint32_t& width, const uint32_t& height)
+		: m_Width(width), m_Height(height)
 	{
 		SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 

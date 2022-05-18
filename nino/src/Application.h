@@ -2,28 +2,28 @@
 
 #include "Core.h"
 
-#include "Window.h"
-
-#include "Events/Event.h"
-#include "Events/EventManager.h"
 #include "Events/WindowEvents.h"
-
 #include "LayerStack.h"
 
-#include "Timestep.h"
-
-#include "Renderer/Renderer.h"
+namespace nino
+{
+	class Window;
+	class EventManager;
+	class Renderer;
+}
 
 namespace nino
 {
 	class CORE_API Application
 	{
 	private:
-		friend int CORE_API CreateApplication(Application* app);
+		friend int CORE_API CreateApplication(Application* app, const wchar_t* name);
 
 	public:
 		Application(const uint32_t& clientWidth, const uint32_t& clientHeight);
 		virtual ~Application();
+
+		void SetWindowTitle(const wchar_t* name);
 
 		void OnEvent(Event& event);
 
@@ -39,25 +39,25 @@ namespace nino
 
 	private:
 		bool shouldRun = true;
-		Log m_Log;
-		Window m_Window;
-		EventManager m_EventManager;
 		LayerStack m_LayerStack;
-		Renderer m_Renderer;
+		std::shared_ptr<Window> m_Window;
+		std::shared_ptr<EventManager> m_EventManager;
+		std::shared_ptr<Renderer> m_Renderer;
 	};
-
 }
 
 #ifdef CORE_RELEASE
 #define InitializeEngine(appclass) \
 	int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) \
 	{ \
+		nino::Log::Init(); \
 		return nino::CreateApplication(new appclass()); \
 	}
 #else
 #define InitializeEngine(appclass) \
 	int main() \
 	{ \
-		return nino::CreateApplication(new appclass()); \
+		nino::Log::Init(); \
+		return nino::CreateApplication(new appclass(), L#appclass); \
 	}
 #endif

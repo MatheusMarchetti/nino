@@ -4,8 +4,6 @@
 
 #include "Events/Event.h"
 
-#include <queue>
-
 namespace nino
 {
 	class CORE_API EventManager

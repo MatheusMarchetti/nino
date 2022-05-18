@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8FA16E00-FB0B-2377-444A-D41CB0F300CC}</ProjectGuid>
+    <ProjectGuid>{792E9B7C-6565-9C0D-0E52-8210FA67180F}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>nino-core</RootNamespace>
+    <RootNamespace>nino</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -55,23 +55,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug\nino-core\</OutDir>
-    <IntDir>..\bin-int\Debug\nino-core\</IntDir>
-    <TargetName>nino-core</TargetName>
+    <OutDir>..\bin\Debug\nino\</OutDir>
+    <IntDir>..\bin-int\Debug\nino\</IntDir>
+    <TargetName>nino</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profiling|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Profiling\nino-core\</OutDir>
-    <IntDir>..\bin-int\Profiling\nino-core\</IntDir>
-    <TargetName>nino-core</TargetName>
+    <OutDir>..\bin\Profiling\nino\</OutDir>
+    <IntDir>..\bin-int\Profiling\nino\</IntDir>
+    <TargetName>nino</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release\nino-core\</OutDir>
-    <IntDir>..\bin-int\Release\nino-core\</IntDir>
-    <TargetName>nino-core</TargetName>
+    <OutDir>..\bin\Release\nino\</OutDir>
+    <IntDir>..\bin-int\Release\nino\</IntDir>
+    <TargetName>nino</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -90,10 +90,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d12.lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Debug\nino-core\nino-core.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Debug\nino\nino.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug\nino-core\nino-core.dll\ (xcopy /Q /E /Y /I ..\bin\Debug\nino-core\nino-core.dll "..\bin\Debug\nino-sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug\nino-core\nino-core.dll "..\bin\Debug\nino-sandbox\" &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug\nino\nino.dll\ (xcopy /Q /E /Y /I ..\bin\Debug\nino\nino.dll "..\bin\Debug\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug\nino\nino.dll "..\bin\Debug\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profiling|x64'">
@@ -116,10 +116,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>d3d12.lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Profiling\nino-core\nino-core.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Profiling\nino\nino.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Profiling\nino-core\nino-core.dll\ (xcopy /Q /E /Y /I ..\bin\Profiling\nino-core\nino-core.dll "..\bin\Profiling\nino-sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Profiling\nino-core\nino-core.dll "..\bin\Profiling\nino-sandbox\" &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Profiling\nino\nino.dll\ (xcopy /Q /E /Y /I ..\bin\Profiling\nino\nino.dll "..\bin\Profiling\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Profiling\nino\nino.dll "..\bin\Profiling\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,10 +142,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>d3d12.lib;dxgi.lib;dxguid.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Release\nino-core\nino-core.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Release\nino\nino.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release\nino-core\nino-core.dll\ (xcopy /Q /E /Y /I ..\bin\Release\nino-core\nino-core.dll "..\bin\Release\nino-sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release\nino-core\nino-core.dll "..\bin\Release\nino-sandbox\" &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release\nino\nino.dll\ (xcopy /Q /E /Y /I ..\bin\Release\nino\nino.dll "..\bin\Release\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release\nino\nino.dll "..\bin\Release\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -157,8 +157,12 @@
     <ClInclude Include="src\Layer.h" />
     <ClInclude Include="src\LayerStack.h" />
     <ClInclude Include="src\Log.h" />
+    <ClInclude Include="src\Renderer\BackBuffer.h" />
+    <ClInclude Include="src\Renderer\CommandManager.h" />
+    <ClInclude Include="src\Renderer\GraphicsAPI.h" />
+    <ClInclude Include="src\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Renderer\GraphicsCore.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
-    <ClInclude Include="src\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Timestep.h" />
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\corepch.h" />
@@ -169,8 +173,11 @@
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\LayerStack.cpp" />
     <ClCompile Include="src\Log.cpp" />
+    <ClCompile Include="src\Renderer\BackBuffer.cpp" />
+    <ClCompile Include="src\Renderer\CommandManager.cpp" />
+    <ClCompile Include="src\Renderer\GraphicsAPI.cpp" />
+    <ClCompile Include="src\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\corepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
