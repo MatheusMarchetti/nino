@@ -45,6 +45,7 @@
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
+    <ClInclude Include="src\Renderer\VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -70,5 +71,6 @@
     </ClCompile>
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\corepch.cpp" />
+    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
   </ItemGroup>
 </Project>
