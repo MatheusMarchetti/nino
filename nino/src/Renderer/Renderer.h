@@ -8,7 +8,6 @@ namespace nino
 	class GraphicsAPI;
 	class CommandManager;
 	class GraphicsContext;
-	class BackBuffer;
 }
 
 namespace nino
@@ -16,7 +15,7 @@ namespace nino
 	class CORE_API Renderer
 	{
 	public:
-		Renderer(std::shared_ptr<Window> window);
+		Renderer(Window* window);
 		~Renderer() {}
 
 		static void ToggleVSync(bool vSync) { s_VSync = vSync; }
@@ -28,8 +27,8 @@ namespace nino
 		static bool s_VSync;
 		float m_AspectRatio;
 
-		std::shared_ptr<GraphicsAPI> m_GraphicsAPI;
-		std::shared_ptr<CommandManager> m_CommandManager;
-		std::shared_ptr<GraphicsContext> m_GraphicsContext;
+		GraphicsAPI m_GraphicsAPI;
+		CommandManager m_CommandManager;
+		GraphicsContext m_GraphicsContext;
 	};
 }

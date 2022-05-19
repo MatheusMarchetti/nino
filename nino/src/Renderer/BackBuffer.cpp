@@ -9,7 +9,7 @@ namespace nino
 {
 	using namespace Microsoft::WRL;
 
-	BackBuffer::BackBuffer(uint32_t width, uint32_t height, std::shared_ptr<GraphicsAPI> graphicsAPI, std::shared_ptr<GraphicsContext> graphicsContext, std::shared_ptr<CommandManager> commandManager)
+	BackBuffer::BackBuffer(uint32_t width, uint32_t height, GraphicsAPI* graphicsAPI, GraphicsContext* graphicsContext, CommandManager* commandManager)
 		:m_GraphicsAPI(graphicsAPI), m_GraphicsContext(graphicsContext), m_CommandManager(commandManager), m_CommandList(m_CommandManager->GetCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT))
 	{
 		auto device = m_GraphicsAPI->GetDevice();
@@ -145,6 +145,19 @@ namespace nino
 		descriptorDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 
 		ThrowOnError(device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&m_DSVDescriptorHeap)));
+	}
+
+	BackBuffer::~BackBuffer()
+	{
+		m_DSVBuffer->Release();
+		m_DSVDescriptorHeap->Release();
+
+		for (int i = 0; i < s_BufferCount; i++)
+		{
+			m_RTVBuffers[i]->Release();
+		}
+
+		m_RTVDescriptorHeap->Release();
 	}
 }
 

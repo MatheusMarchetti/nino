@@ -17,14 +17,12 @@ namespace nino
 	static RendererData s_Data;
 	bool Renderer::s_VSync = false;
 
-	Renderer::Renderer(std::shared_ptr<Window> window)
-		: m_AspectRatio((float)window->GetWidth() / (float)window->GetHeight())
+	Renderer::Renderer(Window* window)
+		: m_CommandManager(&m_GraphicsAPI), m_GraphicsContext(window->GetWindow(), window->GetWidth(), window->GetHeight(), &m_CommandManager)
 	{
-		m_GraphicsAPI = std::make_shared<GraphicsAPI>();
-		m_CommandManager = std::make_shared<CommandManager>(m_GraphicsAPI);
-		m_GraphicsContext = std::make_shared<GraphicsContext>(window->GetWindow(), window->GetWidth(), window->GetHeight(), m_CommandManager);
+		m_AspectRatio = (float)window->GetWidth() / (float)window->GetHeight();
 
-		s_Data.BackBuffers = std::make_shared<BackBuffer>(window->GetWidth(), window->GetHeight(), m_GraphicsAPI, m_GraphicsContext, m_CommandManager);
+		s_Data.BackBuffers = std::make_shared<BackBuffer>(window->GetWidth(), window->GetHeight(), &m_GraphicsAPI, &m_GraphicsContext, &m_CommandManager);
 
 		NINO_CORE_INFO(L"Renderer subsystem initialized!");
 	}

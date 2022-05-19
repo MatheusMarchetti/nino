@@ -1,18 +1,13 @@
 #include "corepch.h"
 #include "Application.h"
 
-#include "Window.h"
 #include "Events/EventManager.h"
-#include "Renderer/Renderer.h"
 
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
+		: m_Window(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight)), m_Renderer(&m_Window)
 	{
-		m_EventManager = std::make_shared<EventManager>();
-		m_Window = std::make_shared<Window>(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight));
-		m_Renderer = std::make_shared<Renderer>(m_Window);
-
 		m_EventManager->SetEventCallback(BIND_EVENT(Application::OnEvent));
 	}
 
@@ -21,7 +16,7 @@ namespace nino
 
 	void Application::SetWindowTitle(const wchar_t* name)
 	{
-		SetWindowText(m_Window->GetWindow(), name);
+		SetWindowText(m_Window.GetWindow(), name);
 	}
 
 	void Application::OnEvent(Event& event)
@@ -39,7 +34,7 @@ namespace nino
 
 	void Application::Run()
 	{
-		m_Window->Show();
+		m_Window.Show();
 		Renderer::ToggleVSync(true);
 
 		float color[] = { 0.2f, 0.2f, 0.2f, 1.0f };

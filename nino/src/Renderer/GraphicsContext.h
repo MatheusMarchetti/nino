@@ -13,8 +13,8 @@ namespace nino
 	class CORE_API GraphicsContext
 	{
 	public:
-		GraphicsContext(const HWND& window, const uint32_t width, const uint32_t height, std::shared_ptr<CommandManager>& commandManager);
-		~GraphicsContext() {}
+		GraphicsContext(const HWND& window, const uint32_t width, const uint32_t height, CommandManager* commandManager);
+		~GraphicsContext();
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> GetContext() { return m_SwapChain; }
 
@@ -26,6 +26,6 @@ namespace nino
 		bool m_TearingSupport;
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> m_SwapChain;
 
-		std::shared_ptr<CommandManager> m_CommandManager;
+		CommandManager* m_CommandManager;
 	};
 }

@@ -20,7 +20,14 @@ namespace nino
 
 	GraphicsAPI::~GraphicsAPI()
 	{
-		ReportAPIObjects();
+		m_Device->Release();
+		
+		for (auto& adapter : m_AvailableAdapters)
+		{
+			adapter.second->Release();
+		}
+
+		m_SelectedAdapter->Release();
 	}
 
 	void GraphicsAPI::EnableDebugLayer()
@@ -31,18 +38,6 @@ namespace nino
 		ThrowOnError(D3D12GetDebugInterface(IID_PPV_ARGS(&debugInterface)));
 
 		debugInterface->EnableDebugLayer();
-#endif
-	}
-
-	void GraphicsAPI::ReportAPIObjects()
-	{
-#ifdef CORE_DEBUG
-		ComPtr<IDXGIDebug1> dxgiDebug1;
-
-		if (SUCCEEDED(DXGIGetDebugInterface1(0, IID_PPV_ARGS(&dxgiDebug1))))
-		{
-			dxgiDebug1->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_FLAGS(DXGI_DEBUG_RLO_DETAIL | DXGI_DEBUG_RLO_IGNORE_INTERNAL));
-		}
 #endif
 	}
 

@@ -15,8 +15,8 @@ namespace nino
 	class CORE_API BackBuffer
 	{
 	public:
-		BackBuffer(uint32_t width, uint32_t height, std::shared_ptr<GraphicsAPI> graphicsAPI, std::shared_ptr<GraphicsContext> graphicsContext, std::shared_ptr<CommandManager> commandManager);
-		~BackBuffer() {}
+		BackBuffer(uint32_t width, uint32_t height, GraphicsAPI* graphicsAPI, GraphicsContext* graphicsContext, CommandManager* commandManager);
+		~BackBuffer();
 
 		void Clear(float color[4], float depth);
 		void SetViewport();
@@ -40,9 +40,9 @@ namespace nino
 		D3D12_VIEWPORT m_Viewport;
 		D3D12_RECT m_ScissorRect;
 
-		std::shared_ptr<GraphicsAPI> m_GraphicsAPI;
-		std::shared_ptr<GraphicsContext> m_GraphicsContext;
-		std::shared_ptr<CommandManager> m_CommandManager;
+		GraphicsAPI* m_GraphicsAPI;
+		GraphicsContext* m_GraphicsContext;
+		CommandManager* m_CommandManager;
 
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& m_CommandList;
 	};

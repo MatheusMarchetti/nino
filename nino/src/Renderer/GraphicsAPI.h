@@ -23,7 +23,6 @@ namespace nino
 		Microsoft::WRL::ComPtr<IDXGIAdapter4> SelectedAdapter();
 		Microsoft::WRL::ComPtr<ID3D12Device2> CreateDevice();
 		void EnableDebugLayer();
-		void ReportAPIObjects();
 
 	private:
 		bool m_DefaultAdapter = true;

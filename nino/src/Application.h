@@ -2,12 +2,13 @@
 
 #include "Core.h"
 
+#include "Window.h"
+#include "Renderer/Renderer.h"
 #include "Events/WindowEvents.h"
 #include "LayerStack.h"
 
 namespace nino
 {
-	class Window;
 	class EventManager;
 	class Renderer;
 }
@@ -39,10 +40,10 @@ namespace nino
 
 	private:
 		bool shouldRun = true;
+		Window m_Window;
+		EventManager m_EventManager;
+		Renderer m_Renderer;
 		LayerStack m_LayerStack;
-		std::shared_ptr<Window> m_Window;
-		std::shared_ptr<EventManager> m_EventManager;
-		std::shared_ptr<Renderer> m_Renderer;
 	};
 }
 

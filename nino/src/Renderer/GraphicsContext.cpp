@@ -8,7 +8,7 @@ namespace nino
 {
 	using namespace Microsoft::WRL;
 
-	GraphicsContext::GraphicsContext(const HWND& window, const uint32_t width, const uint32_t height, std::shared_ptr<CommandManager>& commandManager)
+	GraphicsContext::GraphicsContext(const HWND& window, const uint32_t width, const uint32_t height, CommandManager* commandManager)
 		: m_TearingSupport(false), m_CommandManager(commandManager)
 	{
 		m_TearingSupport = CheckTearingSupport();
@@ -67,5 +67,10 @@ namespace nino
 		}
 
 		return allowTearing ? true : false;
+	}
+
+	GraphicsContext::~GraphicsContext()
+	{
+		m_SwapChain->Release();
 	}
 }

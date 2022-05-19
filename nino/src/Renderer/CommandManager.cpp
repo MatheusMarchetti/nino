@@ -7,7 +7,7 @@ namespace nino
 {
    using namespace Microsoft::WRL;
 
-   CommandManager::CommandManager(std::shared_ptr<GraphicsAPI>& graphicsAPI)
+   CommandManager::CommandManager(GraphicsAPI* graphicsAPI)
        : m_GlobalFence(0), m_GraphicsAPI(graphicsAPI)
    {
        auto device = m_GraphicsAPI->GetDevice();
@@ -86,27 +86,6 @@ namespace nino
 
        m_InFlightCommandLists[type].clear();
 
- //      auto it = m_RunningCommands.begin();
- //
- //      while (m_RunningCommands.end() - it >= m_RunningCommands.size())
- //      {
- //          if (it->FenceValue < m_Fence->GetCompletedValue())
- //          {
- //              for (auto& resource : it->resources)
- //              {
- //                  resource->Release();
- //              }
- //
- //              it->commandAllocator->Reset();
- //
- //              m_AvailableCommandAllocators[type].push(it->commandAllocator);
- //
- //              it = m_RunningCommands.erase(it);
- //          }
- //          else
- //              ++it;
- //      }
-
        for (auto it = m_RunningCommands.begin(); it != m_RunningCommands.end();)
        {
            if (it->FenceValue < m_Fence->GetCompletedValue())
@@ -127,6 +106,27 @@ namespace nino
        }
 
        m_GlobalFence++;
+   }
+
+   void CommandManager::Flush()
+   {
+       for (auto it = m_RunningCommands.begin(); it != m_RunningCommands.end();)
+       {
+           if (m_Fence->GetCompletedValue() < it->FenceValue)
+           {
+               HANDLE eventHandle = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+               ThrowOnError(m_Fence->SetEventOnCompletion(it->FenceValue, eventHandle));
+
+               WaitForSingleObject(eventHandle, INFINITE);
+
+               CloseHandle(eventHandle);
+
+               it = m_RunningCommands.erase(it);
+           }
+           else
+               ++it;
+       }
    }
 
    void CommandManager::CreateCommandQueue(D3D12_COMMAND_LIST_TYPE type)
@@ -172,6 +172,110 @@ namespace nino
        ThrowOnError(device->CreateCommandAllocator(type, IID_PPV_ARGS(&allocator)));
 
        m_AvailableCommandAllocators[type].push(allocator);
+   }
+
+   CommandManager::~CommandManager()
+   {
+       Flush();
+
+       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_COPY])
+       {
+           commands.commandAllocator->Release();
+
+           for (auto& resource : commands.resources)
+           {
+               resource->Release();
+           }
+       }
+
+       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_COMPUTE])
+       {
+           commands.commandAllocator->Release();
+
+           for (auto& resource : commands.resources)
+           {
+               resource->Release();
+           }
+       }
+
+       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_DIRECT])
+       {
+           commands.commandAllocator->Release();
+
+           for (auto& resource : commands.resources)
+           {
+               resource->Release();
+           }
+       }
+
+       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_COPY])
+       {
+           lists->Release();
+       }
+
+       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE])
+       {
+           lists->Release();
+       }
+
+       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT])
+       {
+           lists->Release();
+       }
+
+       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].empty())
+       {
+           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].front();
+           allocator->Release();
+
+           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].pop();
+       }
+
+       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].empty())
+       {
+           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].front();
+           allocator->Release();
+
+           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].pop();
+       }
+
+       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].empty())
+       {
+           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].front();
+           allocator->Release();
+
+           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].pop();
+       }
+
+       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].empty())
+       {
+           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].front();
+           list->Release();
+
+           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].pop();
+       }
+
+       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].empty())
+       {
+           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].front();
+           list->Release();
+
+           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].pop();
+       }
+
+       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].empty())
+       {
+           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].front();
+           list->Release();
+
+           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].pop();
+       }
+
+       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_COPY]->Release();
+       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_COMPUTE]->Release();
+       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_DIRECT]->Release();
+       
+       m_Fence->Release();
    }
 }
 

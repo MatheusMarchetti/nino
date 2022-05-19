@@ -18,11 +18,21 @@ namespace nino
 			uint64_t FenceValue;
 			Microsoft::WRL::ComPtr<ID3D12CommandAllocator> commandAllocator;
 			std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
+
+			~CommandEntry()
+			{
+				commandAllocator->Release();
+
+				for (auto& resource : resources)
+				{
+					resource->Release();
+				}
+			}
 		};
 
 	public:
-		CommandManager(std::shared_ptr<GraphicsAPI>& graphicsAPI);
-		~CommandManager() {}
+		CommandManager(GraphicsAPI* graphicsAPI);
+		~CommandManager();
 
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> GetCommandQueue(D3D12_COMMAND_LIST_TYPE type);
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& GetCommandList(D3D12_COMMAND_LIST_TYPE type);
@@ -36,6 +46,8 @@ namespace nino
 		void CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE type);
 		void Execute(D3D12_COMMAND_LIST_TYPE type);
 
+		void Flush();
+
 	private:
 		uint32_t m_GlobalFence;
 		std::unordered_map<D3D12_COMMAND_LIST_TYPE, Microsoft::WRL::ComPtr<ID3D12CommandQueue>> m_CommandQueues;
@@ -46,6 +58,6 @@ namespace nino
 		std::vector<CommandEntry> m_RunningCommands;
 		Microsoft::WRL::ComPtr<ID3D12Fence> m_Fence;
 
-		std::shared_ptr<GraphicsAPI> m_GraphicsAPI;
+		GraphicsAPI* m_GraphicsAPI;
 	};
 }
