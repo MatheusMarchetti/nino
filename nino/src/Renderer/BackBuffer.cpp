@@ -121,6 +121,19 @@ namespace nino
 		swapchain->Present(vSync ? 1 : 0, 0);
 	}
 
+	void BackBuffer::Release()
+	{
+		m_DSVBuffer = nullptr;
+		m_DSVDescriptorHeap = nullptr;
+
+		for (int i = 0; i < s_BufferCount; i++)
+		{
+			m_RTVBuffers[i] = nullptr;
+		}
+
+		m_RTVDescriptorHeap = nullptr;
+	}
+
 	void BackBuffer::CreateRTVHeap(uint32_t number)
 	{
 		auto device = m_GraphicsAPI->GetDevice();
@@ -145,19 +158,6 @@ namespace nino
 		descriptorDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 
 		ThrowOnError(device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&m_DSVDescriptorHeap)));
-	}
-
-	BackBuffer::~BackBuffer()
-	{
-		m_DSVBuffer->Release();
-		m_DSVDescriptorHeap->Release();
-
-		for (int i = 0; i < s_BufferCount; i++)
-		{
-			m_RTVBuffers[i]->Release();
-		}
-
-		m_RTVDescriptorHeap->Release();
 	}
 }
 

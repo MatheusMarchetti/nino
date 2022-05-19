@@ -21,23 +21,19 @@ namespace nino
 
 			~CommandEntry()
 			{
-				commandAllocator->Release();
 
-				for (auto& resource : resources)
-				{
-					resource->Release();
-				}
 			}
 		};
 
 	public:
 		CommandManager(GraphicsAPI* graphicsAPI);
-		~CommandManager();
 
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> GetCommandQueue(D3D12_COMMAND_LIST_TYPE type);
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& GetCommandList(D3D12_COMMAND_LIST_TYPE type);
 
 		void Execute();
+
+		void Release();
 
 	private:
 		void CreateCommandQueue(D3D12_COMMAND_LIST_TYPE type);

@@ -15,6 +15,11 @@ namespace nino
 		m_SwapChain = CreateSwapChain(window, width, height);
 	}
 
+	void GraphicsContext::Release()
+	{
+		m_SwapChain = nullptr;
+	}
+
 	Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsContext::CreateSwapChain(const HWND& window, const uint32_t width, const uint32_t height)
 	{
 		ComPtr<IDXGISwapChain1> swapChain1;
@@ -67,10 +72,5 @@ namespace nino
 		}
 
 		return allowTearing ? true : false;
-	}
-
-	GraphicsContext::~GraphicsContext()
-	{
-		m_SwapChain->Release();
 	}
 }

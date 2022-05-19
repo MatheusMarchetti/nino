@@ -16,11 +16,12 @@ namespace nino
 	{
 	public:
 		BackBuffer(uint32_t width, uint32_t height, GraphicsAPI* graphicsAPI, GraphicsContext* graphicsContext, CommandManager* commandManager);
-		~BackBuffer();
 
 		void Clear(float color[4], float depth);
 		void SetViewport();
 		void Present(bool vSync);
+
+		void Release();
 
 	private:
 		void CreateRTVHeap(uint32_t number);

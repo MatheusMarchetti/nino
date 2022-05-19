@@ -2,12 +2,13 @@
 
 #include "Core.h"
 
+#include "Renderer/GraphicsAPI.h"
+#include "Renderer/CommandManager.h"
+#include "Renderer/GraphicsContext.h"
+
 namespace nino
 {
 	class Window;
-	class GraphicsAPI;
-	class CommandManager;
-	class GraphicsContext;
 }
 
 namespace nino
@@ -16,7 +17,7 @@ namespace nino
 	{
 	public:
 		Renderer(Window* window);
-		~Renderer() {}
+		~Renderer();
 
 		static void ToggleVSync(bool vSync) { s_VSync = vSync; }
 

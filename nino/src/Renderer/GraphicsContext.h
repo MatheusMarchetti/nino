@@ -14,9 +14,10 @@ namespace nino
 	{
 	public:
 		GraphicsContext(const HWND& window, const uint32_t width, const uint32_t height, CommandManager* commandManager);
-		~GraphicsContext();
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> GetContext() { return m_SwapChain; }
+
+		void Release();
 
 	private:
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> CreateSwapChain(const HWND& window, const uint32_t width, const uint32_t height);

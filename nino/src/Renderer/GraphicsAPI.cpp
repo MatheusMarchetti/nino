@@ -18,18 +18,6 @@ namespace nino
 		m_Device = CreateDevice();
 	}
 
-	GraphicsAPI::~GraphicsAPI()
-	{
-		m_Device->Release();
-		
-		for (auto& adapter : m_AvailableAdapters)
-		{
-			adapter.second->Release();
-		}
-
-		m_SelectedAdapter->Release();
-	}
-
 	void GraphicsAPI::EnableDebugLayer()
 	{
 #ifdef CORE_DEBUG
@@ -39,6 +27,18 @@ namespace nino
 
 		debugInterface->EnableDebugLayer();
 #endif
+	}
+
+	void GraphicsAPI::Release()
+	{
+		m_Device = nullptr;
+
+		for (auto& adapter : m_AvailableAdapters)
+		{
+			adapter.second = nullptr;
+		}
+
+		m_SelectedAdapter = nullptr;
 	}
 
 	Microsoft::WRL::ComPtr<IDXGIAdapter4> GraphicsAPI::QueryAdapters()

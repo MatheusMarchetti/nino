@@ -9,7 +9,6 @@ namespace nino
 	{
 	public:
 		GraphicsAPI();
-		~GraphicsAPI();
 
 		std::wstring GetAdapterName() { return m_SelectedAdapterName; }
 
@@ -17,6 +16,8 @@ namespace nino
 		void CreatePipelineState();
 
 		Microsoft::WRL::ComPtr<ID3D12Device2> GetDevice() { return m_Device; }
+
+		void Release();
 
 	private:
 		Microsoft::WRL::ComPtr<IDXGIAdapter4> QueryAdapters();

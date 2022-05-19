@@ -3,15 +3,10 @@
 #include "Core.h"
 
 #include "Window.h"
+#include "Events/EventManager.h"
 #include "Renderer/Renderer.h"
 #include "Events/WindowEvents.h"
 #include "LayerStack.h"
-
-namespace nino
-{
-	class EventManager;
-	class Renderer;
-}
 
 namespace nino
 {

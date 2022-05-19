@@ -2,9 +2,7 @@
 #include "Renderer.h"
 
 #include "Window.h"
-#include "Renderer/GraphicsAPI.h"
-#include "Renderer/CommandManager.h"
-#include "Renderer/GraphicsContext.h"
+
 #include "Renderer/BackBuffer.h"
 
 namespace nino
@@ -36,6 +34,14 @@ namespace nino
 	{
 		s_Data.BackBuffers->SetViewport();
 		s_Data.BackBuffers->Present(s_VSync);
+	}
+
+	Renderer::~Renderer()
+	{
+		m_CommandManager.Release();
+		s_Data.BackBuffers->Release();
+		m_GraphicsContext.Release();
+		m_GraphicsAPI.Release();
 	}
 }
 

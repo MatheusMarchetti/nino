@@ -1,14 +1,12 @@
 #include "corepch.h"
 #include "Application.h"
 
-#include "Events/EventManager.h"
-
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
 		: m_Window(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight)), m_Renderer(&m_Window)
 	{
-		m_EventManager->SetEventCallback(BIND_EVENT(Application::OnEvent));
+		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -43,8 +41,8 @@ namespace nino
 		{
 			Renderer::Clear(color);
 
-			m_EventManager->CollectWindowsEvents();
-			m_EventManager->ProcessEvents();
+			m_EventManager.CollectWindowsEvents();
+			m_EventManager.ProcessEvents();
 
 			Timestep timestep;
 			timestep.Tick();

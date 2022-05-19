@@ -56,6 +56,110 @@ namespace nino
            Execute(D3D12_COMMAND_LIST_TYPE_DIRECT);
    }
 
+   void CommandManager::Release()
+   {
+       Flush();
+
+       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_COPY])
+       {
+           commands.commandAllocator = nullptr;
+
+           for (auto& resource : commands.resources)
+           {
+               resource = nullptr;
+           }
+       }
+
+       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_COMPUTE])
+       {
+           commands.commandAllocator = nullptr;
+
+           for (auto& resource : commands.resources)
+           {
+               resource = nullptr;
+           }
+       }
+
+       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_DIRECT])
+       {
+           commands.commandAllocator = nullptr;
+
+           for (auto& resource : commands.resources)
+           {
+               resource = nullptr;
+           }
+       }
+
+       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_COPY])
+       {
+           lists = nullptr;
+       }
+
+       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE])
+       {
+           lists = nullptr;
+       }
+
+       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT])
+       {
+           lists = nullptr;
+       }
+
+       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].empty())
+       {
+           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].front();
+           allocator = nullptr;
+
+           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].pop();
+       }
+
+       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].empty())
+       {
+           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].front();
+           allocator = nullptr;
+
+           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].pop();
+       }
+
+       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].empty())
+       {
+           auto allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].front();
+           allocator = nullptr;
+
+           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].pop();
+       }
+
+       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].empty())
+       {
+           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].front();
+           list = nullptr;
+
+           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].pop();
+       }
+
+       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].empty())
+       {
+           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].front();
+           list = nullptr;
+
+           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].pop();
+       }
+
+       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].empty())
+       {
+           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].front();
+           list = nullptr;
+
+           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].pop();
+       }
+
+       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_COPY] = nullptr;
+       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_COMPUTE] = nullptr;
+       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_DIRECT] = nullptr;
+
+       m_Fence = nullptr;
+   }
+
    void CommandManager::Execute(D3D12_COMMAND_LIST_TYPE type)
    {
        std::vector<ID3D12CommandList*> commandArray;
@@ -92,7 +196,7 @@ namespace nino
            {
                for (auto& resource : it->resources)
                {
-                   resource->Release();
+                   resource = nullptr;
                }
 
                it->commandAllocator->Reset();
@@ -119,6 +223,13 @@ namespace nino
                ThrowOnError(m_Fence->SetEventOnCompletion(it->FenceValue, eventHandle));
 
                WaitForSingleObject(eventHandle, INFINITE);
+
+               it->commandAllocator = nullptr;
+
+               for (auto& resource : it->resources)
+               {
+                   resource = nullptr;
+               }
 
                CloseHandle(eventHandle);
 
@@ -172,110 +283,6 @@ namespace nino
        ThrowOnError(device->CreateCommandAllocator(type, IID_PPV_ARGS(&allocator)));
 
        m_AvailableCommandAllocators[type].push(allocator);
-   }
-
-   CommandManager::~CommandManager()
-   {
-       Flush();
-
-       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_COPY])
-       {
-           commands.commandAllocator->Release();
-
-           for (auto& resource : commands.resources)
-           {
-               resource->Release();
-           }
-       }
-
-       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_COMPUTE])
-       {
-           commands.commandAllocator->Release();
-
-           for (auto& resource : commands.resources)
-           {
-               resource->Release();
-           }
-       }
-
-       for (auto& commands : m_InFlightCommands[D3D12_COMMAND_LIST_TYPE_DIRECT])
-       {
-           commands.commandAllocator->Release();
-
-           for (auto& resource : commands.resources)
-           {
-               resource->Release();
-           }
-       }
-
-       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_COPY])
-       {
-           lists->Release();
-       }
-
-       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE])
-       {
-           lists->Release();
-       }
-
-       for (auto& lists : m_InFlightCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT])
-       {
-           lists->Release();
-       }
-
-       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].empty())
-       {
-           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].front();
-           allocator->Release();
-
-           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COPY].pop();
-       }
-
-       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].empty())
-       {
-           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].front();
-           allocator->Release();
-
-           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_COMPUTE].pop();
-       }
-
-       while (!m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].empty())
-       {
-           auto& allocator = m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].front();
-           allocator->Release();
-
-           m_AvailableCommandAllocators[D3D12_COMMAND_LIST_TYPE_DIRECT].pop();
-       }
-
-       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].empty())
-       {
-           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].front();
-           list->Release();
-
-           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COPY].pop();
-       }
-
-       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].empty())
-       {
-           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].front();
-           list->Release();
-
-           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_COMPUTE].pop();
-       }
-
-       while (!m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].empty())
-       {
-           auto& list = m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].front();
-           list->Release();
-
-           m_AvailableCommandLists[D3D12_COMMAND_LIST_TYPE_DIRECT].pop();
-       }
-
-       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_COPY]->Release();
-       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_COMPUTE]->Release();
-       m_CommandQueues[D3D12_COMMAND_LIST_TYPE_DIRECT]->Release();
-       
-       m_Fence->Release();
    }
 }
 
