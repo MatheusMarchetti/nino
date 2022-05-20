@@ -16,6 +16,9 @@ namespace nino
 		m_SelectedAdapterName = adapterDesc.Description;
 
 		m_Device = CreateDevice();
+
+		CreateRootSignature();
+		CreatePipelineState();
 	}
 
 	void GraphicsAPI::EnableDebugLayer()
@@ -216,9 +219,9 @@ namespace nino
 		ComPtr<ID3DBlob> vertexShader;
 		ComPtr<ID3DBlob> pixelShader;
 
-		ThrowOnError(D3DReadFileToBlob(L"C:/dev/Game Engine/nino/bin/Debug/nino-sandbox/VertexShader.cso", &vertexShader));
+		ThrowOnError(D3DReadFileToBlob(L"C:/dev/Game Engine/nino/bin/Debug/Sandbox/VertexShader.cso", &vertexShader));
 
-		ThrowOnError(D3DReadFileToBlob(L"C:/dev/Game Engine/nino/bin/Debug/nino-sandbox/PixelShader.cso", &pixelShader));
+		ThrowOnError(D3DReadFileToBlob(L"C:/dev/Game Engine/nino/bin/Debug/Sandbox/PixelShader.cso", &pixelShader));
 
 		struct PipelineStateStream
 		{

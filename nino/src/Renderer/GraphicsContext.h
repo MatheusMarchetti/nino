@@ -16,6 +16,7 @@ namespace nino
 		GraphicsContext(const HWND& window, const uint32_t width, const uint32_t height, CommandManager* commandManager);
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> GetContext() { return m_SwapChain; }
+		bool IsTearingSupported() { return m_TearingSupport; }
 
 		void Release();
 

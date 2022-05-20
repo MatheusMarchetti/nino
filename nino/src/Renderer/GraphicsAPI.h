@@ -15,6 +15,9 @@ namespace nino
 		void CreateRootSignature();
 		void CreatePipelineState();
 
+		Microsoft::WRL::ComPtr<ID3D12RootSignature> GetRootSignature() { return m_RootSignature; }
+		Microsoft::WRL::ComPtr<ID3D12PipelineState> GetPipelineState() { return m_PSO; }
+
 		Microsoft::WRL::ComPtr<ID3D12Device2> GetDevice() { return m_Device; }
 
 		void Release();

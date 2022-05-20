@@ -27,9 +27,6 @@ namespace nino
 		void CreateRTVHeap(uint32_t number);
 		void CreateDSVHeap(uint32_t number);
 
-		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> GetCommandList() { return m_CommandList; }
-
-
 	private:
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_RTVDescriptorHeap;
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_DSVDescriptorHeap;

@@ -22,6 +22,7 @@ namespace nino
 		static void ToggleVSync(bool vSync) { s_VSync = vSync; }
 
 		static void Clear(float color[4], float depth = 1.0f);
+		static void UploadVertices();
 		static void Draw();
 		
 	private:

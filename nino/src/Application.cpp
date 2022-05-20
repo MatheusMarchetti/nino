@@ -52,6 +52,7 @@ namespace nino
 				layer->OnUpdate(timestep);
 			}
 
+			Renderer::UploadVertices();
 			Renderer::Draw();
 		}
 	}

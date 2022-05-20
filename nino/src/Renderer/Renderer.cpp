@@ -4,12 +4,14 @@
 #include "Window.h"
 
 #include "Renderer/BackBuffer.h"
+#include "Renderer/VertexBuffer.h"
 
 namespace nino
 {
 	struct RendererData
 	{
 		std::shared_ptr<BackBuffer> BackBuffers;
+		std::shared_ptr<VertexBuffer> VertexBuffer;
 	};
 
 	static RendererData s_Data;
@@ -21,6 +23,8 @@ namespace nino
 		m_AspectRatio = (float)window->GetWidth() / (float)window->GetHeight();
 
 		s_Data.BackBuffers = std::make_shared<BackBuffer>(window->GetWidth(), window->GetHeight(), &m_GraphicsAPI, &m_GraphicsContext, &m_CommandManager);
+		s_Data.BackBuffers->SetViewport();
+		s_Data.VertexBuffer = std::make_shared<VertexBuffer>(&m_GraphicsAPI, &m_CommandManager);
 
 		NINO_CORE_INFO(L"Renderer subsystem initialized!");
 	}
@@ -30,9 +34,13 @@ namespace nino
 		s_Data.BackBuffers->Clear(color, depth);
 	}
 
+	void Renderer::UploadVertices()
+	{
+		s_Data.VertexBuffer->UploadBuffer();
+	}
+
 	void Renderer::Draw()
 	{
-		s_Data.BackBuffers->SetViewport();
 		s_Data.BackBuffers->Present(s_VSync);
 	}
 

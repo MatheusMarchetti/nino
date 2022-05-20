@@ -37,7 +37,6 @@ project (corename)
     {
         "d3d12",
         "dxgi",
-        "dxguid",
         "d3dcompiler"
     }
 

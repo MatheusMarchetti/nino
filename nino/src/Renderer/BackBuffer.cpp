@@ -12,6 +12,8 @@ namespace nino
 	BackBuffer::BackBuffer(uint32_t width, uint32_t height, GraphicsAPI* graphicsAPI, GraphicsContext* graphicsContext, CommandManager* commandManager)
 		:m_GraphicsAPI(graphicsAPI), m_GraphicsContext(graphicsContext), m_CommandManager(commandManager), m_CommandList(m_CommandManager->GetCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT))
 	{
+		m_CommandList->SetName(L"Back buffers command list");
+
 		auto device = m_GraphicsAPI->GetDevice();
 		auto swapchain = m_GraphicsContext->GetContext();
 
@@ -37,6 +39,12 @@ namespace nino
 		clearValue.DepthStencil.Depth = 1.0f;
 		clearValue.DepthStencil.Stencil = 0.0f;
 
+		D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
+		dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+		dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+		dsvDesc.Texture2D.MipSlice = 0;
+		dsvDesc.Flags = D3D12_DSV_FLAG_NONE;
+
 		ThrowOnError(device->CreateCommittedResource(&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT), D3D12_HEAP_FLAG_NONE, 
 			&CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_D32_FLOAT, width, height, 1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL),
 			D3D12_RESOURCE_STATE_DEPTH_WRITE, &clearValue, IID_PPV_ARGS(&m_DSVBuffer)));
@@ -60,8 +68,7 @@ namespace nino
 
 	void BackBuffer::Clear(float color[4], float depth)
 	{
-		if(!m_CommandList)
-			m_CommandList = m_CommandManager->GetCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT);
+		m_CommandManager->GetCommandList(m_CommandList);
 
 		auto swapchain = m_GraphicsContext->GetContext();
 
@@ -86,8 +93,7 @@ namespace nino
 
 	void BackBuffer::SetViewport()
 	{
-		if (!m_CommandList)
-			m_CommandList = m_CommandManager->GetCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT);
+		m_CommandManager->GetCommandList(m_CommandList);
 
 		m_CommandList->RSSetScissorRects(1, &m_ScissorRect);
 		m_CommandList->RSSetViewports(1, &m_Viewport);
@@ -95,8 +101,7 @@ namespace nino
 
 	void BackBuffer::Present(bool vSync)
 	{
-		if (!m_CommandList)
-			m_CommandList = m_CommandManager->GetCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT);
+		m_CommandManager->GetCommandList(m_CommandList);
 
 		auto swapchain = m_GraphicsContext->GetContext();
 
@@ -116,23 +121,18 @@ namespace nino
 			m_CurrentState = D3D12_RESOURCE_STATE_PRESENT;
 		}
 
-		m_CommandManager->Execute();
+		m_CommandManager->Execute(backBuffer);
 
-		swapchain->Present(vSync ? 1 : 0, 0);
+		UINT frameInterval = vSync ? 1 : 0;
+		UINT presentFlags = m_GraphicsContext->IsTearingSupported() && !vSync ? DXGI_PRESENT_ALLOW_TEARING : 0;
+
+		swapchain->Present(frameInterval, presentFlags);
+
+		uint32_t currentBuffer = swapchain->GetCurrentBackBufferIndex();
+
+		m_CommandManager->Signal(backBuffer, currentBuffer);
 	}
 
-	void BackBuffer::Release()
-	{
-		m_DSVBuffer = nullptr;
-		m_DSVDescriptorHeap = nullptr;
-
-		for (int i = 0; i < s_BufferCount; i++)
-		{
-			m_RTVBuffers[i] = nullptr;
-		}
-
-		m_RTVDescriptorHeap = nullptr;
-	}
 
 	void BackBuffer::CreateRTVHeap(uint32_t number)
 	{
@@ -158,6 +158,19 @@ namespace nino
 		descriptorDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 
 		ThrowOnError(device->CreateDescriptorHeap(&descriptorDesc, IID_PPV_ARGS(&m_DSVDescriptorHeap)));
+	}
+
+	void BackBuffer::Release()
+	{
+		m_DSVBuffer = nullptr;
+		m_DSVDescriptorHeap = nullptr;
+
+		for (int i = 0; i < s_BufferCount; i++)
+		{
+			m_RTVBuffers[i] = nullptr;
+		}
+
+		m_RTVDescriptorHeap = nullptr;
 	}
 }
 

@@ -13,6 +13,7 @@
 #include <array>
 #include <unordered_map>
 #include <queue>
+#include <list>
 
 /*ENGINE STUFF*/
 #include "Log.h"
