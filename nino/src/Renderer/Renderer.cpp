@@ -1,7 +1,7 @@
 #include "corepch.h"
 #include "Renderer.h"
 
-#include "Window.h"
+#include "Core/Window.h"
 
 #include "Renderer/RenderTargets.h"
 #include "Renderer/VertexBuffer.h"

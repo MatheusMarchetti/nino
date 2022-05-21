@@ -17,6 +17,11 @@ workspace (solutionname)
 
     outputdir = "%{cfg.buildcfg}"
 
+    IncludeDir = {}
+    IncludeDir["ImGui"] = corename.."/vendor/imgui"
+
+    include (corename.."/vendor/imgui")
+
 project (corename)
     kind "SharedLib"
     staticruntime "Off"
@@ -37,7 +42,8 @@ project (corename)
     {
         "d3d11",
         "dxgi",
-        "d3dcompiler"
+        "d3dcompiler",
+        "ImGui"
     }
 
     files
@@ -50,7 +56,7 @@ project (corename)
     {
         "%{prj.name}/src/",
         "%{prj.name}/vendor/spdlog/include",
-        "%{prj.name}/vendor/d3d12/include"
+        "%{IncludeDir.Imgui}"
     }
 
     postbuildcommands
@@ -97,7 +103,6 @@ project (appname)
         "%{prj.name}/src/",
         corename.."/src/",
         corename.."/vendor/spdlog/include",
-        corename.."/vendor/d3d12/include"
     }
 
     filter "configurations:Debug"

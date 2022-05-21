@@ -2,7 +2,7 @@
 
 #include "corepch.h"
 
-#include "Core.h"
-#include "Application.h"
+#include "Core/Core.h"
+#include "Core/Application.h"
 
 #include "Events/EventManager.h"

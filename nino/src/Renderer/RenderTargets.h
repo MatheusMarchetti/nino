@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core.h"
-#include "GraphicsCore.h"
+#include "Core/Core.h"
+#include "Renderer/GraphicsCore.h"
 
 #include "Renderer/DepthStencil.h"
 

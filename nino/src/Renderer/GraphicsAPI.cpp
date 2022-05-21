@@ -1,7 +1,7 @@
 #include "corepch.h"
 #include "GraphicsAPI.h"
 
-#include "Window.h"
+#include "Core/Window.h"
 
 namespace nino
 {

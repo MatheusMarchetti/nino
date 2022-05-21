@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Core.h"
+#include "Core/Core.h"
 
-#include "Window.h"
+#include "Core/Window.h"
 #include "Events/EventManager.h"
 #include "Renderer/Renderer.h"
 #include "Events/WindowEvents.h"
-#include "LayerStack.h"
+#include "Core/LayerStack.h"
 
 namespace nino
 {

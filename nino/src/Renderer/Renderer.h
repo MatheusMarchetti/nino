@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Core.h"
+#include "Core/Core.h"
 
 #include "Renderer/GraphicsAPI.h"
 
-#include "NinoMath.h"
+#include "Core/NinoMath.h"
 
 namespace nino
 {

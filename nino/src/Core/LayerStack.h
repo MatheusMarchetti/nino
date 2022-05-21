@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core.h"
+#include "Core/Core.h"
 
-#include "Layer.h"
+#include "Core/Layer.h"
 
 namespace nino
 {

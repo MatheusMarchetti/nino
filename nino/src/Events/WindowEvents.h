@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Core.h"
+#include "Core/Core.h"
 
 #include "Events/Event.h"
-
-#include <typeinfo>
-#include <sstream>
 
 namespace nino
 {

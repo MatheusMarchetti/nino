@@ -1,7 +1,7 @@
 #include "corepch.h"
 #include "VertexBuffer.h"
 
-#include "GraphicsAPI.h"
+#include "Renderer/GraphicsAPI.h"
 
 namespace nino
 {

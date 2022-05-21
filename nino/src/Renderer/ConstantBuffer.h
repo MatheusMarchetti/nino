@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core.h"
+#include "Core/Core.h"
 #include "Renderer/GraphicsCore.h"
 
-#include "NinoMath.h"
+#include "Core/NinoMath.h"
 
 namespace nino
 {
