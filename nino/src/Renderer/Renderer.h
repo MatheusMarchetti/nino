@@ -4,6 +4,8 @@
 
 #include "Renderer/GraphicsAPI.h"
 
+#include "NinoMath.h"
+
 namespace nino
 {
 	class Window;
@@ -25,8 +27,9 @@ namespace nino
 		static void Clear(float color[4], float depth = 1.0f);
 
 		// Draw Primitives
-		static void DrawTriangle();
-		static void DrawQuad();
+		static void DrawTriangle(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
+		static void DrawQuad(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
+		static void DrawCube(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
 
 		static void Draw();
 

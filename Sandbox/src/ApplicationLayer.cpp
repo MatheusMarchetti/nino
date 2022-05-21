@@ -16,8 +16,10 @@ void ApplicationLayer::OnUpdate(nino::Timestep ts)
 	nino::Renderer::SetTargets();
 	nino::Renderer::Clear(color);
 
-	nino::Renderer::DrawTriangle();
-	nino::Renderer::DrawQuad();
+	nino::Renderer::DrawTriangle({0.8f, 0.2f, 0.3f, 1.0f}, {0.0f, 0.0f, 5.0f}, { 1.0f, 1.0f, 1.0f });
+	nino::Renderer::DrawQuad({1.0f, 1.0f, 1.0f, 1.0f}, { 0.0f, 15.0f, 5.0f }, { 1.0f, 2.0f, 1.0f }, { 70.0f, 0.0f, 0.0f });
+
+	nino::Renderer::DrawCube({0.2f, 0.5f, 0.6f, 1.0f}, {0.0f, 0.0f, 10.0f}, { 2.0f, 2.0f, 2.0f }, { 0.0f, 0.0f, 0.0f });
 }
 
 void ApplicationLayer::OnEvent(nino::Event& event)

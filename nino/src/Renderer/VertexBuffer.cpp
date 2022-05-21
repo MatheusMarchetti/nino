@@ -12,7 +12,7 @@ namespace nino
 	{
 	}
 
-	void VertexBuffer::SetVertexBuffer(PrimitiveType primitive)
+	void VertexBuffer::SetVertexBuffer(vec4f color, PrimitiveType primitive)
 	{
 		auto device = m_GraphicsAPI->GetDevice();
 		auto context = m_GraphicsAPI->GetContext();
@@ -28,6 +28,12 @@ namespace nino
 		{
 		case PrimitiveType::TRIANGLE:
 		{
+			Vertex m_Triangle[3] = {
+			{{ 0.0f,  1.0f,  1.0f},  color},
+			{{ 0.5f,  0.0f,  1.0f},  color},
+			{{-0.5f,  0.0f,  1.0f},  color}
+			};
+
 			vertexDesc.ByteWidth = sizeof(Vertex) * ARRAYSIZE(m_Triangle);
 
 			vertexSubresource = { m_Triangle, 0, 0 };
@@ -37,9 +43,35 @@ namespace nino
 
 		case PrimitiveType::QUAD:
 		{
+			Vertex m_Quad[4] = {
+			{{-0.5f,  0.5f, 1.0f}, color},
+			{{ 0.5f,  0.5f, 1.0f}, color},
+			{{ 0.5f, -0.5f, 1.0f}, color},
+			{{-0.5f, -0.5f, 1.0f}, color},
+			};
+
 			vertexDesc.ByteWidth = sizeof(Vertex) * ARRAYSIZE(m_Quad);
 
 			vertexSubresource = { m_Quad, 0, 0 };
+
+			break;
+		}
+
+		case PrimitiveType::CUBE:
+		{
+			Vertex m_Cube[8] = {
+			{{-0.5f, -0.5f, 0.0f}, color},
+			{{-0.5f,  0.5f, 0.0f}, color},
+			{{ 0.5f,  0.5f, 0.0f}, color},
+			{{ 0.5f, -0.5f, 0.0f}, color},
+			{{-0.5f, -0.5f, 1.0f}, color},
+			{{-0.5f,  0.5f, 1.0f}, color},
+			{{ 0.5f,  0.5f, 1.0f}, color},
+			{{ 0.5f, -0.5f, 1.0f}, color},
+			};
+			vertexDesc.ByteWidth = sizeof(Vertex) * ARRAYSIZE(m_Cube);
+
+			vertexSubresource = { m_Cube, 0, 0 };
 
 			break;
 		}

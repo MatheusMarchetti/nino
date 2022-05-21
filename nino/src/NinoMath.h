@@ -11,4 +11,5 @@ namespace nino
 	typedef DirectX::XMINT3 vec3i;
 	typedef DirectX::XMINT4 vec4i;
 	typedef DirectX::XMMATRIX mat4;
+	typedef DirectX::XMVECTOR vec4;
 }

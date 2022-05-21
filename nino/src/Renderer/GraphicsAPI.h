@@ -23,11 +23,6 @@ namespace nino
 		void Release();
 
 	private:
-		void CreateDeviceAndContext();
-		void CreateSwapChain(Window* window);
-		
-
-	private:
 		Microsoft::WRL::ComPtr<ID3D11Device5> m_Device;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext4> m_DeviceContext;
 		Microsoft::WRL::ComPtr<IDXGISwapChain4> m_SwapChain;

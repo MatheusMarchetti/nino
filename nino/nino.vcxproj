@@ -158,6 +158,8 @@
     <ClInclude Include="src\LayerStack.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\NinoMath.h" />
+    <ClInclude Include="src\Renderer\ConstantBuffer.h" />
+    <ClInclude Include="src\Renderer\DepthStencil.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI.h" />
     <ClInclude Include="src\Renderer\GraphicsCore.h" />
     <ClInclude Include="src\Renderer\IndexBuffer.h" />
@@ -175,6 +177,8 @@
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\LayerStack.cpp" />
     <ClCompile Include="src\Log.cpp" />
+    <ClCompile Include="src\Renderer\ConstantBuffer.cpp" />
+    <ClCompile Include="src\Renderer\DepthStencil.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI.cpp" />
     <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />

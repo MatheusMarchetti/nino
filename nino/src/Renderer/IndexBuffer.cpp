@@ -40,6 +40,15 @@ namespace nino
 
 			break;
 		}
+
+		case PrimitiveType::CUBE:
+		{
+			indexDesc.ByteWidth = sizeof(DWORD) * ARRAYSIZE(m_CubeIndices);
+
+			indexSubresource = { m_CubeIndices, 0, 0 };
+
+			break;
+		}
 		}
 
 		ThrowOnError(device->CreateBuffer(&indexDesc, &indexSubresource, &m_IndexBuffer));

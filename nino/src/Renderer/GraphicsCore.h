@@ -14,5 +14,6 @@ namespace nino
 	{
 		TRIANGLE,
 		QUAD,
+		CUBE,
 	};
 }

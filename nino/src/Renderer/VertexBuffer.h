@@ -24,24 +24,12 @@ namespace nino
 		VertexBuffer(GraphicsAPI* graphicsAPI);
 		~VertexBuffer() {}
 
-		void SetVertexBuffer(PrimitiveType primitive);
+		void SetVertexBuffer(vec4f color, PrimitiveType primitive);
 
 		void Release();
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
-
-		Vertex m_Triangle[3] = {
-			{{0.0f, 1.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-			{{0.5f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
-			{{-0.5f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
-		};
-		Vertex m_Quad[4] = {
-			{{-0.5f, 0.5f, 0.0f}, {0.5f, 0.0f, 0.0f, 1.0f}},
-			{{0.5f, 0.5f, 0.0f}, {0.0f, 0.5f, 0.0f, 1.0f}},
-			{{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 0.5f, 1.0f}},
-			{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 0.0f, 1.0f}},
-		};
 
 		GraphicsAPI* m_GraphicsAPI;
 	};

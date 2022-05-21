@@ -9,19 +9,6 @@ namespace nino
 
 	GraphicsAPI::GraphicsAPI(Window* window)
 	{
-		CreateDeviceAndContext();
-		CreateSwapChain(window);
-	}
-
-	void GraphicsAPI::Release()
-	{
-		m_SwapChain = nullptr;
-		m_DeviceContext = nullptr;
-		m_Device = nullptr;
-	}
-
-	void GraphicsAPI::CreateDeviceAndContext()
-	{
 		ComPtr<ID3D11Device> device;
 		ComPtr<ID3D11DeviceContext> deviceContext;
 
@@ -35,10 +22,7 @@ namespace nino
 
 		ThrowOnError(device.As(&m_Device));
 		ThrowOnError(deviceContext.As(&m_DeviceContext));
-	}
 
-	void GraphicsAPI::CreateSwapChain(Window* window)
-	{
 		ComPtr<IDXGIDevice4> dxgiDevice4;
 		ComPtr<IDXGIAdapter> dxgiAdapter;
 		ComPtr<IDXGIFactory7> dxgiFactory7;
@@ -58,5 +42,12 @@ namespace nino
 		ThrowOnError(dxgiFactory7->CreateSwapChainForHwnd(dxgiDevice4.Get(), window->GetWindow(), &desc1, nullptr, NULL, &dxgiSwapChain1));
 
 		ThrowOnError(dxgiSwapChain1.As(&m_SwapChain));
+	}
+
+	void GraphicsAPI::Release()
+	{
+		m_SwapChain = nullptr;
+		m_DeviceContext = nullptr;
+		m_Device = nullptr;
 	}
 }
