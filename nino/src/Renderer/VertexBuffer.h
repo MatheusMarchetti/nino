@@ -1,14 +1,13 @@
 #pragma once
 
 #include "Core.h"
-#include "Renderer/GraphicsCore.h"
+#include "GraphicsCore.h"
 
 #include "NinoMath.h"
 
 namespace nino
 {
 	class GraphicsAPI;
-	class CommandManager;
 }
 
 namespace nino
@@ -22,20 +21,28 @@ namespace nino
 		};
 
 	public:
-		VertexBuffer(GraphicsAPI* graphicsAPI, CommandManager* commandManager);
+		VertexBuffer(GraphicsAPI* graphicsAPI);
+		~VertexBuffer() {}
 
-		void UploadBuffer();
+		void SetVertexBuffer(PrimitiveType primitive);
 
 		void Release();
 
 	private:
-		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>*> m_Resources;
-		Microsoft::WRL::ComPtr<ID3D12Resource> m_VertexBuffer;
-		Microsoft::WRL::ComPtr<ID3D12Resource> m_UploadBuffer;
+		Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
+
+		Vertex m_Triangle[3] = {
+			{{0.0f, 1.0f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+			{{0.5f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+			{{-0.5f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
+		};
+		Vertex m_Quad[4] = {
+			{{-0.5f, 0.5f, 0.0f}, {0.5f, 0.0f, 0.0f, 1.0f}},
+			{{0.5f, 0.5f, 0.0f}, {0.0f, 0.5f, 0.0f, 1.0f}},
+			{{0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 0.5f, 1.0f}},
+			{{-0.5f, -0.5f, 0.0f}, {0.0f, 0.5f, 0.0f, 1.0f}},
+		};
 
 		GraphicsAPI* m_GraphicsAPI;
-		CommandManager* m_CommandManager;
-
-		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& m_CommandList;
 	};
 }

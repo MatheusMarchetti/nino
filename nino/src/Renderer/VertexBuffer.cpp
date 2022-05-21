@@ -1,70 +1,60 @@
 #include "corepch.h"
 #include "VertexBuffer.h"
 
-#include "Renderer/GraphicsAPI.h"
-#include "Renderer/CommandManager.h"
+#include "GraphicsAPI.h"
 
 namespace nino
 {
-	VertexBuffer::VertexBuffer(GraphicsAPI* graphicsAPI, CommandManager* commandManager)
-		:m_GraphicsAPI(graphicsAPI), m_CommandManager(commandManager), m_CommandList(m_CommandManager->GetCommandList(D3D12_COMMAND_LIST_TYPE_DIRECT))
+	using namespace Microsoft::WRL;
+
+	VertexBuffer::VertexBuffer(GraphicsAPI* graphicsAPI)
+		: m_GraphicsAPI(graphicsAPI)
 	{
-		m_CommandList->SetName(L"Vertex buffer command list");
 	}
 
-	void VertexBuffer::UploadBuffer()
+	void VertexBuffer::SetVertexBuffer(PrimitiveType primitive)
 	{
-		m_CommandManager->GetCommandList(m_CommandList);
-
 		auto device = m_GraphicsAPI->GetDevice();
+		auto context = m_GraphicsAPI->GetContext();
 
-		Vertex vertices[] =
+		D3D11_BUFFER_DESC vertexDesc = {};
+		vertexDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+
+		D3D11_SUBRESOURCE_DATA vertexSubresource;
+		UINT stride = sizeof(Vertex);
+		UINT offset = 0;
+
+		switch (primitive)
 		{
-			{ {0.0f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f, 1.0f} },
-			{ {0.5f, -0.5f, 0.5f}, {0.0f, 1.0f, 0.0f, 1.0f} },
-			{ {-0.5f, -0.5f, 0.5f}, {0.0f, 0.0f, 1.0f, 1.0f} }
-		};
+		case PrimitiveType::TRIANGLE:
+		{
+			vertexDesc.ByteWidth = sizeof(Vertex) * ARRAYSIZE(m_Triangle);
 
-		size_t bufferSize = sizeof(vertices);
+			vertexSubresource = { m_Triangle, 0, 0 };
 
-		ThrowOnError(device->CreateCommittedResource(&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT), D3D12_HEAP_FLAG_NONE,
-			&CD3DX12_RESOURCE_DESC::Buffer(bufferSize), D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&m_VertexBuffer)));
+			break;
+		}
 
-		m_VertexBuffer->SetName(L"Vertex Buffer");
+		case PrimitiveType::QUAD:
+		{
+			vertexDesc.ByteWidth = sizeof(Vertex) * ARRAYSIZE(m_Quad);
 
-		ThrowOnError(device->CreateCommittedResource(&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD), D3D12_HEAP_FLAG_NONE,
-			&CD3DX12_RESOURCE_DESC::Buffer(bufferSize), D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&m_UploadBuffer)));
+			vertexSubresource = { m_Quad, 0, 0 };
 
-		m_VertexBuffer->SetName(L"Upload Buffer");
+			break;
+		}
+		}
 
-		D3D12_SUBRESOURCE_DATA vertexData = {};
-		vertexData.pData = reinterpret_cast<BYTE*>(vertices);
-		vertexData.RowPitch = bufferSize;
-		vertexData.SlicePitch = bufferSize;
+		ThrowOnError(device->CreateBuffer(&vertexDesc, &vertexSubresource, &m_VertexBuffer));
 
-		UpdateSubresources(m_CommandList.Get(), m_VertexBuffer.Get(), m_UploadBuffer.Get(), 0, 0, 1, &vertexData);
-
-		m_CommandManager->ManageResources(D3D12_COMMAND_LIST_TYPE_DIRECT, { m_UploadBuffer });
-
-		CD3DX12_RESOURCE_BARRIER barrier = CD3DX12_RESOURCE_BARRIER::Transition(m_VertexBuffer.Get(), D3D12_RESOURCE_STATE_COPY_DEST, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
-
-		m_CommandList->ResourceBarrier(1, &barrier);
-
-		D3D12_VERTEX_BUFFER_VIEW vertexView = {};
-		vertexView.BufferLocation = m_VertexBuffer->GetGPUVirtualAddress();
-		vertexView.StrideInBytes = sizeof(Vertex);
-		vertexView.SizeInBytes = bufferSize;
-
-		m_CommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		m_CommandList->IASetVertexBuffers(0, 1, &vertexView);
-		m_CommandList->SetGraphicsRootSignature(m_GraphicsAPI->GetRootSignature().Get());
-		m_CommandList->SetPipelineState(m_GraphicsAPI->GetPipelineState().Get());
-		m_CommandList->DrawInstanced(3, 1, 0, 0);
+		context->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &stride, &offset);
 	}
 
 	void VertexBuffer::Release()
 	{
-		m_UploadBuffer = nullptr;
 		m_VertexBuffer = nullptr;
+
+		m_GraphicsAPI = nullptr;
 	}
 }
+

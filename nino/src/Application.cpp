@@ -33,14 +33,9 @@ namespace nino
 	void Application::Run()
 	{
 		m_Window.Show();
-		Renderer::ToggleVSync(true);
-
-		float color[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
 		while (shouldRun)
 		{
-			Renderer::Clear(color);
-
 			m_EventManager.CollectWindowsEvents();
 			m_EventManager.ProcessEvents();
 
@@ -52,7 +47,6 @@ namespace nino
 				layer->OnUpdate(timestep);
 			}
 
-			Renderer::UploadVertices();
 			Renderer::Draw();
 		}
 	}

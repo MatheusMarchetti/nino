@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include <queue>
 #include <list>
+#include <fstream>
 
 /*ENGINE STUFF*/
 #include "Log.h"

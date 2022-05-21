@@ -24,16 +24,7 @@
     <ClInclude Include="src\LayerStack.h" />
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\NinoMath.h" />
-    <ClInclude Include="src\Renderer\BackBuffer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\CommandManager.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsAPI.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\GraphicsContext.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsCore.h">
@@ -42,13 +33,14 @@
     <ClInclude Include="src\Renderer\Renderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\VertexBuffer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Timestep.h" />
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
+    <ClInclude Include="src\Renderer\RenderTargets.h" />
+    <ClInclude Include="src\Renderer\VertexBuffer.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Renderer\IndexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -57,25 +49,17 @@
     </ClCompile>
     <ClCompile Include="src\LayerStack.cpp" />
     <ClCompile Include="src\Log.cpp" />
-    <ClCompile Include="src\Renderer\BackBuffer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\CommandManager.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\GraphicsAPI.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\GraphicsContext.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\VertexBuffer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\corepch.cpp" />
+    <ClCompile Include="src\Renderer\RenderTargets.cpp" />
+    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
   </ItemGroup>
 </Project>

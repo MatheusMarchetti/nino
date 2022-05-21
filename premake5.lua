@@ -35,7 +35,7 @@ project (corename)
 
     links
     {
-        "d3d12",
+        "d3d11",
         "dxgi",
         "d3dcompiler"
     }
