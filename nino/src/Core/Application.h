@@ -8,6 +8,8 @@
 #include "Events/WindowEvents.h"
 #include "Core/LayerStack.h"
 
+#include "Debug/GUILayer.h"
+
 namespace nino
 {
 	class CORE_API Application
@@ -39,6 +41,7 @@ namespace nino
 		EventManager m_EventManager;
 		Renderer m_Renderer;
 		LayerStack m_LayerStack;
+		Layer* m_ImGuiLayer;
 	};
 }
 
@@ -47,7 +50,7 @@ namespace nino
 	int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) \
 	{ \
 		nino::Log::Init(); \
-		return nino::CreateApplication(new appclass()); \
+		return nino::CreateApplication(new appclass(), L#appclass); \
 	}
 #else
 #define InitializeEngine(appclass) \

@@ -2,6 +2,7 @@
 #include "Window.h"
 
 #include "Events/EventManager.h"
+#include "Debug/GUILayer.h"
 
 namespace nino
 {
@@ -37,6 +38,9 @@ namespace nino
 	LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		EventManager* const pWnd = reinterpret_cast<EventManager*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+		GUILayer* const pLayer = reinterpret_cast<GUILayer*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+
+		while (pLayer->GetMessages(hWnd, msg, wParam, lParam)) {}
 
 		return pWnd->EventHandler(hWnd, msg, wParam, lParam);
 	}

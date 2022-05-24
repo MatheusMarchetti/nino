@@ -36,6 +36,9 @@
     <ClInclude Include="src\Core\Window.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Debug\GUILayer.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\Debug\Log.h">
       <Filter>Debug</Filter>
     </ClInclude>
@@ -87,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="src\Core\Window.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Debug\GUILayer.cpp">
+      <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="src\Debug\Log.cpp">
       <Filter>Debug</Filter>

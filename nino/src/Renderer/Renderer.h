@@ -20,6 +20,8 @@ namespace nino
 		Renderer(Window* window);
 		~Renderer();
 
+		GraphicsAPI& GetAPI() { return m_GraphicsAPI; }
+
 		static void ToggleVSync(bool vSync) { s_VSync = vSync; }
 
 		static void SetTargets();

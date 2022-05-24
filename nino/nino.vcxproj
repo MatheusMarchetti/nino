@@ -156,6 +156,7 @@
     <ClInclude Include="src\Core\NinoMath.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Window.h" />
+    <ClInclude Include="src\Debug\GUILayer.h" />
     <ClInclude Include="src\Debug\Log.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\EventManager.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\LayerStack.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
+    <ClCompile Include="src\Debug\GUILayer.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\Renderer\ConstantBuffer.cpp" />

@@ -7,10 +7,16 @@ namespace nino
 		: m_Window(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight)), m_Renderer(&m_Window)
 	{
 		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+
+		m_ImGuiLayer = new GUILayer(m_Window.GetWindow(), m_Renderer.GetAPI());
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
-	{}
+	{
+		PopOverlay(m_ImGuiLayer);
+		delete m_ImGuiLayer;
+	}
 
 	void Application::SetWindowTitle(const wchar_t* name)
 	{
