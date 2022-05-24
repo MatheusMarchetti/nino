@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
 #include "Renderer/GraphicsCore.h"
 
 #include "Core/NinoMath.h"
@@ -17,7 +16,7 @@ namespace nino
 		mat4 MVP;
 	};
 
-	class CORE_API ConstantBuffer
+	class ConstantBuffer
 	{
 	public:
 		ConstantBuffer(GraphicsAPI* graphicsAPI);

@@ -18,13 +18,14 @@ workspace (solutionname)
     outputdir = "%{cfg.buildcfg}"
 
     IncludeDir = {}
-    IncludeDir["ImGui"] = corename.."/vendor/imgui"
+    IncludeDir["spdlog"] = "%{wks.location}/"..corename.."/vendor/spdlog/include"
+    IncludeDir["ImGui"] = "%{wks.location}/"..corename.."/vendor/imgui"
 
     include (corename.."/vendor/imgui")
 
 project (corename)
-    kind "SharedLib"
-    staticruntime "Off"
+    kind "StaticLib"
+    staticruntime "On"
     location (corename)
     
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
@@ -35,7 +36,7 @@ project (corename)
     
     defines 
     {
-        "CORE_BUILD_DLL"
+        
     }
 
     links
@@ -55,8 +56,8 @@ project (corename)
     includedirs
     {
         "%{prj.name}/src/",
-        "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.Imgui}"
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.ImGui}"
     }
 
     postbuildcommands
@@ -81,7 +82,7 @@ project (corename)
 
 project (appname)
     kind "ConsoleApp"
-    staticruntime "Off"
+    staticruntime "On"
     location (appname)
 
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
@@ -102,7 +103,8 @@ project (appname)
     {
         "%{prj.name}/src/",
         corename.."/src/",
-        corename.."/vendor/spdlog/include",
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.ImGui}"
     }
 
     filter "configurations:Debug"

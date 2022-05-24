@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
-
 #include "Renderer/GraphicsAPI.h"
 
 #include "Core/NinoMath.h"
@@ -13,7 +11,7 @@ namespace nino
 
 namespace nino
 {
-	class CORE_API Renderer
+	class Renderer
 	{
 
 	public:
@@ -33,7 +31,7 @@ namespace nino
 		static void DrawQuad(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
 		static void DrawCube(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
 
-		static void Draw();
+		static void Present();
 
 	private:
 		static void DrawPrimitive(PrimitiveType primitive);

@@ -1,30 +1,30 @@
 #pragma once
 
-#include "Core/Core.h"
-
 #include "Core/Layer.h"
 
 namespace nino
 {
+	class Window;
 	class GraphicsAPI;
 }
 
 namespace nino
 {
-	class CORE_API GUILayer : public Layer
+	class GUILayer : public Layer
 	{
 	public:
-		GUILayer(HWND& window, GraphicsAPI& graphicsAPI);
+		GUILayer(Window* window, GraphicsAPI* graphicsAPI);
 		virtual ~GUILayer() {};
 
 		bool GetMessages(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+		void Begin();
+		void End();
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
-		virtual void OnUpdate(Timestep ts) override;
-		virtual void OnEvent(Event& event) override;
 
 	private:
-
+		Window* m_Window;
+		GraphicsAPI* m_GraphicsAPI;
 	};
 }

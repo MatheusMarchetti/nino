@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Core/Core.h"
-
 namespace nino
 {
-	class CORE_API Timestep
+	class Timestep
 	{
 	public:
 		Timestep(float time = 0.0f) : m_Time(time)

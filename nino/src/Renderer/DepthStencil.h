@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
 #include "Renderer/GraphicsCore.h"
 
 namespace nino
@@ -10,7 +9,7 @@ namespace nino
 
 namespace nino
 {
-	class CORE_API DepthStencil
+	class DepthStencil
 	{
 	public:
 		DepthStencil(uint32_t width, uint32_t height, GraphicsAPI* graphicsAPI);

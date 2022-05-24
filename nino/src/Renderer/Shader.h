@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
 #include "Renderer/GraphicsCore.h"
 
 namespace nino
@@ -10,7 +9,7 @@ namespace nino
 
 namespace nino
 {
-	class CORE_API Shader
+	class Shader
 	{
 	public:
 		Shader(std::wstring filepath, GraphicsAPI* graphicsAPI);

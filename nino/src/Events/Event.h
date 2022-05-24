@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Core/Core.h"
-
 namespace nino
 {
-	class CORE_API Event
+	class Event
 	{
 	public:
 		virtual ~Event() = default;

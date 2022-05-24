@@ -1,12 +1,10 @@
 #pragma once
 
-#include "Core/Core.h"
-
 #include "Core/Layer.h"
 
 namespace nino
 {
-	class CORE_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack() = default;

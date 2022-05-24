@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
-
 #include "Core/Window.h"
 #include "Events/EventManager.h"
 #include "Renderer/Renderer.h"
@@ -12,10 +10,10 @@
 
 namespace nino
 {
-	class CORE_API Application
+	class Application
 	{
 	private:
-		friend int CORE_API CreateApplication(Application* app, const wchar_t* name);
+		friend int CreateApplication(Application* app, const wchar_t* name);
 
 	public:
 		Application(const uint32_t& clientWidth, const uint32_t& clientHeight);
@@ -41,7 +39,7 @@ namespace nino
 		EventManager m_EventManager;
 		Renderer m_Renderer;
 		LayerStack m_LayerStack;
-		Layer* m_ImGuiLayer;
+		GUILayer* m_ImGuiLayer;
 	};
 }
 

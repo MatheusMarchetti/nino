@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
 #include "Renderer/GraphicsCore.h"
 
 #include "Core/NinoMath.h"
@@ -12,7 +11,7 @@ namespace nino
 
 namespace nino
 {
-	class CORE_API VertexBuffer
+	class VertexBuffer
 	{
 		struct Vertex
 		{

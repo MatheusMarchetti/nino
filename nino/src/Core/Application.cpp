@@ -1,6 +1,8 @@
 #include "corepch.h"
 #include "Application.h"
 
+#include "imgui.h"
+
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
@@ -8,7 +10,7 @@ namespace nino
 	{
 		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 
-		m_ImGuiLayer = new GUILayer(m_Window.GetWindow(), m_Renderer.GetAPI());
+		m_ImGuiLayer = new GUILayer(&m_Window, &m_Renderer.GetAPI());
 		PushOverlay(m_ImGuiLayer);
 	}
 
@@ -48,12 +50,23 @@ namespace nino
 			Timestep timestep;
 			timestep.Tick();
 
-			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnUpdate(timestep);
-			}
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnUpdate(timestep);
+				}
 
-			Renderer::Draw();
+				m_ImGuiLayer->Begin();
+
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->RenderUI();
+				}
+
+				m_ImGuiLayer->End();
+
+				Renderer::Present();
+			}
 		}
 	}
 
@@ -67,11 +80,13 @@ namespace nino
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.AttachLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.AttachOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	void Application::PopLayer(Layer* layer)

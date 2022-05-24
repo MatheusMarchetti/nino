@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
-
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
@@ -10,7 +8,7 @@
 
 namespace nino
 {
-	class CORE_API Log
+	class Log
 	{
 	public:
 		Log() { Init(); }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
 #include "Renderer/GraphicsCore.h"
 
 #include "Renderer/DepthStencil.h"
@@ -12,7 +11,7 @@ namespace nino
 
 namespace nino
 {
-	class CORE_API RenderTargets
+	class RenderTargets
 	{
 	public:
 		RenderTargets(uint32_t width, uint32_t height, GraphicsAPI* graphicsAPI);

@@ -1,14 +1,12 @@
 #pragma once
 
-#include "Core/Core.h"
-
 #include "Events/Event.h"
 
 #include "Core/Timestep.h"
 
 namespace nino
 {
-	class CORE_API Layer
+	class Layer
 	{
 	public:
 		Layer() {}
@@ -18,5 +16,6 @@ namespace nino
 		virtual void OnDetach() {}
 		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnEvent(Event& event) {}
+		virtual void RenderUI() {}
 	};
 }

@@ -40,7 +40,10 @@ namespace nino
 		EventManager* const pWnd = reinterpret_cast<EventManager*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 		GUILayer* const pLayer = reinterpret_cast<GUILayer*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
-		while (pLayer->GetMessages(hWnd, msg, wParam, lParam)) {}
+		if (pLayer->GetMessages(hWnd, msg, wParam, lParam))
+		{
+			return true;
+		}
 
 		return pWnd->EventHandler(hWnd, msg, wParam, lParam);
 	}

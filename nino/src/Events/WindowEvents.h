@@ -6,7 +6,7 @@
 
 namespace nino
 {
-	class CORE_API WindowClosedEvent : public Event
+	class WindowClosedEvent : public Event
 	{
 	public:
 		WindowClosedEvent() : m_EventID(EVENT_ID(WindowClosedEvent)) {}
@@ -24,7 +24,7 @@ namespace nino
 		size_t m_EventID;
 	};
 
-	class CORE_API WindowResizedEvent : public Event
+	class WindowResizedEvent : public Event
 	{
 	public:
 		WindowResizedEvent(uint32_t width, uint32_t height) : m_EventID(EVENT_ID(WindowResizedEvent)), m_Width(width), m_Height(height) {}

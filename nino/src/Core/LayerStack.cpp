@@ -16,13 +16,11 @@ namespace nino
 	{
 		m_Layers.emplace(m_Layers.begin() + m_LayerIndex, layer);
 		m_LayerIndex++;
-		layer->OnAttach();
 	}
 
 	void LayerStack::AttachOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);
-		overlay->OnAttach();
 	}
 
 	void LayerStack::DetachLayer(Layer* layer)

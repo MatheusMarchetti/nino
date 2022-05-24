@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Core/Core.h"
-
 namespace nino
 {
-	class CORE_API Window
+	class Window
 	{
 	public:
 		Window(const wchar_t* className, const uint32_t& width, const uint32_t& height);

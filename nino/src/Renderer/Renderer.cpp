@@ -116,7 +116,7 @@ namespace nino
 		DrawPrimitive(PrimitiveType::CUBE);
 	}
 
-	void Renderer::Draw()
+	void Renderer::Present()
 	{
 		s_Data.RenderTargets->Present(s_VSync);
 	}
