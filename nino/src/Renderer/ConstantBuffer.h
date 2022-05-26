@@ -23,7 +23,7 @@ namespace nino
 		~ConstantBuffer() {}
 
 		void SetCamera(vec3f position, vec3f target, vec3f up = { 0.0f, 1.0f, 0.0f });
-		void SetProjection(float fov, float aspectRatio, float nearPlane = 1.0f, float farPlane = 100.0f);
+		void SetProjection(float fov, float aspectRatio, float nearPlane = 0.01f, float farPlane = 10000.0f);
 		void UploadBuffer(mat4 transform = DirectX::XMMatrixIdentity());
 
 		void Release();

@@ -20,7 +20,6 @@ namespace nino
 		void Release();
 
 	private:
-		std::string LoadShaderFromFile(std::wstring path);
 		ID3DBlob* CompileFromFile(std::wstring path, LPCSTR profile);
 
 	private:

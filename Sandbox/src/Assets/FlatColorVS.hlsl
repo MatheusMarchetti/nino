@@ -6,7 +6,7 @@ cbuffer ObjectConstantBuffer : register(b0)
 struct VertexShaderInput
 {
 	float3 Position : POSITION;
-	float3 Color	: COLOR;
+	float4 Color	: COLOR;
 };
 
 struct VertexShaderOutput
@@ -19,7 +19,7 @@ struct VertexShaderOutput
 VertexShaderOutput main( VertexShaderInput IN )
 {
 	VertexShaderOutput OUT;
-	OUT.Color = float4(IN.Color, 1.0f);
+    OUT.Color = IN.Color;
     OUT.Position = mul(float4(IN.Position, 1.0f), MVP);
 
 	return OUT;

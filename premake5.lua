@@ -20,6 +20,7 @@ workspace (solutionname)
     IncludeDir = {}
     IncludeDir["spdlog"] = "%{wks.location}/"..corename.."/vendor/spdlog/include"
     IncludeDir["ImGui"] = "%{wks.location}/"..corename.."/vendor/imgui"
+    IncludeDir["entt"] = "%{wks.location}/"..corename.."/vendor/entt/include"
 
     include (corename.."/vendor/imgui")
 
@@ -57,7 +58,8 @@ project (corename)
     {
         "%{prj.name}/src/",
         "%{IncludeDir.spdlog}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.entt}"
     }
 
     postbuildcommands
@@ -104,7 +106,8 @@ project (appname)
         "%{prj.name}/src/",
         corename.."/src/",
         "%{IncludeDir.spdlog}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.entt}"
     }
 
     filter "configurations:Debug"

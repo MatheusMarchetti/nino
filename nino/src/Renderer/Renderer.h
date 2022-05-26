@@ -4,6 +4,8 @@
 
 #include "Core/NinoMath.h"
 
+#include "Scene/Components.h"
+
 namespace nino
 {
 	class Window;
@@ -30,6 +32,8 @@ namespace nino
 		static void DrawTriangle(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
 		static void DrawQuad(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
 		static void DrawCube(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
+		static void DrawCube(vec4f color, vec3f position, vec3f size, float rotation = 0.0f);
+		static void DrawCube(mat4& transform, MeshComponent& mesh, int EntityID);
 
 		static void Present();
 

@@ -60,14 +60,14 @@ namespace nino
 		case PrimitiveType::CUBE:
 		{
 			Vertex m_Cube[8] = {
-			{{-0.5f, -0.5f, 0.0f}, color},
-			{{-0.5f,  0.5f, 0.0f}, color},
-			{{ 0.5f,  0.5f, 0.0f}, color},
-			{{ 0.5f, -0.5f, 0.0f}, color},
 			{{-0.5f, -0.5f, 1.0f}, color},
 			{{-0.5f,  0.5f, 1.0f}, color},
 			{{ 0.5f,  0.5f, 1.0f}, color},
 			{{ 0.5f, -0.5f, 1.0f}, color},
+			{{-0.5f, -0.5f, 2.0f}, color},
+			{{-0.5f,  0.5f, 2.0f}, color},
+			{{ 0.5f,  0.5f, 2.0f}, color},
+			{{ 0.5f, -0.5f, 2.0f}, color},
 			};
 			vertexDesc.ByteWidth = sizeof(Vertex) * ARRAYSIZE(m_Cube);
 

@@ -116,6 +116,27 @@ namespace nino
 		DrawPrimitive(PrimitiveType::CUBE);
 	}
 
+	void Renderer::DrawCube(vec4f color, vec3f position, vec3f size, float rotation)
+	{
+		vec4 rotationAxis = XMVectorSet(0, 1, 1, 0);
+		mat4 transform = XMMatrixTranslation(position.x, position.y, position.z) *
+			XMMatrixRotationAxis(rotationAxis, XMConvertToRadians(rotation)) *
+			XMMatrixScaling(size.x, size.y, size.z);
+
+		s_Data.CubeVertexBuffer->SetVertexBuffer(color, PrimitiveType::CUBE);
+		s_Data.CubeConstantBuffer->UploadBuffer(transform);
+
+		DrawPrimitive(PrimitiveType::CUBE);
+	}
+
+	void Renderer::DrawCube(mat4& transform, MeshComponent& mesh, int EntityID)
+	{
+		s_Data.CubeVertexBuffer->SetVertexBuffer(mesh.Color, PrimitiveType::CUBE);
+		s_Data.CubeConstantBuffer->UploadBuffer(transform);
+
+		DrawPrimitive(PrimitiveType::CUBE);
+	}
+
 	void Renderer::Present()
 	{
 		s_Data.RenderTargets->Present(s_VSync);

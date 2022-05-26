@@ -29,7 +29,7 @@ namespace nino
 		D3D11_INPUT_ELEMENT_DESC inputDesc[] = 
 		{
 			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			{"COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
+			{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
 		};
 
 		device->CreateInputLayout(inputDesc, ARRAYSIZE(inputDesc), m_vertexBlob->GetBufferPointer(), m_vertexBlob->GetBufferSize(), &m_InputLayout);
@@ -46,24 +46,6 @@ namespace nino
 		m_PixelShader = nullptr;
 
 		m_GraphicsAPI = nullptr;
-	}
-
-	std::string Shader::LoadShaderFromFile(std::wstring path)
-	{
-		std::string fileData = "";
-
-		std::ifstream shaderFile(path, std::ios::in | std::ios::binary | std::ios::ate);
-
-		if (shaderFile.is_open())
-		{
-			uint32_t lenght = shaderFile.tellg();
-
-			shaderFile.seekg(0, std::ios::beg);
-			shaderFile.read(&fileData[0], lenght);
-			shaderFile.close();
-		}
-
-		return fileData;
 	}
 
 	ID3DBlob* Shader::CompileFromFile(std::wstring path, LPCSTR profile)
