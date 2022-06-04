@@ -7,10 +7,14 @@
 namespace nino
 {
 	LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
+	uint32_t Window::s_Width = 0;
+	uint32_t Window::s_Height = 0;
 
-	Window::Window(const wchar_t* className, const uint32_t& width, const uint32_t& height)
-		: m_Width(width), m_Height(height)
+	void Window::Init(const char* className, const uint32_t& width, const uint32_t& height)
 	{
+		s_Width = width;
+		s_Height = height;
+
 		SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
 		HINSTANCE hInstance = GetModuleHandle(NULL);

@@ -25,19 +25,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profiling|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -77,10 +77,11 @@
       <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CORE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -88,11 +89,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug\nino\nino.lib\ (xcopy /Q /E /Y /I ..\bin\Debug\nino\nino.lib "..\bin\Debug\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug\nino\nino.lib "..\bin\Debug\Sandbox\" &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profiling|x64'">
     <ClCompile>
@@ -100,13 +98,14 @@
       <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CORE_PROFILING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -115,11 +114,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Profiling\nino\nino.lib\ (xcopy /Q /E /Y /I ..\bin\Profiling\nino\nino.lib "..\bin\Profiling\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Profiling\nino\nino.lib "..\bin\Profiling\Sandbox\" &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -127,13 +123,14 @@
       <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CORE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -142,34 +139,26 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
-    <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release\nino\nino.lib\ (xcopy /Q /E /Y /I ..\bin\Release\nino\nino.lib "..\bin\Release\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release\nino\nino.lib "..\bin\Release\Sandbox\" &gt; nul)</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Core\Layer.h" />
     <ClInclude Include="src\Core\LayerStack.h" />
-    <ClInclude Include="src\Core\NinoMath.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Debug\GUILayer.h" />
+    <ClInclude Include="src\Debug\GraphicsInfo.h" />
     <ClInclude Include="src\Debug\Log.h" />
+    <ClInclude Include="src\Debug\WindowInfo.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\EventManager.h" />
     <ClInclude Include="src\Events\WindowEvents.h" />
-    <ClInclude Include="src\Renderer\ConstantBuffer.h" />
-    <ClInclude Include="src\Renderer\DepthStencil.h" />
-    <ClInclude Include="src\Renderer\GraphicsAPI.h" />
-    <ClInclude Include="src\Renderer\GraphicsCore.h" />
-    <ClInclude Include="src\Renderer\IndexBuffer.h" />
-    <ClInclude Include="src\Renderer\RenderTargets.h" />
+    <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
+    <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
-    <ClInclude Include="src\Renderer\Shader.h" />
-    <ClInclude Include="src\Renderer\VertexBuffer.h" />
     <ClInclude Include="src\Scene\Components.h" />
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\Scene.h" />
@@ -181,16 +170,12 @@
     <ClCompile Include="src\Core\LayerStack.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
     <ClCompile Include="src\Debug\GUILayer.cpp" />
+    <ClCompile Include="src\Debug\GraphicsInfo.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
+    <ClCompile Include="src\Debug\WindowInfo.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
-    <ClCompile Include="src\Renderer\ConstantBuffer.cpp" />
-    <ClCompile Include="src\Renderer\DepthStencil.cpp" />
-    <ClCompile Include="src\Renderer\GraphicsAPI.cpp" />
-    <ClCompile Include="src\Renderer\IndexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\RenderTargets.cpp" />
+    <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Renderer\VertexBuffer.cpp" />
     <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\corepch.cpp">

@@ -5,7 +5,7 @@ workspace (solutionname)
     cppdialect "C++17"
     architecture "x64"
     systemversion "latest"
-    characterset "Unicode"
+    characterset "MBCS"
     startproject (appname)
 
     configurations
@@ -21,6 +21,7 @@ workspace (solutionname)
     IncludeDir["spdlog"] = "%{wks.location}/"..corename.."/vendor/spdlog/include"
     IncludeDir["ImGui"] = "%{wks.location}/"..corename.."/vendor/imgui"
     IncludeDir["entt"] = "%{wks.location}/"..corename.."/vendor/entt/include"
+    IncludeDir["DirectXTK"] = "%{wks.location}/"..corename.."/vendor/DirectXTK/Inc"
 
     include (corename.."/vendor/imgui")
 
@@ -28,6 +29,7 @@ project (corename)
     kind "StaticLib"
     staticruntime "On"
     location (corename)
+    buildoptions "/MTd"
     
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
@@ -45,7 +47,8 @@ project (corename)
         "d3d11",
         "dxgi",
         "d3dcompiler",
-        "ImGui"
+        "dxguid",
+        "ImGui",
     }
 
     files
@@ -59,12 +62,13 @@ project (corename)
         "%{prj.name}/src/",
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.DirectXTK}"
     }
 
     postbuildcommands
     {
-        ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" ..outputdir.. "/"..appname.."/\"")
+
     }
 
     filter "configurations:Debug"
@@ -86,6 +90,7 @@ project (appname)
     kind "ConsoleApp"
     staticruntime "On"
     location (appname)
+    buildoptions "/MTd"
 
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
@@ -107,7 +112,7 @@ project (appname)
         corename.."/src/",
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
     }
 
     filter "configurations:Debug"

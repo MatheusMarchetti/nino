@@ -4,19 +4,17 @@ namespace nino
 {
 	class Window
 	{
-	public:
-		Window(const wchar_t* className, const uint32_t& width, const uint32_t& height);
-		~Window() {}
-		
+	public:		
+		void Init(const char* className, const uint32_t& width, const uint32_t& height);
 		void Show();
 
 		HWND& GetWindow() { return m_Window; }
-		const uint32_t GetWidth() { return m_Width; }
-		const uint32_t GetHeight() { return m_Height; }
+		static const uint32_t GetWidth() { return s_Width; }
+		static const uint32_t GetHeight() { return s_Height; }
 
 	private:
 		HWND m_Window;
-		uint32_t m_Width;
-		uint32_t m_Height;
+		static uint32_t s_Width;
+		static uint32_t s_Height;
 	};
 }

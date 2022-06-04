@@ -7,8 +7,12 @@ class SandboxApp : public nino::Application
 public:
 	SandboxApp() : Application(1280, 720) 
 	{
-		PushLayer(new ApplicationLayer());
+		m_TestLayer = new ApplicationLayer();
+		PushLayer(m_TestLayer);
 	}
+
+private:
+	ApplicationLayer* m_TestLayer = nullptr;
 };
 
 InitializeEngine(SandboxApp);

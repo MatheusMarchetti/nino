@@ -6,7 +6,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 
-#include "Renderer/GraphicsAPI.h"
+#include "Renderer/GraphicsAPI/GraphicsAPI.h"
 #include "Core/Window.h"
 
 #include "Scene/Components.h" //To remove
@@ -34,7 +34,7 @@ namespace nino
 		}
 	}
 
-	static void DrawVec3Control(const std::string& label, vec3f& values, float resetValue = 0.0f, float columnWidth = 100.0f)
+	static void DrawVec3Control(const std::string& label, DirectX::XMFLOAT3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
 	{
 		ImGui::PushID(label.c_str());
 
@@ -120,13 +120,6 @@ namespace nino
 
 					ImGui::CloseCurrentPopup();
 				}
-				if (ImGui::MenuItem("Mesh component"))
-				{
-					if (!m_SelectionContext.HasComponent<MeshComponent>())
-						m_SelectionContext.AddComponent<MeshComponent>();
-
-					ImGui::CloseCurrentPopup();
-				}
 
 				ImGui::EndPopup();
 			}
@@ -137,17 +130,11 @@ namespace nino
 					DrawVec3Control("Rotation", component.Rotation);
 					DrawVec3Control("Scale", component.Scale, 1.0f);
 				});
-
-			DrawComponent<MeshComponent>("Mesh", entity, [](auto& component)
-				{
-					float* color[4] = { &component.Color.x, &component.Color.y, &component.Color.z, &component.Color.w };
-					ImGui::ColorEdit4("Color", *color);
-				});
 		}
 	}
 
-	GUILayer::GUILayer(Window* window, GraphicsAPI* graphicsAPI)
-		: m_Window(window), m_GraphicsAPI(graphicsAPI)
+	GUILayer::GUILayer(Window* window)
+		: m_Window(window)
 	{
 		ImGui::CreateContext();
 	}
@@ -176,7 +163,7 @@ namespace nino
 		}
 
 		ImGui_ImplWin32_Init(m_Window->GetWindow());
-		ImGui_ImplDX11_Init(m_GraphicsAPI->GetDevice().Get(), m_GraphicsAPI->GetContext().Get());
+		ImGui_ImplDX11_Init(GraphicsAPI::GetDevice().Get(), GraphicsAPI::GetContext().Get());
 	}
 
 	void GUILayer::Begin()

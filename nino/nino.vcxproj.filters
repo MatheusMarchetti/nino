@@ -13,6 +13,9 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\GraphicsAPI">
+      <UniqueIdentifier>{D6677642-C2F6-FF0B-6B15-1407578310B2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{B3F7140E-1F0C-3DBF-E88D-E01E546139F0}</UniqueIdentifier>
     </Filter>
@@ -30,9 +33,6 @@
     <ClInclude Include="src\Core\LayerStack.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\NinoMath.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -42,7 +42,13 @@
     <ClInclude Include="src\Debug\GUILayer.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="src\Debug\GraphicsInfo.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\Debug\Log.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Debug\WindowInfo.h">
       <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\Event.h">
@@ -54,31 +60,13 @@
     <ClInclude Include="src\Events\WindowEvents.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\ConstantBuffer.h">
-      <Filter>Renderer</Filter>
+    <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h">
+      <Filter>Renderer\GraphicsAPI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\DepthStencil.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\GraphicsAPI.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\GraphicsCore.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\IndexBuffer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\RenderTargets.h">
-      <Filter>Renderer</Filter>
+    <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h">
+      <Filter>Renderer\GraphicsAPI</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Renderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\Shader.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\VertexBuffer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Components.h">
@@ -106,34 +94,22 @@
     <ClCompile Include="src\Debug\GUILayer.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
+    <ClCompile Include="src\Debug\GraphicsInfo.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
     <ClCompile Include="src\Debug\Log.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Debug\WindowInfo.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="src\Events\EventManager.cpp">
       <Filter>Events</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\ConstantBuffer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\DepthStencil.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\GraphicsAPI.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\IndexBuffer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\RenderTargets.cpp">
-      <Filter>Renderer</Filter>
+    <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp">
+      <Filter>Renderer\GraphicsAPI</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Renderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Shader.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\VertexBuffer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Entity.cpp">

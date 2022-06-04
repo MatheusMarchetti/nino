@@ -5,14 +5,15 @@
 void ApplicationLayer::OnAttach()
 {
 	nino::Renderer::ToggleVSync(true);
+	nino::Renderer::SetViewport(nino::Window::GetWidth(), nino::Window::GetHeight());
 
 	m_TestScene = nino::CreateRef<nino::Scene>();
 
 	//Test scene
-#if 1
+#if 0
 	auto floor = m_TestScene->CreateEntity("Floor");
 	floor.AddComponent<nino::TransformComponent>();
-	floor.AddComponent<nino::MeshComponent>();
+	floor.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Wood Floor.jpg");
 
 	auto& floorTranslation = floor.GetComponent<nino::TransformComponent>().Translation;
 	auto& floorScale = floor.GetComponent<nino::TransformComponent>().Scale;
@@ -22,7 +23,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Cube = m_TestScene->CreateEntity("Cube");
 	Cube.AddComponent<nino::TransformComponent>();
-	Cube.AddComponent<nino::MeshComponent>();
+	Cube.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Box.jpg");
 
 	auto& CubeTranslation = Cube.GetComponent<nino::TransformComponent>().Translation;
 	auto& CubeScale = Cube.GetComponent<nino::TransformComponent>().Scale;
@@ -32,7 +33,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Brick = m_TestScene->CreateEntity("Brick");
 	Brick.AddComponent<nino::TransformComponent>();
-	Brick.AddComponent<nino::MeshComponent>();
+	Brick.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Bricks.jpg");
 
 	auto& BrickTranslation = Brick.GetComponent<nino::TransformComponent>().Translation;
 	auto& BrickRotation = Brick.GetComponent<nino::TransformComponent>().Rotation;
@@ -44,7 +45,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Building = m_TestScene->CreateEntity("Building");
 	Building.AddComponent<nino::TransformComponent>();
-	Building.AddComponent<nino::MeshComponent>();
+	Building.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Stone.jpg");
 
 	auto& BuildingTranslation = Building.GetComponent<nino::TransformComponent>().Translation;
 	auto& BuildingScale = Building.GetComponent<nino::TransformComponent>().Scale;
@@ -54,7 +55,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Window1 = m_TestScene->CreateEntity("Window1");
 	Window1.AddComponent<nino::TransformComponent>();
-	Window1.AddComponent<nino::MeshComponent>();
+	Window1.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Glazed.jpg");
 
 	auto& Window1Translation = Window1.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window1Scale = Window1.GetComponent<nino::TransformComponent>().Scale;
@@ -64,7 +65,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Window2 = m_TestScene->CreateEntity("Window2");
 	Window2.AddComponent<nino::TransformComponent>();
-	Window2.AddComponent<nino::MeshComponent>();
+	Window2.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Glazed.jpg");
 
 	auto& Window2Translation = Window2.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window2Scale = Window2.GetComponent<nino::TransformComponent>().Scale;
@@ -74,7 +75,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Window3 = m_TestScene->CreateEntity("Window3");
 	Window3.AddComponent<nino::TransformComponent>();
-	Window3.AddComponent<nino::MeshComponent>();
+	Window3.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Glazed.jpg");
 
 	auto& Window3Translation = Window3.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window3Scale = Window3.GetComponent<nino::TransformComponent>().Scale;
@@ -84,14 +85,13 @@ void ApplicationLayer::OnAttach()
 
 	auto Window4 = m_TestScene->CreateEntity("Window4");
 	Window4.AddComponent<nino::TransformComponent>();
-	Window4.AddComponent<nino::MeshComponent>();
+	Window4.AddComponent<nino::MeshComponent>(L"C:/dev/Game Engine/nino/Sandbox/Assets/Textures/Glazed.jpg");
 
 	auto& Window4Translation = Window4.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window4Scale = Window4.GetComponent<nino::TransformComponent>().Scale;
 
 	Window4Translation = { -1.4f, 0.6f, 3.8f };
 	Window4Scale = { 0.7f, 0.1f, 0.5f };
-
 #endif
 
 	m_Layer.SetContext(m_TestScene);
@@ -101,10 +101,13 @@ void ApplicationLayer::OnUpdate(nino::Timestep ts)
 {
 	float color[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
-	nino::Renderer::SetTargets();
 	nino::Renderer::Clear(color);
 
-	m_TestScene->UpdateScene(ts);
+	nino::Renderer::BeginScene(m_TestScene);
+
+		m_TestScene->UpdateScene(ts);
+
+	nino::Renderer::EndScene();
 }
 
 void ApplicationLayer::OnEvent(nino::Event& event)

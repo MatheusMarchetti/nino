@@ -18,7 +18,7 @@ namespace nino
 	{
 	public:
 		GUILayer() = default;
-		GUILayer(Window* window, GraphicsAPI* graphicsAPI);
+		GUILayer(Window* window);
 		virtual ~GUILayer() {};
 
 		bool GetMessages(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -36,7 +36,6 @@ namespace nino
 
 	private:
 		Window* m_Window;
-		GraphicsAPI* m_GraphicsAPI;
 
 		Ref<Scene> m_Context;
 		Entity m_SelectionContext;

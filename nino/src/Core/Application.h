@@ -13,13 +13,13 @@ namespace nino
 	class Application
 	{
 	private:
-		friend int CreateApplication(Application* app, const wchar_t* name);
+		friend int CreateApplication(Application* app, const char* name);
 
 	public:
 		Application(const uint32_t& clientWidth, const uint32_t& clientHeight);
 		virtual ~Application();
 
-		void SetWindowTitle(const wchar_t* name);
+		void SetWindowTitle(const char* name);
 
 		void OnEvent(Event& event);
 
@@ -48,13 +48,13 @@ namespace nino
 	int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) \
 	{ \
 		nino::Log::Init(); \
-		return nino::CreateApplication(new appclass(), L#appclass); \
+		return nino::CreateApplication(new appclass(), #appclass); \
 	}
 #else
 #define InitializeEngine(appclass) \
 	int main() \
 	{ \
 		nino::Log::Init(); \
-		return nino::CreateApplication(new appclass(), L#appclass); \
+		return nino::CreateApplication(new appclass(), #appclass); \
 	}
 #endif

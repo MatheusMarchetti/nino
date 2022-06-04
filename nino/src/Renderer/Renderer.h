@@ -1,49 +1,31 @@
 #pragma once
 
-#include "Renderer/GraphicsAPI.h"
+#include "Core/Core.h"
 
-#include "Core/NinoMath.h"
-
-#include "Scene/Components.h"
+#include "Renderer/GraphicsAPI/GraphicsCore.h"
 
 namespace nino
 {
 	class Window;
+	class Scene;
 }
 
 namespace nino
 {
 	class Renderer
 	{
-
 	public:
-		Renderer(Window* window);
-		~Renderer();
-
-		GraphicsAPI& GetAPI() { return m_GraphicsAPI; }
+		void Init(Window* window);
 
 		static void ToggleVSync(bool vSync) { s_VSync = vSync; }
 
-		static void SetTargets();
-		static void SetViewport(uint32_t width, uint32_t height);
+		static void SetViewport(uint32_t width, uint32_t height, uint32_t topX = 0, uint32_t topY = 0);
 		static void Clear(float color[4], float depth = 1.0f);
 
-		// Draw Primitives
-		static void DrawTriangle(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
-		static void DrawQuad(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
-		static void DrawCube(vec4f color, vec3f position, vec3f size, vec3f rotation = {});
-		static void DrawCube(vec4f color, vec3f position, vec3f size, float rotation = 0.0f);
-		static void DrawCube(mat4& transform, MeshComponent& mesh, int EntityID);
-
-		static void Present();
-
-	private:
-		static void DrawPrimitive(PrimitiveType primitive);
+		static void BeginScene(Ref<Scene>& scene);
+		static void EndScene();
 		
 	private:
 		static bool s_VSync;
-		float m_AspectRatio;
-
-		GraphicsAPI m_GraphicsAPI;
 	};
 }

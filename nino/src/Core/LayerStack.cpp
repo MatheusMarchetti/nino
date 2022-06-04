@@ -8,7 +8,6 @@ namespace nino
 		for (Layer* layer : m_Layers)
 		{
 			layer->OnDetach();
-			delete layer;
 		}
 	}
 
@@ -30,6 +29,7 @@ namespace nino
 		if (it != m_Layers.begin() + m_LayerIndex)
 		{
 			layer->OnDetach();
+			delete layer;
 			m_Layers.erase(it);
 			m_LayerIndex--;
 		}
@@ -42,6 +42,7 @@ namespace nino
 		if (it != m_Layers.end())
 		{
 			overlay->OnDetach();
+			delete overlay;
 			m_Layers.erase(it);
 		}
 	}

@@ -23,14 +23,7 @@ namespace nino
 
 	void Scene::UpdateScene(Timestep ts)
 	{
-		// Entity updating (and rendering) goes here
-		auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
-		for (auto entity : group)
-		{
-			auto [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-
-			Renderer::DrawCube(transform.GetTransform(), mesh, (int)entity);
-		}
+		// Draw here
 	}
 }
 

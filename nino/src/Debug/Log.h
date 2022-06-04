@@ -4,8 +4,6 @@
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-#include <comdef.h>
-
 namespace nino
 {
 	class Log
@@ -35,41 +33,4 @@ namespace nino
 #define NINO_WARN(...) nino::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define NINO_FATAL(...) nino::Log::GetClientLogger()->fatal(__VA_ARGS__)
 
-	template<typename T>
-	T ThrowOnError(T returnValue, int errorLine, const wchar_t* file)
-	{
-		DWORD error;
-		HRESULT hresultError = S_OK;
-
-		if (typeid(T) != typeid(HRESULT))
-		{
-			if (returnValue == 0)
-			{
-				error = GetLastError();
-				hresultError = HRESULT_FROM_WIN32(error);
-			}
-		}
-		else
-		{
-			if (FAILED(returnValue))
-			{
-				hresultError = (HRESULT)returnValue;
-			}
-		}
-
-		if (FAILED(hresultError))
-		{
-			_com_error err(hresultError);
-			error = HRESULT_CODE(hresultError);
-
-			NINO_CORE_ERROR(L"[ERROR] {:#4x}: {} ({}, {})", error, err.ErrorMessage(), file, errorLine);
-		}
-
-		return returnValue;
-	}
-
-#define WIDEN2(x) L##x
-#define WIDEN(x) WIDEN2(x)
-#define __WFILE__ WIDEN(__FILE__)
-#define ThrowOnError(x) ThrowOnError(x, __LINE__, __WFILE__);
 }

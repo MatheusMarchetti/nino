@@ -6,21 +6,30 @@
 namespace nino
 {
 	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
-		: m_Window(L"nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight)), m_Renderer(&m_Window)
 	{
-		m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+		try
+		{
+			m_Window.Init("nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight));
+			m_Renderer.Init(&m_Window);
 
-		m_ImGuiLayer = new GUILayer(&m_Window, &m_Renderer.GetAPI());
-		PushOverlay(m_ImGuiLayer);
+			m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+
+			m_ImGuiLayer = new GUILayer(&m_Window);
+			PushOverlay(m_ImGuiLayer);
+		}
+		catch (std::exception e)
+		{
+			MessageBox(nullptr, e.what(), "Nino Exception Caught!", MB_OK | MB_ICONERROR);
+			exit(0);
+		}
 	}
 
 	Application::~Application()
 	{
-		PopOverlay(m_ImGuiLayer);
-		delete m_ImGuiLayer;
+		
 	}
 
-	void Application::SetWindowTitle(const wchar_t* name)
+	void Application::SetWindowTitle(const char* name)
 	{
 		SetWindowText(m_Window.GetWindow(), name);
 	}
@@ -50,22 +59,18 @@ namespace nino
 			Timestep timestep;
 			timestep.Tick();
 
+			m_ImGuiLayer->Begin();
+
+			for (Layer* layer : m_LayerStack)
 			{
-				for (Layer* layer : m_LayerStack)
-				{
-					layer->OnUpdate(timestep);
-				}
+				layer->RenderUI();
+			}
 
-				m_ImGuiLayer->Begin();
+			m_ImGuiLayer->End();
 
-				for (Layer* layer : m_LayerStack)
-				{
-					layer->RenderUI();
-				}
-
-				m_ImGuiLayer->End();
-
-				Renderer::Present();
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnUpdate(timestep);
 			}
 		}
 	}
@@ -99,11 +104,19 @@ namespace nino
 		m_LayerStack.DetachOverlay(overlay);
 	}
 
-	int CreateApplication(Application* app, const wchar_t* name)
+	int CreateApplication(Application* app, const char* name)
 	{
 		app->SetWindowTitle(name);
 
-		app->Run();
+		try
+		{
+			app->Run();
+		}
+		catch (std::exception e)
+		{
+			MessageBox(nullptr, e.what(), "Nino Exception Caught!", MB_OK | MB_ICONERROR);
+			exit(0);
+		}
 
 		delete app;
 

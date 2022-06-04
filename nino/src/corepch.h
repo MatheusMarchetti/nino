@@ -21,4 +21,6 @@
 
 /*ENGINE STUFF*/
 #include "Debug/Log.h"
+#include "Debug/WindowInfo.h"
+#include "Debug/GraphicsInfo.h"
 /*ENGINE STUFF*/
