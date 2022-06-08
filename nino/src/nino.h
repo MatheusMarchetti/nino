@@ -11,4 +11,6 @@
 #include "Scene/Entity.h"
 #include "Scene/Scene.h"
 
+#include "Renderer/Drawable/Primitives.h"
+
 #include "Debug/GUILayer.h" //To remove

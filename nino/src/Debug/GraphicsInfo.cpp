@@ -6,6 +6,7 @@ namespace nino
 	unsigned long long GraphicsInfo::m_NextMessage = 0;
 	std::string GraphicsInfo::m_ErrorMessage;
 	IDXGIInfoQueue* GraphicsInfo::m_InfoQueue = nullptr;
+	IDXGIDebug* GraphicsInfo::m_DebugInterface = nullptr;
 
 	void GraphicsInfo::Set()
 	{
@@ -20,7 +21,11 @@ namespace nino
 		if (!GetDebugInterface)
 			throw std::exception("Failed to load symbols from dll");
 
-		ThrowOnError(GetDebugInterface(IID_PPV_ARGS(&m_InfoQueue)));
+		if(!m_InfoQueue)
+			ThrowOnError(GetDebugInterface(IID_PPV_ARGS(&m_InfoQueue)));
+		if(!m_DebugInterface)
+			ThrowOnError(GetDebugInterface(IID_PPV_ARGS(&m_DebugInterface)));
+
 		m_NextMessage = m_InfoQueue->GetNumStoredMessages(DXGI_DEBUG_ALL);
 	}
 
@@ -62,10 +67,17 @@ namespace nino
 		return m_ErrorMessage;
 	}
 
+	void GraphicsInfo::ReportObjects()
+	{
+		ThrowOnError(m_DebugInterface->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_ALL));
+	}
+
 	void GraphicsInfo::Release()
 	{
-		if (!m_InfoQueue)
+		if (m_InfoQueue)
 			m_InfoQueue->Release();
+		if (m_DebugInterface)
+			m_DebugInterface->Release();
 	}
 }
 

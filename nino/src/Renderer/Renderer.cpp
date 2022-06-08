@@ -5,6 +5,7 @@
 #include "Core/Window.h"
 
 #include "Renderer/GraphicsAPI/GraphicsAPI.h"
+#include "Renderer/Bindable/BindableCore.h"
 
 namespace nino
 {
@@ -12,7 +13,8 @@ namespace nino
 
 	struct RendererData
 	{
-
+		float AspectRatio;
+		Scope<VertexConstantBuffer<SceneBuffer>> SceneConstantBuffer;
 	};
 
 	static RendererData s_Data;
@@ -21,6 +23,9 @@ namespace nino
 	void Renderer::Init(Window* window)
 	{
 		GraphicsAPI::Init(window);
+
+		s_Data.AspectRatio = (float)window->GetWidth() / (float)window->GetHeight();
+		s_Data.SceneConstantBuffer = CreateScope< VertexConstantBuffer<SceneBuffer>>();
 
 		NINO_CORE_INFO("Renderer subsystem initialized!");
 	}
@@ -35,12 +40,20 @@ namespace nino
 		GraphicsAPI::Clear(color, depth);
 	}
 
-	void Renderer::BeginScene(Ref<Scene>& scene)
+	void Renderer::BeginScene()
 	{
-		// Send everything that should be updated per frame to the pipeline
+		SceneBuffer sceneCB;
+
+		auto View = XMMatrixTranspose(XMMatrixTranslation(0.0f, 0.0f, 5.0f) * XMMatrixIdentity());
+		auto Projection = XMMatrixTranspose(XMMatrixPerspectiveFovLH(0.785f, s_Data.AspectRatio, 0.1f, 1000.0f));
+		
+		XMStoreFloat4x4(&sceneCB.ViewProjection, Projection * View); // As I cannot transpose the MVP matrix before passing to shader, I have to invert multiplication order.
+
+		s_Data.SceneConstantBuffer->Update(sceneCB);
+		s_Data.SceneConstantBuffer->Bind(0);
 	}
 
-	void Renderer::EndScene()
+	void Renderer::EndScenes()
 	{
 		GraphicsAPI::Present(s_VSync);
 	}

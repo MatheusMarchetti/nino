@@ -10,12 +10,14 @@ namespace nino
 		static void Set();
 		static std::vector<std::string> GetMessages();
 		static std::string ThrowException(std::vector<std::string>& errorMessages);
+		static void ReportObjects();
 		static void Release();
 
 	private:
 		static std::string m_ErrorMessage;
 		static unsigned long long m_NextMessage;
 		static IDXGIInfoQueue* m_InfoQueue;
+		static IDXGIDebug* m_DebugInterface;
 	};
 
 #ifdef CORE_DEBUG

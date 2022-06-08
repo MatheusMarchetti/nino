@@ -7,6 +7,8 @@
 #include "imgui_internal.h"
 
 #include "Renderer/GraphicsAPI/GraphicsAPI.h"
+#include "Renderer/Drawable/Primitives.h"
+
 #include "Core/Window.h"
 
 #include "Scene/Components.h" //To remove
@@ -18,7 +20,7 @@ namespace nino
 	template<typename T, typename Func>
 	static void DrawComponent(const std::string& name, Entity entity, Func func)
 	{
-		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_DefaultOpen;
+		ImGuiTreeNodeFlags treeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Leaf;
 
 		if (entity.HasComponent<T>())
 		{
@@ -120,6 +122,15 @@ namespace nino
 
 					ImGui::CloseCurrentPopup();
 				}
+				if (ImGui::MenuItem("Mesh component"))
+				{
+					if (!m_SelectionContext.HasComponent<DrawableComponent>())
+					{
+						m_SelectionContext.AddComponent<DrawableComponent>();
+					}
+
+					ImGui::CloseCurrentPopup();
+				}
 
 				ImGui::EndPopup();
 			}
@@ -129,6 +140,46 @@ namespace nino
 					DrawVec3Control("Translation", component.Translation);
 					DrawVec3Control("Rotation", component.Rotation);
 					DrawVec3Control("Scale", component.Scale, 1.0f);
+				});
+
+			DrawComponent<DrawableComponent>("Mesh", entity, [&](auto& component)
+				{
+					const char* meshTypes[] = { "Cube", "Sphere"};
+					static int selectedMesh = 0;
+					const char* preview = meshTypes[selectedMesh];
+
+					if (ImGui::BeginCombo("Mesh types", preview, ImGuiComboFlags_NoArrowButton))
+					{
+						for (int n = 0; n < IM_ARRAYSIZE(meshTypes); n++)
+						{
+							const bool isSelected = (selectedMesh == n);
+
+							if (ImGui::Selectable(meshTypes[n], isSelected))
+							{
+								selectedMesh = n;
+							}
+
+							if (isSelected)
+								ImGui::SetItemDefaultFocus();
+
+						}
+						ImGui::EndCombo();
+					}
+
+					switch(selectedMesh)
+					{
+					case 0:		
+					{
+						m_SelectionContext.GetComponent<DrawableComponent>().Model = nullptr;
+						m_SelectionContext.GetComponent<DrawableComponent>().Model = CreateRef<Cube>();
+						break;
+					}
+					case 1:
+					{
+						m_SelectionContext.GetComponent<DrawableComponent>().Model = nullptr;
+						break;
+					}
+					}
 				});
 		}
 	}
@@ -205,6 +256,9 @@ namespace nino
 
 	void GUILayer::TestRender()
 	{
+//		bool show = true;
+//		ImGui::ShowDemoWindow(&show);
+
 		ImGui::Begin("Scene Hierarchy");
 			
 		m_Context->m_Registry.each([&](auto entityID)

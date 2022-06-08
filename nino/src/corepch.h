@@ -18,6 +18,7 @@
 #include <fstream>
 #include <typeinfo>
 #include <sstream>
+#include <filesystem>
 
 /*ENGINE STUFF*/
 #include "Debug/Log.h"

@@ -3,14 +3,16 @@
 
 #include "Core/Window.h"
 
+#include "Debug/GraphicsInfo.h"
+
 namespace nino
 {
-	Microsoft::WRL::ComPtr<ID3D11Device> GraphicsAPI::m_Device;
-	Microsoft::WRL::ComPtr<ID3D11DeviceContext> GraphicsAPI::m_DeviceContext;
-	Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::m_SwapChain;
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GraphicsAPI::m_RenderTargetView;
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GraphicsAPI::m_DepthStencilView;
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> GraphicsAPI::m_DepthStencilState;
+	Microsoft::WRL::ComPtr<ID3D11Device> GraphicsAPI::m_Device = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> GraphicsAPI::m_DeviceContext = nullptr;
+	Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::m_SwapChain = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GraphicsAPI::m_RenderTargetView = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GraphicsAPI::m_DepthStencilView = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> GraphicsAPI::m_DepthStencilState = nullptr;
 	BOOL GraphicsAPI::m_TearingSupport = FALSE;
 	D3D11_VIEWPORT GraphicsAPI::m_Viewport;
 
@@ -29,14 +31,14 @@ namespace nino
 
 		ComPtr<IDXGIDevice4> dxgiDevice4;
 		ComPtr<IDXGIAdapter> dxgiAdapter;
-		ComPtr<IDXGIFactory7> dxgiFactory7;
+		ComPtr<IDXGIFactory5> dxgiFactory;
 		ComPtr<IDXGISwapChain1> dxgiSwapChain1;
 
 		ThrowOnError(m_Device.As(&dxgiDevice4));
 		ThrowOnError(dxgiDevice4->GetAdapter(&dxgiAdapter));
-		ThrowOnError(dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory7)));
+		ThrowOnError(dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory)));
 
-		if (FAILED(dxgiFactory7->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING, &m_TearingSupport, sizeof(m_TearingSupport))))
+		if (FAILED(dxgiFactory->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING, &m_TearingSupport, sizeof(m_TearingSupport))))
 		{
 			m_TearingSupport = FALSE;
 		}
@@ -45,12 +47,12 @@ namespace nino
 		desc1.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		desc1.BufferCount = s_BufferCount;
 		desc1.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-		desc1.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+		desc1.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
 		desc1.SampleDesc.Count = 1;
 		desc1.Flags = m_TearingSupport ? DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING : 0;
 
-		ThrowOnError(dxgiFactory7->CreateSwapChainForHwnd(dxgiDevice4.Get(), window->GetWindow(), &desc1, nullptr, NULL, &dxgiSwapChain1));
-		ThrowOnError(dxgiFactory7->MakeWindowAssociation(window->GetWindow(), DXGI_MWA_NO_ALT_ENTER));
+		ThrowOnError(dxgiFactory->CreateSwapChainForHwnd(dxgiDevice4.Get(), window->GetWindow(), &desc1, nullptr, NULL, &dxgiSwapChain1));
+		ThrowOnError(dxgiFactory->MakeWindowAssociation(window->GetWindow(), DXGI_MWA_NO_ALT_ENTER));
 		ThrowOnError(dxgiSwapChain1.As(&m_SwapChain));
 
 		ComPtr<ID3D11Texture2D> backBuffer;
@@ -80,12 +82,12 @@ namespace nino
 
 	void GraphicsAPI::SetViewport(uint32_t width, uint32_t height, uint32_t topX, uint32_t topY)
 	{
-		m_Viewport.Width = width;
-		m_Viewport.Height = height;
+		m_Viewport.Width = (FLOAT)width;
+		m_Viewport.Height = (FLOAT)height;
 		m_Viewport.MinDepth = 0;
 		m_Viewport.MaxDepth = 1;
-		m_Viewport.TopLeftX = topX;
-		m_Viewport.TopLeftY = topY;
+		m_Viewport.TopLeftX = (FLOAT)topX;
+		m_Viewport.TopLeftY = (FLOAT)topY;
 	}
 
 	void GraphicsAPI::Clear(float color[4], float depth)
@@ -94,13 +96,15 @@ namespace nino
 		m_DeviceContext->ClearDepthStencilView(m_DepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, depth, NULL);
 	}
 
-	void GraphicsAPI::Present(bool vSync)
+	void GraphicsAPI::BindTargets()
 	{
-		m_DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		m_DeviceContext->RSSetViewports(1, &m_Viewport);
 		m_DeviceContext->OMSetDepthStencilState(m_DepthStencilState.Get(), 1);
 		m_DeviceContext->OMSetRenderTargets(1, m_RenderTargetView.GetAddressOf(), m_DepthStencilView.Get());
+	}
 
+	void GraphicsAPI::Present(bool vSync)
+	{
 		UINT syncInterval = vSync ? 1 : 0;
 		UINT flags = (m_TearingSupport == TRUE && vSync == false) ? DXGI_PRESENT_ALLOW_TEARING : 0;
 

@@ -23,7 +23,24 @@ namespace nino
 
 	void Scene::UpdateScene(Timestep ts)
 	{
-		// Draw here
+		Renderer::BeginScene();
+
+		auto group = m_Registry.group<TransformComponent>(entt::get<DrawableComponent>);
+		for (auto& entity : group)
+		{
+			ModelCBuf modelTransform;
+
+			auto [transform, drawable] = group.get<TransformComponent, DrawableComponent>(entity);
+
+			auto Model = DirectX::XMMatrixTranspose(DirectX::XMLoadFloat4x4(&transform.GetTransform()));
+			DirectX::XMStoreFloat4x4(&modelTransform.ModelMatrix, Model);
+
+			if (drawable.Model)
+			{
+				drawable.Model->SetData(modelTransform);
+				drawable.Model->Draw();
+			}
+		}
 	}
 }
 

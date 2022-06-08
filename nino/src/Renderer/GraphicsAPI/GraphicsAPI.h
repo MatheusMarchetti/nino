@@ -22,6 +22,7 @@ namespace nino
 
 		static void SetViewport(uint32_t width, uint32_t height, uint32_t topX, uint32_t topY);
 		static void Clear(float color[4], float depth);
+		static void BindTargets();
 		static void Present(bool vSync);
 
 	private:

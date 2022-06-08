@@ -80,6 +80,22 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
+    <ClInclude Include="src\Renderer\Bindable\BindableCore.h" />
+    <ClInclude Include="src\Renderer\Bindable\Bindable.h" />
+    <ClInclude Include="src\Renderer\Bindable\Shader.h" />
+    <ClInclude Include="src\Renderer\Bindable\PixelShader.h" />
+    <ClInclude Include="src\Renderer\Bindable\VertexShader.h" />
+    <ClInclude Include="src\Renderer\Bindable\VertexBuffer.h" />
+    <ClInclude Include="src\Renderer\Bindable\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer\Bindable\InputLayout.h" />
+    <ClInclude Include="src\Renderer\Bindable\ConstantBuffer.h" />
+    <ClInclude Include="src\Renderer\Drawable\Drawable.h" />
+    <ClInclude Include="src\Renderer\Bindable\Topology.h" />
+    <ClInclude Include="src\Renderer\Drawable\DrawableBase.h" />
+    <ClInclude Include="src\Renderer\Drawable\Cube.h" />
+    <ClInclude Include="src\Renderer\Bindable\ModelConstantBuffer.h" />
+    <ClInclude Include="src\Renderer\Drawable\Primitives.h" />
+    <ClInclude Include="src\Renderer\Drawable\IndexedTriangleList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -119,5 +135,13 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\PixelShader.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\VertexShader.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\VertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\InputLayout.cpp" />
+    <ClCompile Include="src\Renderer\Drawable\Drawable.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\Topology.cpp" />
+    <ClCompile Include="src\Renderer\Drawable\Cube.cpp" />
   </ItemGroup>
 </Project>

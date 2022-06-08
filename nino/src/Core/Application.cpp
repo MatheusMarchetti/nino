@@ -59,6 +59,11 @@ namespace nino
 			Timestep timestep;
 			timestep.Tick();
 
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnUpdate(timestep);
+			}
+
 			m_ImGuiLayer->Begin();
 
 			for (Layer* layer : m_LayerStack)
@@ -68,11 +73,14 @@ namespace nino
 
 			m_ImGuiLayer->End();
 
-			for (Layer* layer : m_LayerStack)
-			{
-				layer->OnUpdate(timestep);
-			}
+			nino::Renderer::EndScenes();
 		}
+
+#ifdef CORE_DEBUG
+		GraphicsInfo::Set();
+		GraphicsInfo::ReportObjects();
+		GraphicsInfo::Release();
+#endif
 	}
 
 	bool Application::OnWindowClose(WindowClosedEvent& event)

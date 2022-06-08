@@ -19,11 +19,11 @@ namespace nino
 
 			ThrowOnError(QueryPerformanceCounter((LARGE_INTEGER*)&currentTime));
 
-			m_Time = currentTime - m_LastTimeCounter;
+			m_Time = (float)(currentTime - m_LastTimeCounter);
 			m_LastTimeCounter = currentTime;
 
 			if (m_Time > m_MaxDelta)
-				m_Time = m_MaxDelta;
+				m_Time = (float)m_MaxDelta;
 
 			m_Time /= m_FrequencyCounter;
 		}

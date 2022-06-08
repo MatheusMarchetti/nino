@@ -2,6 +2,8 @@
 
 #include "Core/Core.h"
 
+#include "Renderer/Drawable/DrawableBase.h"
+
 #include <DirectXMath.h>
 
 #include <string>
@@ -28,13 +30,24 @@ namespace nino
 		TransformComponent(const DirectX::XMFLOAT3& translation)
 			: Translation(translation) {}
 
-		DirectX::XMMATRIX GetTransform() const
+		const DirectX::XMFLOAT4X4 GetTransform() const
 		{
-			DirectX::XMVECTOR quaternion = DirectX::XMQuaternionRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z);
+			DirectX::XMFLOAT4X4 transform;
+			DirectX::XMStoreFloat4x4(&transform, DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z)
+				* DirectX::XMMatrixRotationQuaternion(DirectX::XMQuaternionRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z))
+				* DirectX::XMMatrixTranslation(Translation.x, Translation.y, Translation.z));
 
-			return DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z) 
-				* DirectX::XMMatrixRotationQuaternion(quaternion) 
-				* DirectX::XMMatrixTranslation(Translation.x, Translation.y, Translation.z);
+			return transform;
 		}
+	};
+
+	struct DrawableComponent
+	{
+		Ref<Drawable> Model;
+
+		DrawableComponent() = default;
+		DrawableComponent(const DrawableComponent&) = default;
+		DrawableComponent(Ref<Drawable> model)
+			: Model(std::move(model)) {}
 	};
 }
