@@ -10,7 +10,23 @@ void ApplicationLayer::OnAttach()
 	m_TestScene = nino::CreateRef<nino::Scene>();
 
 	//Test scene
-#if 1
+
+	auto camera = m_TestScene->CreateEntity("Camera");
+	camera.AddComponent<nino::CameraComponent>();
+	camera.AddComponent<nino::TransformComponent>(0.0f, 0.0f, -1.0f);
+
+	std::string albedo = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_basecolor.png";
+	std::string metallic = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_metallic.png";
+	std::string normal = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_normal.png";
+	std::string roughness = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_roughness.png";
+	std::string shader = "C:/dev/Game Engine/nino/Sandbox/Assets/Shaders/BasicPBR.hlsl";
+
+	nino::Material testMaterial(albedo, normal, metallic, roughness);
+
+	auto testCube = m_TestScene->CreateEntity("Test cube");
+	testCube.AddComponent<nino::TransformComponent>(0.0f, 0.0f, 2.0f);
+	testCube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(testMaterial), testMaterial);
+#if 0
 	auto floor = m_TestScene->CreateEntity("Floor");
 	floor.AddComponent<nino::TransformComponent>();
 	floor.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());

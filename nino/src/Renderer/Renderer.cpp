@@ -6,6 +6,7 @@
 
 #include "Renderer/GraphicsAPI/GraphicsAPI.h"
 #include "Renderer/Bindable/BindableCore.h"
+#include "Renderer/Camera.h"
 
 namespace nino
 {
@@ -40,14 +41,11 @@ namespace nino
 		GraphicsAPI::Clear(color, depth);
 	}
 
-	void Renderer::BeginScene()
+	void Renderer::BeginScene(const Camera& camera)
 	{
 		SceneBuffer sceneCB;
 
-		auto View = XMMatrixTranspose(XMMatrixTranslation(0.0f, 0.0f, 5.0f) * XMMatrixIdentity());
-		auto Projection = XMMatrixTranspose(XMMatrixPerspectiveFovLH(0.785f, s_Data.AspectRatio, 0.1f, 1000.0f));
-		
-		XMStoreFloat4x4(&sceneCB.ViewProjection, Projection * View); // As I cannot transpose the MVP matrix before passing to shader, I have to invert multiplication order.
+		sceneCB.ViewProjection = camera.GetViewProjection();
 
 		s_Data.SceneConstantBuffer->Update(sceneCB);
 		s_Data.SceneConstantBuffer->Bind(0);

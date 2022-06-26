@@ -15,6 +15,11 @@ workspace (solutionname)
         "Release"
     }
 
+    flags
+    {
+        "MultiProcessorCompile"
+    }
+
     outputdir = "%{cfg.buildcfg}"
 
     IncludeDir = {}
@@ -22,8 +27,11 @@ workspace (solutionname)
     IncludeDir["ImGui"] = "%{wks.location}/"..corename.."/vendor/imgui"
     IncludeDir["entt"] = "%{wks.location}/"..corename.."/vendor/entt/include"
     IncludeDir["DirectXTK"] = "%{wks.location}/"..corename.."/vendor/DirectXTK/Inc"
+    IncludeDir["DirectXTex"] = "%{wks.location}/"..corename.."/vendor/DirectXTex"
 
     include (corename.."/vendor/imgui")
+    include (corename.."/vendor/DirectXTK")
+    include (corename.."/vendor/DirectXTex")
 
 project (corename)
     kind "StaticLib"
@@ -49,6 +57,8 @@ project (corename)
         "d3dcompiler",
         "dxguid",
         "ImGui",
+        "DirectXTK",
+        "DirectXTex"
     }
 
     files
@@ -63,7 +73,8 @@ project (corename)
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.DirectXTK}"
+        "%{IncludeDir.DirectXTK}",
+        "%{IncludeDir.DirectXTex}"
     }
 
     postbuildcommands

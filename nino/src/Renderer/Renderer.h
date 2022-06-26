@@ -7,6 +7,7 @@
 namespace nino
 {
 	class Window;
+	class Camera;
 }
 
 namespace nino
@@ -26,7 +27,7 @@ namespace nino
 		static void SetViewport(uint32_t width, uint32_t height, uint32_t topX = 0, uint32_t topY = 0);
 		static void Clear(float color[4], float depth = 1.0f);
 
-		static void BeginScene();
+		static void BeginScene(const Camera& camera);
 		static void EndScenes();
 		
 	private:

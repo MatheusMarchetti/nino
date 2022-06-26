@@ -19,6 +19,9 @@ namespace nino
 		flags |= D3DCOMPILE_DEBUG;
 #endif
 
+		if (m_ShaderFilePath.empty())
+			m_ShaderFilePath = "Assets/Shaders/DefaultShader.hlsl";
+
 		ThrowOnError(D3DCompileFromFile(m_ShaderFilePath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VSmain", "vs_5_0", flags, NULL, &m_ShaderBlob, &errorBlob));
 
 		if (errorBlob.Get())

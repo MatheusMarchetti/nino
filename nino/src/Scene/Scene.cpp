@@ -23,14 +23,25 @@ namespace nino
 
 	void Scene::UpdateScene(Timestep ts)
 	{
-		Renderer::BeginScene();
+		auto cameraTransform = m_Registry.group<CameraComponent>(entt::get<TransformComponent>);
+		for (auto& entity : cameraTransform)
+		{
+			auto [camera, transform] = cameraTransform.get<CameraComponent, TransformComponent>(entity);
 
-		auto group = m_Registry.group<TransformComponent>(entt::get<DrawableComponent>);
-		for (auto& entity : group)
+			if (camera.MainCamera)
+			{
+				camera.camera.UpdateView(transform.Translation, transform.Rotation);
+
+				Renderer::BeginScene(camera.camera);
+			}
+		}
+
+		auto transformDrawable = m_Registry.group<TransformComponent>(entt::get<DrawableComponent>);
+		for (auto& entity : transformDrawable)
 		{
 			ModelCBuf modelTransform;
 
-			auto [transform, drawable] = group.get<TransformComponent, DrawableComponent>(entity);
+			auto [transform, drawable] = transformDrawable.get<TransformComponent, DrawableComponent>(entity);
 
 			auto Model = DirectX::XMMatrixTranspose(DirectX::XMLoadFloat4x4(&transform.GetTransform()));
 			DirectX::XMStoreFloat4x4(&modelTransform.ModelMatrix, Model);

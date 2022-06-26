@@ -8,7 +8,7 @@ namespace nino
 	class VertexShader : public Shader
 	{
 	public:
-		VertexShader(const std::string& filePath = "Assets/Shaders/DefaultShader.hlsl");
+		VertexShader(const std::string& filePath);
 		virtual ~VertexShader() = default;
 
 		virtual void Bind() override;

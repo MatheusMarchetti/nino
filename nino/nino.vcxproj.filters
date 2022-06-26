@@ -13,6 +13,12 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\Bindable">
+      <UniqueIdentifier>{DC4D400D-4864-3EA3-91DB-C9C4FD300F2B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Drawable">
+      <UniqueIdentifier>{CDDB947D-39F2-9213-8269-1E35EEBE639B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Renderer\GraphicsAPI">
       <UniqueIdentifier>{D6677642-C2F6-FF0B-6B15-1407578310B2}</UniqueIdentifier>
     </Filter>
@@ -31,6 +37,9 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\LayerStack.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\NinoMath.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
@@ -60,11 +69,71 @@
     <ClInclude Include="src\Events\WindowEvents.h">
       <Filter>Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\Bindable.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\BindableCore.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\ConstantBuffer.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\IndexBuffer.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\InputLayout.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\ModelConstantBuffer.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\PixelShader.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\Sampler.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\Shader.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\Texture.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\Topology.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\VertexBuffer.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Bindable\VertexShader.h">
+      <Filter>Renderer\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Camera.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Drawable\Cube.h">
+      <Filter>Renderer\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Drawable\Drawable.h">
+      <Filter>Renderer\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Drawable\DrawableBase.h">
+      <Filter>Renderer\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Drawable\IndexedTriangleList.h">
+      <Filter>Renderer\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Drawable\Primitives.h">
+      <Filter>Renderer\Drawable</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h">
       <Filter>Renderer\GraphicsAPI</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h">
       <Filter>Renderer\GraphicsAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Material.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Renderer.h">
       <Filter>Renderer</Filter>
@@ -80,22 +149,6 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
-    <ClInclude Include="src\Renderer\Bindable\BindableCore.h" />
-    <ClInclude Include="src\Renderer\Bindable\Bindable.h" />
-    <ClInclude Include="src\Renderer\Bindable\Shader.h" />
-    <ClInclude Include="src\Renderer\Bindable\PixelShader.h" />
-    <ClInclude Include="src\Renderer\Bindable\VertexShader.h" />
-    <ClInclude Include="src\Renderer\Bindable\VertexBuffer.h" />
-    <ClInclude Include="src\Renderer\Bindable\IndexBuffer.h" />
-    <ClInclude Include="src\Renderer\Bindable\InputLayout.h" />
-    <ClInclude Include="src\Renderer\Bindable\ConstantBuffer.h" />
-    <ClInclude Include="src\Renderer\Drawable\Drawable.h" />
-    <ClInclude Include="src\Renderer\Bindable\Topology.h" />
-    <ClInclude Include="src\Renderer\Drawable\DrawableBase.h" />
-    <ClInclude Include="src\Renderer\Drawable\Cube.h" />
-    <ClInclude Include="src\Renderer\Bindable\ModelConstantBuffer.h" />
-    <ClInclude Include="src\Renderer\Drawable\Primitives.h" />
-    <ClInclude Include="src\Renderer\Drawable\IndexedTriangleList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -122,26 +175,48 @@
     <ClCompile Include="src\Events\EventManager.cpp">
       <Filter>Events</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\InputLayout.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\PixelShader.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\Sampler.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\Texture.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\Topology.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\VertexBuffer.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Bindable\VertexShader.cpp">
+      <Filter>Renderer\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Camera.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Drawable\Cube.cpp">
+      <Filter>Renderer\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Drawable\Drawable.cpp">
+      <Filter>Renderer\Drawable</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp">
       <Filter>Renderer\GraphicsAPI</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene\Entity.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
-    <ClCompile Include="src\Renderer\Bindable\PixelShader.cpp" />
-    <ClCompile Include="src\Renderer\Bindable\VertexShader.cpp" />
-    <ClCompile Include="src\Renderer\Bindable\VertexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp" />
-    <ClCompile Include="src\Renderer\Bindable\InputLayout.cpp" />
-    <ClCompile Include="src\Renderer\Drawable\Drawable.cpp" />
-    <ClCompile Include="src\Renderer\Bindable\Topology.cpp" />
-    <ClCompile Include="src\Renderer\Drawable\Cube.cpp" />
   </ItemGroup>
 </Project>

@@ -8,3 +8,5 @@
 #include "Renderer/Bindable/ConstantBuffer.h"
 #include "Renderer/Bindable/Topology.h"
 #include "Renderer/Bindable/ModelConstantBuffer.h"
+#include "Renderer/Bindable/Texture.h"
+#include "Renderer/Bindable/Sampler.h"

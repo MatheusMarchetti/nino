@@ -8,7 +8,7 @@ namespace nino
 	class PixelShader : public Shader
 	{
 	public:
-		PixelShader(const std::string& filePath = "Assets/Shaders/DefaultShader.hlsl");
+		PixelShader(const std::string& filePath);
 		virtual ~PixelShader() = default;
 
 		virtual void Bind() override;

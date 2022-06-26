@@ -127,9 +127,22 @@ namespace nino
 					if (!m_SelectionContext.HasComponent<DrawableComponent>())
 					{
 						m_SelectionContext.AddComponent<DrawableComponent>();
+
+						if (!m_SelectionContext.HasComponent<TransformComponent>())
+							m_SelectionContext.AddComponent<TransformComponent>();
 					}
 
 					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::MenuItem("Camera component"))
+				{
+					if (!m_SelectionContext.HasComponent<CameraComponent>())
+					{
+						m_SelectionContext.AddComponent<CameraComponent>();
+
+						if (!m_SelectionContext.HasComponent<TransformComponent>())
+							m_SelectionContext.AddComponent<TransformComponent>(0.0f, 0.0f, -1.0f);
+					}
 				}
 
 				ImGui::EndPopup();
@@ -144,7 +157,7 @@ namespace nino
 
 			DrawComponent<DrawableComponent>("Mesh", entity, [&](auto& component)
 				{
-					const char* meshTypes[] = { "Cube", "Sphere"};
+					const char* meshTypes[] = { "Cube", "Sphere" };
 					static int selectedMesh = 0;
 					const char* preview = meshTypes[selectedMesh];
 
@@ -170,8 +183,9 @@ namespace nino
 					{
 					case 0:		
 					{
+						auto& material = m_SelectionContext.GetComponent<DrawableComponent>().ModelMaterial;
 						m_SelectionContext.GetComponent<DrawableComponent>().Model = nullptr;
-						m_SelectionContext.GetComponent<DrawableComponent>().Model = CreateRef<Cube>();
+						m_SelectionContext.GetComponent<DrawableComponent>().Model = CreateRef<Cube>(material);
 						break;
 					}
 					case 1:
@@ -179,6 +193,68 @@ namespace nino
 						m_SelectionContext.GetComponent<DrawableComponent>().Model = nullptr;
 						break;
 					}
+					}
+				});
+
+			DrawComponent<CameraComponent>("Camera", entity, [&](auto& component)
+				{
+					auto& camera = component.camera;
+					auto& main = component.MainCamera;
+
+					DrawVec3Control("Focal point", camera.GetFocalPoint());
+
+					ImGui::Checkbox("Main camera", &main);
+
+					const char* projectionTypes[] = {"Perspective", "Orthographic"};
+					static int selectedProjection = (int)camera.GetProjectionType();
+					const char* currentProjection = projectionTypes[selectedProjection];
+
+					if (ImGui::BeginCombo("Projection", currentProjection, ImGuiComboFlags_NoArrowButton))
+					{
+						for (int i = 0; i < IM_ARRAYSIZE(projectionTypes); i++)
+						{
+							const bool isSelected = selectedProjection == i;
+							if (ImGui::Selectable(projectionTypes[i], isSelected))
+							{
+								selectedProjection = i;
+							}
+
+							if (isSelected)
+							{
+								ImGui::SetItemDefaultFocus();
+							}
+						}
+
+						ImGui::EndCombo();
+					}
+
+					float nearZ = camera.GetNearPlane();
+					float farZ = camera.GetFarPlane();
+
+					switch (selectedProjection)
+					{
+					case (int)Camera::ProjectionType::Perspective:
+						{
+							float fov = camera.GetFieldOfView();
+							float aspectRatio = camera.GetAspectRatio();
+
+							ImGui::SliderAngle("FOV", &fov, 0.0f, 90.0f);
+
+							camera.SetPerspective(fov, aspectRatio, nearZ, farZ);
+
+							break;
+						}
+
+					case (int)Camera::ProjectionType::Orthographic:
+						{
+							float size = camera.GetViewSize();
+
+							ImGui::SliderFloat("Size", &size, 0.1f, 1080.0f);
+
+							camera.SetOrthographic(size, nearZ, farZ);
+
+							break;
+						}
 					}
 				});
 		}

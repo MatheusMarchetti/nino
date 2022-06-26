@@ -77,10 +77,12 @@
       <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CORE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;vendor\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -98,13 +100,14 @@
       <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CORE_PROFILING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;vendor\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -123,13 +126,14 @@
       <PrecompiledHeaderFile>corepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CORE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\imgui;vendor\entt\include;vendor\DirectXTK\Inc;vendor\DirectXTex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -147,6 +151,7 @@
     <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Core\Layer.h" />
     <ClInclude Include="src\Core\LayerStack.h" />
+    <ClInclude Include="src\Core\NinoMath.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Debug\GUILayer.h" />
@@ -161,19 +166,23 @@
     <ClInclude Include="src\Renderer\Bindable\ConstantBuffer.h" />
     <ClInclude Include="src\Renderer\Bindable\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Bindable\InputLayout.h" />
-    <ClInclude Include="src\Renderer\Bindable\PixelShader.h" />
-    <ClInclude Include="src\Renderer\Bindable\Shader.h" />
-    <ClInclude Include="src\Renderer\Bindable\Topology.h" />
-    <ClInclude Include="src\Renderer\Drawable\IndexedTriangleList.h" />
-    <ClInclude Include="src\Renderer\Drawable\Primitives.h" />
     <ClInclude Include="src\Renderer\Bindable\ModelConstantBuffer.h" />
+    <ClInclude Include="src\Renderer\Bindable\PixelShader.h" />
+    <ClInclude Include="src\Renderer\Bindable\Sampler.h" />
+    <ClInclude Include="src\Renderer\Bindable\Shader.h" />
+    <ClInclude Include="src\Renderer\Bindable\Texture.h" />
+    <ClInclude Include="src\Renderer\Bindable\Topology.h" />
     <ClInclude Include="src\Renderer\Bindable\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\Bindable\VertexShader.h" />
+    <ClInclude Include="src\Renderer\Camera.h" />
     <ClInclude Include="src\Renderer\Drawable\Cube.h" />
     <ClInclude Include="src\Renderer\Drawable\Drawable.h" />
     <ClInclude Include="src\Renderer\Drawable\DrawableBase.h" />
+    <ClInclude Include="src\Renderer\Drawable\IndexedTriangleList.h" />
+    <ClInclude Include="src\Renderer\Drawable\Primitives.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
+    <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Scene\Components.h" />
     <ClInclude Include="src\Scene\Entity.h" />
@@ -193,14 +202,16 @@
     <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Bindable\InputLayout.cpp" />
     <ClCompile Include="src\Renderer\Bindable\PixelShader.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\Sampler.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\Texture.cpp" />
     <ClCompile Include="src\Renderer\Bindable\Topology.cpp" />
     <ClCompile Include="src\Renderer\Bindable\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Bindable\VertexShader.cpp" />
+    <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Cube.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Drawable.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Scene\Entity.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\corepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -209,6 +220,12 @@
   <ItemGroup>
     <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\DirectXTK\DirectXTK.vcxproj">
+      <Project>{F78B7304-63F6-277B-AC34-D92018DE05D0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\DirectXTex\DirectXTex.vcxproj">
+      <Project>{A90EE592-95C6-26E0-FECD-FF3BEAA4C1D0}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
