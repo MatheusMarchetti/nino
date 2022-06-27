@@ -14,9 +14,17 @@ project "DirectXTex"
         "DirectXTex.h",
         "DirectXTexP.h",
         "DDS.h",
+        "BC.h",
         "DirectXTexDDS.cpp",
         "DirectXTexHDR.cpp",
         "DirectXTexImage.cpp",
         "DirectXTexTGA.cpp",
-        "DirectXTexWIC.cpp"
+        "DirectXTexWIC.cpp",
+        "DirectXTexUtil.cpp",
+        "DirectXTexMipmaps.cpp",
+        "DirectXTexConvert.cpp",
+        "DirectXTexCompress.cpp",
+        "BC.cpp",
+        "BC4BC5.cpp",
+        "BC6HBC7.cpp"
     }
