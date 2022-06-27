@@ -58,43 +58,49 @@ namespace nino
 
 		ComputePitch(imageInfo.format, imageInfo.width, imageInfo.height, rowPitch, slicePitch);
 
+		D3D11_TEXTURE2D_DESC textureDesc = {};
+		textureDesc.Width = imageInfo.width;
+		textureDesc.Height = imageInfo.height;
+		textureDesc.MipLevels = imageInfo.mipLevels;
+		textureDesc.ArraySize = imageInfo.arraySize;
+		textureDesc.Format = imageInfo.format;
+		textureDesc.SampleDesc = { 1, 0 };
+		textureDesc.Usage = D3D11_USAGE_DEFAULT;
+		textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+		textureDesc.CPUAccessFlags = 0;
+		textureDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
+
+		ComPtr<ID3D11Texture2D> texture2D;
+
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 		srvDesc.Format = imageInfo.format;
 
 		if (imageInfo.arraySize % 6 == 0)
 		{
-			// Cubemap processing. Save to .dds file
+			imageInfo.miscFlags |= TEX_MISC_TEXTURECUBE;
+			textureDesc.MiscFlags |= D3D11_RESOURCE_MISC_TEXTURECUBE;
+
+			srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
+			srvDesc.TextureCube.MostDetailedMip = 0;
+			srvDesc.TextureCube.MipLevels = imageInfo.mipLevels;
 		}
 		else
 		{
-			D3D11_TEXTURE2D_DESC textureDesc = {};
-			textureDesc.Width = imageInfo.width;
-			textureDesc.Height = imageInfo.height;
-			textureDesc.MipLevels = imageInfo.mipLevels;
-			textureDesc.ArraySize = imageInfo.arraySize;
-			textureDesc.Format = imageInfo.format;
-			textureDesc.SampleDesc = { 1, 0 };
-			textureDesc.Usage = D3D11_USAGE_DEFAULT;
-			textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
-			textureDesc.CPUAccessFlags = 0;
-			textureDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
-
-			ComPtr<ID3D11Texture2D> texture2D;
-
-			ThrowOnError(device->CreateTexture2D(&textureDesc, nullptr, &texture2D));
-
-			ThrowOnError(texture2D.As(&m_Texture));
-
-			context->UpdateSubresource(m_Texture.Get(), 0, nullptr, loadedImage.GetPixels(), rowPitch, slicePitch);
-
 			srvDesc.Texture2D.MostDetailedMip = 0;
-			srvDesc.Texture2D.MipLevels = -1;
+			srvDesc.Texture2D.MipLevels = imageInfo.mipLevels;
 			srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 
-			ThrowOnError(device->CreateShaderResourceView(m_Texture.Get(), &srvDesc, &m_ShaderResourceView));
 		}
 
-		if (imageInfo.mipLevels == 0)
+		ThrowOnError(device->CreateTexture2D(&textureDesc, nullptr, &texture2D));
+
+		ThrowOnError(texture2D.As(&m_Texture));
+
+		context->UpdateSubresource(m_Texture.Get(), 0, nullptr, loadedImage.GetPixels(), rowPitch, slicePitch);
+
+		ThrowOnError(device->CreateShaderResourceView(m_Texture.Get(), &srvDesc, &m_ShaderResourceView));
+
+		if (imageInfo.mipLevels == 1)
 		{
 			context->GenerateMips(m_ShaderResourceView.Get());
 		}

@@ -164,10 +164,12 @@
     <ClInclude Include="src\Renderer\Bindable\Bindable.h" />
     <ClInclude Include="src\Renderer\Bindable\BindableCore.h" />
     <ClInclude Include="src\Renderer\Bindable\ConstantBuffer.h" />
+    <ClInclude Include="src\Renderer\Bindable\DepthStencilState.h" />
     <ClInclude Include="src\Renderer\Bindable\IndexBuffer.h" />
     <ClInclude Include="src\Renderer\Bindable\InputLayout.h" />
     <ClInclude Include="src\Renderer\Bindable\ModelConstantBuffer.h" />
     <ClInclude Include="src\Renderer\Bindable\PixelShader.h" />
+    <ClInclude Include="src\Renderer\Bindable\RasterizerState.h" />
     <ClInclude Include="src\Renderer\Bindable\Sampler.h" />
     <ClInclude Include="src\Renderer\Bindable\Shader.h" />
     <ClInclude Include="src\Renderer\Bindable\Texture.h" />
@@ -180,6 +182,8 @@
     <ClInclude Include="src\Renderer\Drawable\DrawableBase.h" />
     <ClInclude Include="src\Renderer\Drawable\IndexedTriangleList.h" />
     <ClInclude Include="src\Renderer\Drawable\Primitives.h" />
+    <ClInclude Include="src\Renderer\Drawable\Skybox.h" />
+    <ClInclude Include="src\Renderer\Drawable\Sphere.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
     <ClInclude Include="src\Renderer\Material.h" />
@@ -199,9 +203,11 @@
     <ClCompile Include="src\Debug\Log.cpp" />
     <ClCompile Include="src\Debug\WindowInfo.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\DepthStencilState.cpp" />
     <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Bindable\InputLayout.cpp" />
     <ClCompile Include="src\Renderer\Bindable\PixelShader.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\RasterizerState.cpp" />
     <ClCompile Include="src\Renderer\Bindable\Sampler.cpp" />
     <ClCompile Include="src\Renderer\Bindable\Texture.cpp" />
     <ClCompile Include="src\Renderer\Bindable\Topology.cpp" />
@@ -210,6 +216,8 @@
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Cube.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Drawable.cpp" />
+    <ClCompile Include="src\Renderer\Drawable\Skybox.cpp" />
+    <ClCompile Include="src\Renderer\Drawable\Sphere.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />

@@ -149,6 +149,10 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
+    <ClInclude Include="src\Renderer\Drawable\Sphere.h" />
+    <ClInclude Include="src\Renderer\Drawable\Skybox.h" />
+    <ClInclude Include="src\Renderer\Bindable\RasterizerState.h" />
+    <ClInclude Include="src\Renderer\Bindable\DepthStencilState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -218,5 +222,9 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
+    <ClCompile Include="src\Renderer\Drawable\Sphere.cpp" />
+    <ClCompile Include="src\Renderer\Drawable\Skybox.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\RasterizerState.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\DepthStencilState.cpp" />
   </ItemGroup>
 </Project>

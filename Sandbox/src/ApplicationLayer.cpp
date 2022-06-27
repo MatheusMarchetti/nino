@@ -22,11 +22,23 @@ void ApplicationLayer::OnAttach()
 	std::string shader = "C:/dev/Game Engine/nino/Sandbox/Assets/Shaders/BasicPBR.hlsl";
 
 	nino::Material testMaterial(albedo, normal, metallic, roughness);
+	nino::Material sky;
 
+	auto skybox = m_TestScene->CreateEntity("Skybox");
+	skybox.AddComponent<nino::TransformComponent>();
+	skybox.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Skybox>("C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/skymap.dds"), sky);
+
+	auto& skyboxTranslation = skybox.GetComponent<nino::TransformComponent>().Translation;
+	auto& skyboxScale = skybox.GetComponent<nino::TransformComponent>().Scale;
+
+	skyboxTranslation = camera.GetComponent<nino::TransformComponent>().Translation;
+	skyboxScale = { 5.0f, 5.0f, 5.0f };
+
+#if 0
 	auto testCube = m_TestScene->CreateEntity("Test cube");
 	testCube.AddComponent<nino::TransformComponent>(0.0f, 0.0f, 2.0f);
 	testCube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(testMaterial), testMaterial);
-#if 0
+
 	auto floor = m_TestScene->CreateEntity("Floor");
 	floor.AddComponent<nino::TransformComponent>();
 	floor.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
