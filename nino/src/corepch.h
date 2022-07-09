@@ -19,6 +19,7 @@
 #include <typeinfo>
 #include <sstream>
 #include <filesystem>
+#include <optional>
 
 /*ENGINE STUFF*/
 #include "Debug/Log.h"

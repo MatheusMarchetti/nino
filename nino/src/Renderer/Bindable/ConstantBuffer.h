@@ -58,9 +58,7 @@ namespace nino
 	public:
 		virtual void Bind() override
 		{
-			auto context = GraphicsAPI::GetContext();
-
-			context->PSSetConstantBuffers(0, 1, m_ConstantBuffer.GetAddressOf());
+			Bind(0);
 		}
 
 		virtual void Bind(uint32_t slot)
@@ -77,9 +75,7 @@ namespace nino
 	public:
 		virtual void Bind() override
 		{
-			auto context = GraphicsAPI::GetContext();
-
-			context->PSSetConstantBuffers(0, 1, m_ConstantBuffer.GetAddressOf());
+			Bind(0);
 		}
 
 		virtual void Bind(uint32_t slot)

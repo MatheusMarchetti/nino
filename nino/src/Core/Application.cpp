@@ -17,7 +17,7 @@ namespace nino
 			m_ImGuiLayer = new GUILayer(&m_Window);
 			PushOverlay(m_ImGuiLayer);
 		}
-		catch (std::exception e)
+		catch(std::exception e)
 		{
 			MessageBox(nullptr, e.what(), "Nino Exception Caught!", MB_OK | MB_ICONERROR);
 			exit(0);

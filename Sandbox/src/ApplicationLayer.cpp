@@ -14,13 +14,20 @@ void ApplicationLayer::OnAttach()
 	auto camera = m_TestScene->CreateEntity("Camera");
 	camera.AddComponent<nino::CameraComponent>();
 	camera.AddComponent<nino::TransformComponent>(0.0f, 0.0f, -1.0f);
+<<<<<<< HEAD
+=======
+	camera.AddComponent<nino::EnvironmentComponent>("C:/dev/Game Engine/nino/Sandbox/Assets/Textures/skybox/Skybox.dds");
+>>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
 
+#if 1
 	std::string albedo = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_basecolor.png";
 	std::string metallic = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_metallic.png";
 	std::string normal = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_normal.png";
 	std::string roughness = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_roughness.png";
 	std::string shader = "C:/dev/Game Engine/nino/Sandbox/Assets/Shaders/BasicPBR.hlsl";
+	nino::Material testMaterial(albedo, normal, metallic, roughness, "", shader);
 
+<<<<<<< HEAD
 	nino::Material testMaterial(albedo, normal, metallic, roughness);
 	nino::Material sky;
 
@@ -35,13 +42,19 @@ void ApplicationLayer::OnAttach()
 	skyboxScale = { 5.0f, 5.0f, 5.0f };
 
 #if 0
+=======
+>>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
 	auto testCube = m_TestScene->CreateEntity("Test cube");
 	testCube.AddComponent<nino::TransformComponent>(0.0f, 0.0f, 2.0f);
 	testCube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(testMaterial), testMaterial);
+#endif
+
+#if 0
+	nino::Material test;
 
 	auto floor = m_TestScene->CreateEntity("Floor");
 	floor.AddComponent<nino::TransformComponent>();
-	floor.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	floor.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& floorTranslation = floor.GetComponent<nino::TransformComponent>().Translation;
 	auto& floorScale = floor.GetComponent<nino::TransformComponent>().Scale;
@@ -51,7 +64,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Cube = m_TestScene->CreateEntity("Cube");
 	Cube.AddComponent<nino::TransformComponent>();
-	Cube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	Cube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& CubeTranslation = Cube.GetComponent<nino::TransformComponent>().Translation;
 	auto& CubeScale = Cube.GetComponent<nino::TransformComponent>().Scale;
@@ -61,7 +74,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Brick = m_TestScene->CreateEntity("Brick");
 	Brick.AddComponent<nino::TransformComponent>();
-	Brick.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	Brick.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& BrickTranslation = Brick.GetComponent<nino::TransformComponent>().Translation;
 	auto& BrickRotation = Brick.GetComponent<nino::TransformComponent>().Rotation;
@@ -73,7 +86,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Building = m_TestScene->CreateEntity("Building");
 	Building.AddComponent<nino::TransformComponent>();
-	Building.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	Building.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& BuildingTranslation = Building.GetComponent<nino::TransformComponent>().Translation;
 	auto& BuildingScale = Building.GetComponent<nino::TransformComponent>().Scale;
@@ -83,7 +96,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Window1 = m_TestScene->CreateEntity("Window1");
 	Window1.AddComponent<nino::TransformComponent>();
-	Window1.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	Window1.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& Window1Translation = Window1.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window1Scale = Window1.GetComponent<nino::TransformComponent>().Scale;
@@ -93,7 +106,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Window2 = m_TestScene->CreateEntity("Window2");
 	Window2.AddComponent<nino::TransformComponent>();
-	Window2.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	Window2.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& Window2Translation = Window2.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window2Scale = Window2.GetComponent<nino::TransformComponent>().Scale;
@@ -103,7 +116,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Window3 = m_TestScene->CreateEntity("Window3");
 	Window3.AddComponent<nino::TransformComponent>();
-	Window3.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	Window3.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& Window3Translation = Window3.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window3Scale = Window3.GetComponent<nino::TransformComponent>().Scale;
@@ -113,7 +126,7 @@ void ApplicationLayer::OnAttach()
 
 	auto Window4 = m_TestScene->CreateEntity("Window4");
 	Window4.AddComponent<nino::TransformComponent>();
-	Window4.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>());
+	Window4.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(test), test);
 
 	auto& Window4Translation = Window4.GetComponent<nino::TransformComponent>().Translation;
 	auto& Window4Scale = Window4.GetComponent<nino::TransformComponent>().Scale;

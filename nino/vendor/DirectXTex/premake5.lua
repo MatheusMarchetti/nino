@@ -24,6 +24,7 @@ project "DirectXTex"
         "DirectXTexMipmaps.cpp",
         "DirectXTexConvert.cpp",
         "DirectXTexCompress.cpp",
+        "DirectXTexD3D11.cpp",
         "BC.cpp",
         "BC4BC5.cpp",
         "BC6HBC7.cpp"

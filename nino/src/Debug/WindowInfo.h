@@ -52,8 +52,6 @@ namespace nino
 			m_ErrorMessage += ")";
 
 			throw std::exception(m_ErrorMessage.c_str());
-
-//			NINO_CORE_ERROR(L"[ERROR] {:#4x}: {} ({}, {})", error, err.ErrorMessage(), file, errorLine);
 		}
 #endif
 		return returnValue;

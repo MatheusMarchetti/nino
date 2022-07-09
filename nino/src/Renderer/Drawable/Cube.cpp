@@ -42,19 +42,12 @@ namespace nino
 
         AddBind(m_ModelTransform);
 
-        if (!material.GetAlbedoMap().empty())
-            AddBind(CreateScope<Texture>(material.GetAlbedoMap(), 0));
+        // Texture slot 0 reserved to cubemap
 
-        if (!material.GetNormalMap().empty())
-            AddBind(CreateScope<Texture>(material.GetNormalMap(), 1));
-
-        if (!material.GetMetallicMap().empty())
-            AddBind(CreateScope<Texture>(material.GetMetallicMap(), 2));
-
-        if (!material.GetRoughnessMap().empty())
-            AddBind(CreateScope<Texture>(material.GetRoughnessMap(), 3));
-
-        if (!material.GetAOMap().empty())
-            AddBind(CreateScope<Texture>(material.GetAOMap(), 4));
+        AddBind(CreateScope<Texture>(material.GetAlbedoMap(), 1));
+        AddBind(CreateScope<Texture>(material.GetNormalMap(), 2));
+        AddBind(CreateScope<Texture>(material.GetMetallicMap(), 3));
+        AddBind(CreateScope<Texture>(material.GetRoughnessMap(), 4));
+//      AddBind(CreateScope<Texture>(material.GetAOMap(), 5));
     }
 }
