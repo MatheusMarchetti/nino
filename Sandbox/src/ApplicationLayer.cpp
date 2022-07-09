@@ -26,6 +26,7 @@ void ApplicationLayer::OnAttach()
 
 	nino::Material testMaterial(albedo, normal, metallic, roughness, "", shader);
 
+
 	auto testCube = m_TestScene->CreateEntity("Test cube");
 	testCube.AddComponent<nino::TransformComponent>(0.0f, 0.0f, 2.0f);
 	testCube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(testMaterial), testMaterial);
