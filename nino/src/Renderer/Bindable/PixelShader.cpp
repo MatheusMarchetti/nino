@@ -38,10 +38,11 @@ namespace nino
 
 		else if(m_ShaderFilePath.extension() == ".hlsl")
 		{
-			ThrowOnError(D3DCompileFromFile(m_ShaderFilePath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PSmain", "ps_5_0", flags, NULL, &m_ShaderBlob, &errorBlob));
+			D3DCompileFromFile(m_ShaderFilePath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PSmain", "ps_5_0", flags, NULL, &m_ShaderBlob, &errorBlob);
 
 			if (errorBlob.Get())
 			{
+				std::string error = (char*)errorBlob->GetBufferPointer();
 				throw std::exception((char*)errorBlob->GetBufferPointer());
 			}
 

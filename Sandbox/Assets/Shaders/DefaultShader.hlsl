@@ -36,11 +36,11 @@ VertexShaderOutput VSmain(VertexShaderInput IN)
 
 //Pixel Shader
 
-Texture2D AlbedoTexture : register(t0);
-Texture2D NormalTexture : register(t1);
-Texture2D MetalnessTexture : register(t2);
-Texture2D RoughnessTexture : register(t3);
-Texture2D AOTexture : register(t4);
+Texture2D AlbedoTexture : register(t1);
+Texture2D NormalTexture : register(t2);
+Texture2D MetalnessTexture : register(t3);
+Texture2D RoughnessTexture : register(t4);
+Texture2D AOTexture : register(t5);
 
 SamplerState samplerState : register(s0);
 
