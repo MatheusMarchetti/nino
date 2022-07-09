@@ -13,11 +13,9 @@ void ApplicationLayer::OnAttach()
 
 	auto camera = m_TestScene->CreateEntity("Camera");
 	camera.AddComponent<nino::CameraComponent>();
+	camera.GetComponent<nino::CameraComponent>().MainCamera = true;
 	camera.AddComponent<nino::TransformComponent>(0.0f, 0.0f, -1.0f);
-<<<<<<< HEAD
-=======
-	camera.AddComponent<nino::EnvironmentComponent>("C:/dev/Game Engine/nino/Sandbox/Assets/Textures/skybox/Skybox.dds");
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
+	camera.AddComponent<nino::EnvironmentComponent>("C:/dev/Game Engine/nino/Sandbox/Assets/Textures/environment.hdr");
 
 #if 1
 	std::string albedo = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_basecolor.png";
@@ -25,25 +23,9 @@ void ApplicationLayer::OnAttach()
 	std::string normal = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_normal.png";
 	std::string roughness = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_roughness.png";
 	std::string shader = "C:/dev/Game Engine/nino/Sandbox/Assets/Shaders/BasicPBR.hlsl";
+
 	nino::Material testMaterial(albedo, normal, metallic, roughness, "", shader);
 
-<<<<<<< HEAD
-	nino::Material testMaterial(albedo, normal, metallic, roughness);
-	nino::Material sky;
-
-	auto skybox = m_TestScene->CreateEntity("Skybox");
-	skybox.AddComponent<nino::TransformComponent>();
-	skybox.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Skybox>("C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/skymap.dds"), sky);
-
-	auto& skyboxTranslation = skybox.GetComponent<nino::TransformComponent>().Translation;
-	auto& skyboxScale = skybox.GetComponent<nino::TransformComponent>().Scale;
-
-	skyboxTranslation = camera.GetComponent<nino::TransformComponent>().Translation;
-	skyboxScale = { 5.0f, 5.0f, 5.0f };
-
-#if 0
-=======
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
 	auto testCube = m_TestScene->CreateEntity("Test cube");
 	testCube.AddComponent<nino::TransformComponent>(0.0f, 0.0f, 2.0f);
 	testCube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(testMaterial), testMaterial);

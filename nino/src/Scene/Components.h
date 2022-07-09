@@ -63,4 +63,15 @@ namespace nino
 		CameraComponent(const DirectX::XMFLOAT4X4& view)
 			: camera(view) {}
 	};
+
+	struct EnvironmentComponent
+	{
+		Ref<Drawable> Sky;
+		std::string filepath;
+
+		EnvironmentComponent() = default;
+		EnvironmentComponent(const EnvironmentComponent&) = default;
+		EnvironmentComponent(const std::string& file)
+			: filepath(file) {}
+	};
 }

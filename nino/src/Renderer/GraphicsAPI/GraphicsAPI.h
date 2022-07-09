@@ -33,6 +33,5 @@ namespace nino
 		static Microsoft::WRL::ComPtr<IDXGISwapChain4> m_SwapChain;
 		static Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_RenderTargetView;
 		static Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_DepthStencilView;
-		static Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_DepthStencilState;
 	};
 }

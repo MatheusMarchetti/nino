@@ -2,9 +2,11 @@
 .vs/
 bin/
 bin-int/
+Sandbox/Assets/
 
 # Files
 *.user
 *.sln
 *.dds
 *.cso
+*.log

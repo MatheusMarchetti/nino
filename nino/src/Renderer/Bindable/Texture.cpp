@@ -12,6 +12,12 @@ namespace nino
 	using namespace DirectX;
 	using namespace Microsoft::WRL;
 
+	void ConvertToDDS(ScratchImage& inputImage, const std::filesystem::path& filepath, ScratchImage& outputImage)
+	{
+		SaveToDDSFile(inputImage.GetImages(), inputImage.GetImageCount(), inputImage.GetMetadata(), DDS_FLAGS_NONE, filepath.c_str());
+		LoadFromDDSFile(filepath.c_str(), DDS_FLAGS_NONE, nullptr, outputImage);
+	}
+
 	Texture::Texture(const std::string& filepath, const uint32_t& slot)
 		: m_TexturePath(filepath), m_Slot(slot)
 	{
@@ -19,8 +25,7 @@ namespace nino
 		auto context = GraphicsAPI::GetContext();
 
 		ScratchImage loadedImage;
-		TexMetadata imageInfo;
-		size_t rowPitch, slicePitch;
+		ScratchImage mipChain;
 
 		if (filepath.empty())
 			m_TexturePath = "Assets/Textures/DefaultWhite.bmp";
@@ -34,50 +39,32 @@ namespace nino
 
 		if (m_TexturePath.extension() == ".dds")
 		{
-<<<<<<< HEAD
-			ThrowOnError(LoadFromDDSFile(m_TexturePath.c_str(), DDS_FLAGS_NONE, &imageInfo, loadedImage));
-=======
 			ThrowOnError(LoadFromDDSFile(m_TexturePath.c_str(), DDS_FLAGS_NONE, nullptr, loadedImage));
 
 			if (loadedImage.GetMetadata().mipLevels == 1 && loadedImage.GetMetadata().width > 1)
 			{
 				ThrowOnError(GenerateMipMaps(loadedImage.GetImages(), loadedImage.GetImageCount(), loadedImage.GetMetadata(), TEX_FILTER_DEFAULT, 0, mipChain));
-				ConvertToDDS(mipChain, m_TexturePath.c_str(), loadedImage);
+				ConvertToDDS(mipChain, m_TexturePath, loadedImage);
 			}
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
 		}
 
 		else if (m_TexturePath.extension() == ".tga")
 		{
-<<<<<<< HEAD
-			ThrowOnError(LoadFromTGAFile(m_TexturePath.c_str(), &imageInfo, loadedImage));
-=======
 			ThrowOnError(LoadFromTGAFile(m_TexturePath.c_str(), nullptr, loadedImage));
-			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds").c_str(), loadedImage);
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
+			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds"), loadedImage);
 		}
 
 		else if (m_TexturePath.extension() == ".hdr")
 		{
-<<<<<<< HEAD
-			ThrowOnError(LoadFromHDRFile(m_TexturePath.c_str(), &imageInfo, loadedImage));
-=======
 			ThrowOnError(LoadFromHDRFile(m_TexturePath.c_str(), nullptr, loadedImage));
-			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds").c_str(), loadedImage);
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
+			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds"), loadedImage);
 		}
 
 		else if (m_TexturePath.extension() == ".bmp" || m_TexturePath.extension() == ".jpg" || m_TexturePath.extension() == ".png" 
 			|| m_TexturePath.extension() == ".tiff" || m_TexturePath.extension() == ".gif")
 		{
-<<<<<<< HEAD
-			ThrowOnError(LoadFromWICFile(m_TexturePath.c_str(), WIC_FLAGS_NONE, &imageInfo, loadedImage));
-
-			ThrowOnError(SaveToDDSFile(loadedImage.GetImages()[0], DDS_FLAGS_NONE, m_TexturePath.replace_extension(".dds").c_str()));
-=======
 			ThrowOnError(LoadFromWICFile(m_TexturePath.c_str(), WIC_FLAGS_NONE, nullptr, loadedImage));
-			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds").c_str(), loadedImage);
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
+			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds"), loadedImage);
 		}
 
 		else
@@ -85,14 +72,12 @@ namespace nino
 			throw std::exception("Unsupported texture file format. Currently only supports BMP, JPG, PNG, TIFF and GIF files.");
 		}
 
-		ComputePitch(imageInfo.format, imageInfo.width, imageInfo.height, rowPitch, slicePitch);
-
 		D3D11_TEXTURE2D_DESC textureDesc = {};
-		textureDesc.Width = imageInfo.width;
-		textureDesc.Height = imageInfo.height;
-		textureDesc.MipLevels = imageInfo.mipLevels;
-		textureDesc.ArraySize = imageInfo.arraySize;
-		textureDesc.Format = imageInfo.format;
+		textureDesc.Width = loadedImage.GetMetadata().width;
+		textureDesc.Height = loadedImage.GetMetadata().height;
+		textureDesc.MipLevels = loadedImage.GetMetadata().mipLevels;
+		textureDesc.ArraySize = loadedImage.GetMetadata().arraySize;
+		textureDesc.Format = loadedImage.GetMetadata().format;
 		textureDesc.SampleDesc = { 1, 0 };
 		textureDesc.Usage = D3D11_USAGE_DEFAULT;
 		textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_RENDER_TARGET;
@@ -102,43 +87,24 @@ namespace nino
 		ComPtr<ID3D11Texture2D> texture2D;
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-		srvDesc.Format = imageInfo.format;
-
-<<<<<<< HEAD
-		if (imageInfo.arraySize % 6 == 0)
-=======
+		srvDesc.Format = loadedImage.GetMetadata().format;
 
 		if (loadedImage.GetMetadata().arraySize % 6 == 0)
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
 		{
-			imageInfo.miscFlags |= TEX_MISC_TEXTURECUBE;
 			textureDesc.MiscFlags |= D3D11_RESOURCE_MISC_TEXTURECUBE;
 
 			srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
 			srvDesc.TextureCube.MostDetailedMip = 0;
-			srvDesc.TextureCube.MipLevels = imageInfo.mipLevels;
+			srvDesc.TextureCube.MipLevels = loadedImage.GetMetadata().mipLevels;
 		}
 		else
 		{
 			srvDesc.Texture2D.MostDetailedMip = 0;
-			srvDesc.Texture2D.MipLevels = imageInfo.mipLevels;
+			srvDesc.Texture2D.MipLevels = loadedImage.GetMetadata().mipLevels;
 			srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 
 		}
 
-<<<<<<< HEAD
-		ThrowOnError(device->CreateTexture2D(&textureDesc, nullptr, &texture2D));
-
-		ThrowOnError(texture2D.As(&m_Texture));
-
-		context->UpdateSubresource(m_Texture.Get(), 0, nullptr, loadedImage.GetPixels(), rowPitch, slicePitch);
-
-		ThrowOnError(device->CreateShaderResourceView(m_Texture.Get(), &srvDesc, &m_ShaderResourceView));
-
-		if (imageInfo.mipLevels == 1)
-		{
-			context->GenerateMips(m_ShaderResourceView.Get());
-=======
 		if (loadedImage.GetMetadata().width / loadedImage.GetMetadata().height == 2)
 		{
 			//Temporarily create texture from loaded image.
@@ -203,7 +169,7 @@ namespace nino
 			unfilteredUAV->GetResource(&m_Texture);
 
 			ThrowOnError(CaptureTexture(device.Get(), context.Get(), m_Texture.Get(), loadedImage));
-			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds").c_str(), loadedImage);
+			ConvertToDDS(loadedImage, m_TexturePath.replace_extension(".dds"), loadedImage);
 
 			ThrowOnError(device->CreateShaderResourceView(m_Texture.Get(), &unfilteredSRVDesc, &m_ShaderResourceView));
 		}
@@ -225,7 +191,6 @@ namespace nino
 			}
 
 			ThrowOnError(device->CreateShaderResourceView(m_Texture.Get(), &srvDesc, &m_ShaderResourceView));
->>>>>>> 4200d5b (Added conversion from Equirectangular to Cubemap.)
 		}
 	}
 

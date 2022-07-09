@@ -163,6 +163,7 @@
     <ClInclude Include="src\Events\WindowEvents.h" />
     <ClInclude Include="src\Renderer\Bindable\Bindable.h" />
     <ClInclude Include="src\Renderer\Bindable\BindableCore.h" />
+    <ClInclude Include="src\Renderer\Bindable\ComputeShader.h" />
     <ClInclude Include="src\Renderer\Bindable\ConstantBuffer.h" />
     <ClInclude Include="src\Renderer\Bindable\DepthStencilState.h" />
     <ClInclude Include="src\Renderer\Bindable\IndexBuffer.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="src\Debug\Log.cpp" />
     <ClCompile Include="src\Debug\WindowInfo.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\ComputeShader.cpp" />
     <ClCompile Include="src\Renderer\Bindable\DepthStencilState.cpp" />
     <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Bindable\InputLayout.cpp" />

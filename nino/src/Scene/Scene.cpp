@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include "Renderer/Renderer.h"
+#include "Renderer/Drawable/Skybox.h"
 
 #include "Scene/Entity.h"
 #include "Scene/Components.h"
@@ -24,13 +25,24 @@ namespace nino
 	void Scene::UpdateScene(Timestep ts)
 	{
 		auto cameraTransform = m_Registry.group<CameraComponent>(entt::get<TransformComponent>);
+		auto environmentComponent = m_Registry.view<EnvironmentComponent>();
 		for (auto& entity : cameraTransform)
 		{
 			auto [camera, transform] = cameraTransform.get<CameraComponent, TransformComponent>(entity);
 
+			ModelCBuf cameraTransform;
+
 			if (camera.MainCamera)
 			{
 				camera.camera.UpdateView(transform.Translation, transform.Rotation);
+				transform.Scale = { 1000.0f, 1000.0f, 1000.0f };
+				cameraTransform.ModelMatrix = transform.GetTransform();
+				
+				auto environment = environmentComponent.get<EnvironmentComponent>(entity);
+				
+				environment.Sky = CreateRef<Skybox>(environment.filepath);
+				environment.Sky->SetData(cameraTransform);
+				environment.Sky->Draw();
 
 				Renderer::BeginScene(camera.camera);
 			}

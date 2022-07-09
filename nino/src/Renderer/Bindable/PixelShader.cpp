@@ -22,7 +22,7 @@ namespace nino
 		if (m_ShaderFilePath.empty())
 			m_ShaderFilePath = "Assets/Shaders/DefaultShader.hlsl";
 
-		std::filesystem::path csoShaderPath = m_ShaderFilePath;
+		std::filesystem::path csoShaderPath = m_ShaderFilePath.parent_path().string() + "/Cache/" + m_ShaderFilePath.filename().string();
 
 		csoShaderPath = csoShaderPath.replace_extension().string() + "_PS";
 

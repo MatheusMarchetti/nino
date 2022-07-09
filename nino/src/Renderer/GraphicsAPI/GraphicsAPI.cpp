@@ -12,7 +12,6 @@ namespace nino
 	Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::m_SwapChain = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GraphicsAPI::m_RenderTargetView = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GraphicsAPI::m_DepthStencilView = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> GraphicsAPI::m_DepthStencilState = nullptr;
 	BOOL GraphicsAPI::m_TearingSupport = FALSE;
 	D3D11_VIEWPORT GraphicsAPI::m_Viewport;
 
@@ -68,15 +67,9 @@ namespace nino
 		dsvDesc.SampleDesc.Count = 1;
 		dsvDesc.Usage = D3D11_USAGE_DEFAULT;
 
-		D3D11_DEPTH_STENCIL_DESC dsvStateDesc = {};
-		dsvStateDesc.DepthEnable = TRUE;
-		dsvStateDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-		dsvStateDesc.DepthFunc = D3D11_COMPARISON_LESS;
-
 		ThrowOnError(m_SwapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer)));
 		ThrowOnError(m_Device->CreateRenderTargetView(backBuffer.Get(), nullptr, &m_RenderTargetView));
 		ThrowOnError(m_Device->CreateTexture2D(&dsvDesc, nullptr, &depthStencil));
-		ThrowOnError(m_Device->CreateDepthStencilState(&dsvStateDesc, &m_DepthStencilState));
 		ThrowOnError(m_Device->CreateDepthStencilView(depthStencil.Get(), nullptr, &m_DepthStencilView));
 	}
 
@@ -99,7 +92,6 @@ namespace nino
 	void GraphicsAPI::BindTargets()
 	{
 		m_DeviceContext->RSSetViewports(1, &m_Viewport);
-		m_DeviceContext->OMSetDepthStencilState(m_DepthStencilState.Get(), 1);
 		m_DeviceContext->OMSetRenderTargets(1, m_RenderTargetView.GetAddressOf(), m_DepthStencilView.Get());
 	}
 

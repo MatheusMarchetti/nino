@@ -153,6 +153,7 @@
     <ClInclude Include="src\Renderer\Drawable\Skybox.h" />
     <ClInclude Include="src\Renderer\Bindable\RasterizerState.h" />
     <ClInclude Include="src\Renderer\Bindable\DepthStencilState.h" />
+    <ClInclude Include="src\Renderer\Bindable\ComputeShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -226,5 +227,6 @@
     <ClCompile Include="src\Renderer\Drawable\Skybox.cpp" />
     <ClCompile Include="src\Renderer\Bindable\RasterizerState.cpp" />
     <ClCompile Include="src\Renderer\Bindable\DepthStencilState.cpp" />
+    <ClCompile Include="src\Renderer\Bindable\ComputeShader.cpp" />
   </ItemGroup>
 </Project>
