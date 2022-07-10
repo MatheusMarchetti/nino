@@ -150,6 +150,9 @@
     <ClInclude Include="src\Events\EventManager.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\ApplicationEvents.h" />
+    <ClInclude Include="src\Events\KeyEvents.h" />
+    <ClInclude Include="src\Core\Input.h" />
+    <ClInclude Include="src\Events\MouseEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">

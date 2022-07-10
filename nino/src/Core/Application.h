@@ -2,8 +2,10 @@
 
 #include "Core/LayerStack.h"
 #include "Core/WindowStack.h"
-#include "Events/EventManager.h"
 #include "Events/ApplicationEvents.h"
+#include "Events/EventManager.h"
+#include "Events/KeyEvents.h"
+#include "Events/MouseEvents.h"
 #include "Renderer/Renderer.h"
 
 #include "Debug/GUILayer.h"
@@ -30,8 +32,8 @@ namespace nino
 
 		void Run();
 
-		void PushWindow(Window& window);
-		void PopWindow(Window& window);
+		void PushWindow(Window* window);
+		void PopWindow(Window* window);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);

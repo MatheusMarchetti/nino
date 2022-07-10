@@ -16,7 +16,7 @@ namespace nino
 			mainWindowDesc.Height = m_Descriptor.Height;
 			mainWindowDesc.Maximized = false;
 
-			PushWindow(Window(mainWindowDesc));
+			PushWindow(new Window(mainWindowDesc));
 
 			m_Renderer.Init(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 
@@ -88,15 +88,15 @@ namespace nino
 #endif
 	}
 
-	void Application::PushWindow(Window& window)
+	void Application::PushWindow(Window* window)
 	{
-		WindowDescriptor& descriptor = window.GetDescriptor();
+		WindowDescriptor& descriptor = window->GetDescriptor();
 		m_WindowStack.AddWindow(descriptor.WindowName, window);
 	}
 
-	void Application::PopWindow(Window& window)
+	void Application::PopWindow(Window* window)
 	{
-		WindowDescriptor& descriptor = window.GetDescriptor();
+		WindowDescriptor& descriptor = window->GetDescriptor();
 		m_WindowStack.RemoveWindow(descriptor.WindowName);
 	}
 

@@ -7,8 +7,8 @@ class SandboxApp : public nino::Application
 public:
 	SandboxApp(const nino::ApplicationDescriptor& descriptor) : Application(descriptor) 
 	{
-//		m_TestLayer = new ApplicationLayer();
-//		PushLayer(m_TestLayer);
+		m_TestLayer = new ApplicationLayer();
+		PushLayer(m_TestLayer);
 	}
 
 private:

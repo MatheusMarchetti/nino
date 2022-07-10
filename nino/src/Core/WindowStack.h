@@ -12,7 +12,7 @@ namespace nino
 
 		operator bool();
 
-		void AddWindow(const char* windowName, Window& window);
+		void AddWindow(const char* windowName, Window* window);
 		void RemoveWindow(const char* windowName);
 		Window* GetWindow(const char* windowName);
 

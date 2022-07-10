@@ -10,10 +10,11 @@ public:
 
 	virtual void OnAttach() override;
 	virtual void OnUpdate(nino::Timestep ts) override;
-	virtual void OnEvent(nino::Event& event) override {}
+	virtual void OnEvent(nino::Event& event) override;
 	virtual void RenderUI() override;
 
 private:
+	bool OnKeyPressed(nino::KeyPressedEvent& e);
 
 private:
 	nino::Ref<nino::Scene> m_TestScene;

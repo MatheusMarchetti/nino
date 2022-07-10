@@ -16,13 +16,14 @@ namespace nino
 		return valid;
 	}
 
-	void WindowStack::AddWindow(const char* windowName, Window& window)
+	void WindowStack::AddWindow(const char* windowName, Window* window)
 	{
-		m_Windows[windowName] = &window;
+		m_Windows[windowName] = window;
 	}
 
 	void WindowStack::RemoveWindow(const char* windowName)
 	{
+		delete m_Windows[windowName];
 		m_Windows[windowName] = nullptr;
 	}
 

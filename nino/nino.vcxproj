@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\Layer.h" />
     <ClInclude Include="src\Core\LayerStack.h" />
     <ClInclude Include="src\Core\NinoMath.h" />
@@ -162,6 +163,8 @@
     <ClInclude Include="src\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\EventManager.h" />
+    <ClInclude Include="src\Events\KeyEvents.h" />
+    <ClInclude Include="src\Events\MouseEvents.h" />
     <ClInclude Include="src\Renderer\Bindable\Bindable.h" />
     <ClInclude Include="src\Renderer\Bindable\BindableCore.h" />
     <ClInclude Include="src\Renderer\Bindable\ComputeShader.h" />
