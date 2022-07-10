@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
 #include "Events/Event.h"
 
 namespace nino
@@ -49,7 +48,7 @@ namespace nino
 
 	private:
 		std::function<void(Event&)> m_EventCallback;
-		static Event* s_currentEvent;
-		static std::vector<Event*> s_EventQueue;
+		inline static Event* s_currentEvent;
+		inline static std::vector<Event*> s_EventQueue;
 	};
 }

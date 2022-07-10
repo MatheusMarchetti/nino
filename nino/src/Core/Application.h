@@ -2,10 +2,12 @@
 
 #include "Core/LayerStack.h"
 #include "Core/WindowStack.h"
+
 #include "Events/ApplicationEvents.h"
 #include "Events/EventManager.h"
 #include "Events/KeyEvents.h"
 #include "Events/MouseEvents.h"
+
 #include "Renderer/Renderer.h"
 
 #include "Debug/GUILayer.h"

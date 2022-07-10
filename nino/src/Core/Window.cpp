@@ -2,7 +2,6 @@
 #include "Window.h"
 
 #include "Events/EventManager.h"
-#include "Debug/GUILayer.h"
 
 namespace nino
 {

@@ -1,5 +1,9 @@
 #pragma once
 
+#define BIND_EVENT(fn) std::bind(&fn, this, std::placeholders::_1)
+
+#define EVENT_ID(event) typeid(event).hash_code()
+
 namespace nino
 {
 	class Event
@@ -11,7 +15,7 @@ namespace nino
 
 	protected:
 		Event() = default;
-		size_t GetEventID() { return m_EventID; }
+		const size_t& GetEventID() { return m_EventID; }
 
 	protected:
 		size_t m_EventID;

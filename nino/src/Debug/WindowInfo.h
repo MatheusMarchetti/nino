@@ -11,7 +11,7 @@ namespace nino
 		static T ThrowOnError(T returnValue, int errorLine, const char* file);
 
 	private:
-		static std::string m_ErrorMessage;
+		inline static std::string m_ErrorMessage;
 	};
 
 	template<typename T>

@@ -8,6 +8,7 @@
 #include <windowsx.h>
 
 #include <cstdint>
+#include <iostream>
 #include <string>
 #include <memory>
 #include <functional>

@@ -14,8 +14,6 @@ namespace nino
 	static constexpr size_t max_events = 10;
 	static size_t s_Head;
 	static size_t s_Tail;
-	Event* EventManager::s_currentEvent;
-	std::vector<Event*> EventManager::s_EventQueue;
 
 	EventManager::EventManager()
 	{

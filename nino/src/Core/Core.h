@@ -1,11 +1,5 @@
 #pragma once
 
-#include <typeinfo>
-
-#define BIND_EVENT(fn) std::bind(&fn, this, std::placeholders::_1)
-
-#define EVENT_ID(event) typeid(event).hash_code()
-
 namespace nino
 {
 	template<typename T>

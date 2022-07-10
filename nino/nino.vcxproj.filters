@@ -173,9 +173,6 @@
     <ClCompile Include="src\Debug\Log.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
-    <ClCompile Include="src\Debug\WindowInfo.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp">
       <Filter>Renderer\Bindable</Filter>
     </ClCompile>

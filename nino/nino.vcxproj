@@ -208,7 +208,6 @@
     <ClCompile Include="src\Debug\GUILayer.cpp" />
     <ClCompile Include="src\Debug\GraphicsInfo.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
-    <ClCompile Include="src\Debug\WindowInfo.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\Renderer\Bindable\ComputeShader.cpp" />
     <ClCompile Include="src\Renderer\Bindable\DepthStencilState.cpp" />

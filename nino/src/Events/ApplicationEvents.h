@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core/Core.h"
 #include "Events/Event.h"
 
 namespace nino

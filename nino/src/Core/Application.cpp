@@ -1,8 +1,6 @@
 #include "corepch.h"
 #include "Application.h"
 
-#include "imgui.h"
-
 namespace nino
 {
 	Application::Application(const ApplicationDescriptor& descriptor)
