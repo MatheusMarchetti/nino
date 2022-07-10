@@ -21,7 +21,6 @@ namespace nino
 		GUILayer(Window* window);
 		virtual ~GUILayer() {};
 
-		bool GetMessages(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 		void Begin();
 		void End();
 

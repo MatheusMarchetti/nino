@@ -13,8 +13,6 @@
 
 #include "Scene/Components.h" //To remove
 
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 namespace nino
 {
 	template<typename T, typename Func>
@@ -264,11 +262,6 @@ namespace nino
 		: m_Window(window)
 	{
 		ImGui::CreateContext();
-	}
-
-	bool GUILayer::GetMessages(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-	{
-		return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 	}
 
 	void GUILayer::OnAttach()
