@@ -3,6 +3,7 @@
 cbuffer SceneConstantBuffer : register(b0)
 {
     matrix ViewProjection;
+    float3 EyePosition;
 }
 
 cbuffer ModelConstantBuffer : register(b1)

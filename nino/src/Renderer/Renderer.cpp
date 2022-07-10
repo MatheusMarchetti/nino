@@ -7,6 +7,7 @@
 #include "Renderer/GraphicsAPI/GraphicsAPI.h"
 #include "Renderer/Bindable/BindableCore.h"
 #include "Renderer/Camera.h"
+#include "Renderer/Skylight.h"
 
 namespace nino
 {
@@ -41,11 +42,12 @@ namespace nino
 		GraphicsAPI::Clear(color, depth);
 	}
 
-	void Renderer::BeginScene(const Camera& camera)
+	void Renderer::BeginScene(const Camera& camera, const Skylight& skylight)
 	{
 		SceneBuffer sceneCB;
 
 		sceneCB.ViewProjection = camera.GetViewProjection();
+		sceneCB.EyePosition = camera.GetFocalPoint();
 
 		s_Data.SceneConstantBuffer->Update(sceneCB);
 		s_Data.SceneConstantBuffer->Bind(0);

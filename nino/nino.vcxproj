@@ -154,6 +154,7 @@
     <ClInclude Include="src\Core\NinoMath.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Window.h" />
+    <ClInclude Include="src\Core\WindowStack.h" />
     <ClInclude Include="src\Debug\GUILayer.h" />
     <ClInclude Include="src\Debug\GraphicsInfo.h" />
     <ClInclude Include="src\Debug\Log.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
     <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Renderer\Skylight.h" />
     <ClInclude Include="src\Scene\Components.h" />
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\Scene.h" />
@@ -199,6 +201,7 @@
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\LayerStack.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
+    <ClCompile Include="src\Core\WindowStack.cpp" />
     <ClCompile Include="src\Debug\GUILayer.cpp" />
     <ClCompile Include="src\Debug\GraphicsInfo.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
@@ -222,6 +225,7 @@
     <ClCompile Include="src\Renderer\Drawable\Sphere.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Skylight.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\corepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

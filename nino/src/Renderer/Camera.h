@@ -30,6 +30,7 @@ namespace nino
 		const float GetNearPlane() const { return m_NearZ; }
 		const float GetFarPlane() const { return m_FarZ; }
 		const float GetViewSize() const { return m_Height; }
+		const DirectX::XMFLOAT3 GetFocalPoint() const { return m_FocalPoint; }
 
 	private:
 		void CalculateViewProjection();

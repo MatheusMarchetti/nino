@@ -8,13 +8,15 @@ namespace nino
 {
 	class Window;
 	class Camera;
+	class Skylight;
 }
 
 namespace nino
 {
-	struct SceneBuffer
+	struct alignas(16) SceneBuffer
 	{
 		DirectX::XMFLOAT4X4 ViewProjection;
+		DirectX::XMFLOAT3 EyePosition;
 	};
 
 	class Renderer
@@ -27,7 +29,7 @@ namespace nino
 		static void SetViewport(uint32_t width, uint32_t height, uint32_t topX = 0, uint32_t topY = 0);
 		static void Clear(float color[4], float depth = 1.0f);
 
-		static void BeginScene(const Camera& camera);
+		static void BeginScene(const Camera& camera, const Skylight& skylight);
 		static void EndScenes();
 		
 	private:

@@ -2,7 +2,6 @@
 #include "Scene.h"
 
 #include "Renderer/Renderer.h"
-#include "Renderer/Drawable/Skybox.h"
 
 #include "Scene/Entity.h"
 #include "Scene/Components.h"
@@ -22,10 +21,14 @@ namespace nino
 		m_Registry.destroy(entity);
 	}
 
+	void Scene::CreateSky(const std::string& filepath)
+	{
+		m_Skylight = CreateRef<Skylight>(filepath);
+	}
+
 	void Scene::UpdateScene(Timestep ts)
 	{
 		auto cameraTransform = m_Registry.group<CameraComponent>(entt::get<TransformComponent>);
-		auto environmentComponent = m_Registry.view<EnvironmentComponent>();
 		for (auto& entity : cameraTransform)
 		{
 			auto [camera, transform] = cameraTransform.get<CameraComponent, TransformComponent>(entity);
@@ -38,13 +41,9 @@ namespace nino
 				transform.Scale = { 1000.0f, 1000.0f, 1000.0f };
 				cameraTransform.ModelMatrix = transform.GetTransform();
 				
-				auto environment = environmentComponent.get<EnvironmentComponent>(entity);
+				m_Skylight->SetData(cameraTransform);
 				
-				environment.Sky = CreateRef<Skybox>(environment.filepath);
-				environment.Sky->SetData(cameraTransform);
-				environment.Sky->Draw();
-
-				Renderer::BeginScene(camera.camera);
+				Renderer::BeginScene(camera.camera, *m_Skylight);
 			}
 		}
 
