@@ -18,7 +18,7 @@ void ApplicationLayer::OnAttach()
 	camera.GetComponent<nino::CameraComponent>().MainCamera = true;
 	camera.AddComponent<nino::TransformComponent>(0.0f, 0.0f, -1.0f);
 
-#if 0
+#if 1
 	std::string albedo = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_basecolor.png";
 	std::string metallic = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_metallic.png";
 	std::string normal = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_normal.png";
@@ -33,7 +33,7 @@ void ApplicationLayer::OnAttach()
 	testCube.AddComponent<nino::DrawableComponent>(nino::CreateRef<nino::Cube>(testMaterial), testMaterial);
 #endif
 
-#if 0
+#if 1
 	nino::Material test;
 
 	auto floor = m_TestScene->CreateEntity("Floor");
@@ -138,12 +138,5 @@ void ApplicationLayer::RenderUI()
 
 void ApplicationLayer::OnEvent(nino::Event& e)
 {
-	nino::EventManager::Dispatch<nino::KeyPressedEvent>(BIND_EVENT(ApplicationLayer::OnKeyPressed));
-}
-
-bool ApplicationLayer::OnKeyPressed(nino::KeyPressedEvent& e)
-{
-	NINO_WARN("{}", e.GetKeyCode());
-
-	return true;
+	
 }

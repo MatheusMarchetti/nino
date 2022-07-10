@@ -28,7 +28,7 @@ namespace nino
 
 	public:
 		Application(const ApplicationDescriptor& descriptor);
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		void OnEvent(Event& event);
 

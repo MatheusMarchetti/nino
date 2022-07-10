@@ -30,11 +30,6 @@ namespace nino
 		}
 	}
 
-	Application::~Application()
-	{
-		
-	}
-
 	void Application::OnEvent(Event& event)
 	{
 		EventManager::Dispatch<WindowClosedEvent>(BIND_EVENT(Application::OnWindowClose));

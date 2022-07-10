@@ -15,6 +15,7 @@ namespace nino
 
 	protected:
 		Event() = default;
+		virtual ~Event() = default;
 		const size_t& GetEventID() { return m_EventID; }
 
 	protected:
