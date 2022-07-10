@@ -5,16 +5,24 @@
 
 namespace nino
 {
-	Application::Application(const uint32_t& clientWidth, const uint32_t& clientHeight)
+	Application::Application(const ApplicationDescriptor& descriptor)
+		: m_Descriptor(descriptor)
 	{
 		try
 		{
-			m_Window.Init("nino Game Application", std::max(1u, clientWidth), std::max(1u, clientHeight));
-			m_Renderer.Init(&m_Window);
+			WindowDescriptor mainWindowDesc = {};
+			mainWindowDesc.WindowName = m_Descriptor.ApplicationName;
+			mainWindowDesc.Width = m_Descriptor.Width;
+			mainWindowDesc.Height = m_Descriptor.Height;
+			mainWindowDesc.Maximized = true;
+
+			PushWindow(Window(mainWindowDesc));
+
+			m_Renderer.Init(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 
 			m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 
-			m_ImGuiLayer = new GUILayer(&m_Window);
+			m_ImGuiLayer = new GUILayer(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 			PushOverlay(m_ImGuiLayer);
 		}
 		catch(std::exception e)
@@ -27,11 +35,6 @@ namespace nino
 	Application::~Application()
 	{
 		
-	}
-
-	void Application::SetWindowTitle(const char* name)
-	{
-		SetWindowText(m_Window.GetWindow(), name);
 	}
 
 	void Application::OnEvent(Event& event)
@@ -49,7 +52,10 @@ namespace nino
 
 	void Application::Run()
 	{
-		m_Window.Show();
+		for (auto& window : m_WindowStack)
+		{
+			window.second->Show();
+		}
 
 		while (shouldRun)
 		{
@@ -83,9 +89,24 @@ namespace nino
 #endif
 	}
 
+	void Application::PushWindow(Window& window)
+	{
+		WindowDescriptor& descriptor = window.GetDescriptor();
+		m_WindowStack.AddWindow(descriptor.WindowName, window);
+	}
+
+	void Application::PopWindow(Window& window)
+	{
+		WindowDescriptor& descriptor = window.GetDescriptor();
+		m_WindowStack.RemoveWindow(descriptor.WindowName);
+	}
+
 	bool Application::OnWindowClose(WindowClosedEvent& event)
 	{
-		shouldRun = false;
+		// Remove window from stack
+
+		if(!m_WindowStack)
+			shouldRun = false;
 
 		return true;
 	}
@@ -112,10 +133,8 @@ namespace nino
 		m_LayerStack.DetachOverlay(overlay);
 	}
 
-	int CreateApplication(Application* app, const char* name)
+	int CreateApplication(Application* app)
 	{
-		app->SetWindowTitle(name);
-
 		try
 		{
 			app->Run();

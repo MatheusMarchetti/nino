@@ -5,17 +5,18 @@
 void ApplicationLayer::OnAttach()
 {
 	nino::Renderer::ToggleVSync(true);
-	nino::Renderer::SetViewport(nino::Window::GetWidth(), nino::Window::GetHeight());
+//	nino::Renderer::SetViewport(nino::Window::GetWidth(), nino::Window::GetHeight());
 
 	m_TestScene = nino::CreateRef<nino::Scene>();
 
 	//Test scene
 
+	m_TestScene->CreateSky("C:/dev/Game Engine/nino/Sandbox/Assets/Textures/environment.hdr");
+
 	auto camera = m_TestScene->CreateEntity("Camera");
 	camera.AddComponent<nino::CameraComponent>();
 	camera.GetComponent<nino::CameraComponent>().MainCamera = true;
 	camera.AddComponent<nino::TransformComponent>(0.0f, 0.0f, -1.0f);
-	camera.AddComponent<nino::EnvironmentComponent>("C:/dev/Game Engine/nino/Sandbox/Assets/Textures/environment.hdr");
 
 #if 1
 	std::string albedo = "C:/dev/Game Engine/nino/Sandbox/Assets/Textures/PBR/rustediron2_basecolor.png";

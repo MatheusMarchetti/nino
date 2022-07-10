@@ -6,49 +6,30 @@
 
 namespace nino
 {
-	LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
-	uint32_t Window::s_Width = 0;
-	uint32_t Window::s_Height = 0;
-
-	void Window::Init(const char* className, const uint32_t& width, const uint32_t& height)
+	Window::Window(const WindowDescriptor& descriptor)
+		: m_Descriptor(descriptor)
 	{
-		s_Width = width;
-		s_Height = height;
-
 		SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
 		HINSTANCE hInstance = GetModuleHandle(NULL);
 		WNDCLASSEX wc = {};
 		wc.cbSize = sizeof(WNDCLASSEX);
 		wc.hInstance = hInstance;
-		wc.lpszClassName = className;
-		wc.lpfnWndProc = WindowProc;
+		wc.lpszClassName = m_Descriptor.WindowName;
+		wc.lpfnWndProc = DefWindowProc;
 
 		ThrowOnError(RegisterClassEx(&wc));
 
-		RECT rect = { 0, 0, (LONG)width, (LONG)height };
+		RECT rect = { 0, 0, (LONG)m_Descriptor.Width, (LONG)m_Descriptor.Height };
 		ThrowOnError(AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE));
 
-		m_Window = ThrowOnError(CreateWindow(className, className, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, nullptr, nullptr, hInstance, nullptr));
+		m_Window = ThrowOnError(CreateWindow(m_Descriptor.WindowName, m_Descriptor.WindowName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, nullptr, nullptr, hInstance, nullptr));
 
-		NINO_CORE_INFO("Window subsystem initialized!");
+		NINO_CORE_INFO("{} window initialized!", m_Descriptor.WindowName);
 	}
 
 	void Window::Show()
 	{
-		ShowWindow(m_Window, SW_SHOW);
-	}
-
-	LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-	{
-		EventManager* const pWnd = reinterpret_cast<EventManager*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-		GUILayer* const pLayer = reinterpret_cast<GUILayer*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-
-		if (pLayer->GetMessages(hWnd, msg, wParam, lParam))
-		{
-			return true;
-		}
-
-		return pWnd->EventHandler(hWnd, msg, wParam, lParam);
+		ShowWindow(m_Window, m_Descriptor.Maximized ? SW_MAXIMIZE : SW_SHOW);
 	}
 }

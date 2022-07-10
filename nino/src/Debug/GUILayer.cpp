@@ -289,7 +289,7 @@ namespace nino
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		ImGui_ImplWin32_Init(m_Window->GetWindow());
+		ImGui_ImplWin32_Init(m_Window->GetHandle());
 		ImGui_ImplDX11_Init(GraphicsAPI::GetDevice().Get(), GraphicsAPI::GetContext().Get());
 	}
 

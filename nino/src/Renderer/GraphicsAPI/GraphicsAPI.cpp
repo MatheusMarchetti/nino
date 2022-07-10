@@ -50,8 +50,8 @@ namespace nino
 		desc1.SampleDesc.Count = 1;
 		desc1.Flags = m_TearingSupport ? DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING : 0;
 
-		ThrowOnError(dxgiFactory->CreateSwapChainForHwnd(dxgiDevice4.Get(), window->GetWindow(), &desc1, nullptr, NULL, &dxgiSwapChain1));
-		ThrowOnError(dxgiFactory->MakeWindowAssociation(window->GetWindow(), DXGI_MWA_NO_ALT_ENTER));
+		ThrowOnError(dxgiFactory->CreateSwapChainForHwnd(dxgiDevice4.Get(), window->GetHandle(), &desc1, nullptr, NULL, &dxgiSwapChain1));
+		ThrowOnError(dxgiFactory->MakeWindowAssociation(window->GetHandle(), DXGI_MWA_NO_ALT_ENTER));
 		ThrowOnError(dxgiSwapChain1.As(&m_SwapChain));
 
 		ComPtr<ID3D11Texture2D> backBuffer;
