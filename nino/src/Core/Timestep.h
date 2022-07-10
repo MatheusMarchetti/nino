@@ -32,6 +32,7 @@ namespace nino
 
 		float GetSeconds() const { return m_Time; }
 		float GetMilliseconds() const { return m_Time * 1000.0f; }
+		float FramesPerSecond() const { return 1 / m_Time; }
 
 	private:
 		uint64_t m_FrequencyCounter;
