@@ -159,9 +159,9 @@
     <ClInclude Include="src\Debug\GraphicsInfo.h" />
     <ClInclude Include="src\Debug\Log.h" />
     <ClInclude Include="src\Debug\WindowInfo.h" />
+    <ClInclude Include="src\Events\ApplicationEvents.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\EventManager.h" />
-    <ClInclude Include="src\Events\WindowEvents.h" />
     <ClInclude Include="src\Renderer\Bindable\Bindable.h" />
     <ClInclude Include="src\Renderer\Bindable\BindableCore.h" />
     <ClInclude Include="src\Renderer\Bindable\ComputeShader.h" />

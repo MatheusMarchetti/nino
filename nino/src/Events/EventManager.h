@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core/Core.h"
 #include "Events/Event.h"
 
 namespace nino
@@ -8,30 +9,47 @@ namespace nino
 	{
 	public:
 		EventManager();
-		~EventManager() {}
-		EventManager(EventManager const&) = delete;
-		void operator=(EventManager const&) = delete;
-		
-		void CollectWindowsEvents();
-		void SetEventCallback(const std::function<void(Event&)>& callback) { m_EventCallback = callback; }
-		void ProcessEvents();
+		~EventManager();
 
-		static void QueueEvents(const std::shared_ptr<Event>& event);
+		void SetEventCallback(const std::function<void(Event&)>& callback) { m_EventCallback = callback; }
+
+		static void QueueEvent(Event* event);
+		void ProcessEvents();
 		
 		template<typename T>
 		static void Dispatch(std::function<bool(T&)> func)
 		{
-			if (typeid(T).hash_code() == m_CurrentEvent->GetEventID())
+			if (s_currentEvent)
 			{
-				m_CurrentEvent->Handled = func(*(T*)&(*m_CurrentEvent));
+				if (typeid(T).hash_code() == s_currentEvent->GetEventID())
+				{
+					if (!func(*(T*)&(*s_currentEvent)))
+					{
+						s_currentEvent->Handled = false;
+					}
+					else
+					{
+						s_currentEvent->Handled = true;
+						delete s_currentEvent;
+						s_currentEvent = nullptr;
+					}
+				}
+			}
+			else
+			{
+				delete s_currentEvent;
+				s_currentEvent = nullptr;
 			}
 		}
-		
-		LRESULT CALLBACK EventHandler(HWND, UINT, WPARAM, LPARAM);
+
+		static LRESULT CALLBACK EventHandler(HWND, UINT, WPARAM, LPARAM);
 
 	private:
-		static std::queue<std::shared_ptr<Event>> m_EventQueue;
+		void DispatchEvent(Event* event);
+
+	private:
 		std::function<void(Event&)> m_EventCallback;
-		static std::shared_ptr<Event> m_CurrentEvent;
+		static Event* s_currentEvent;
+		static std::vector<Event*> s_EventQueue;
 	};
 }

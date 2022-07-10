@@ -16,7 +16,7 @@ namespace nino
 		wc.cbSize = sizeof(WNDCLASSEX);
 		wc.hInstance = hInstance;
 		wc.lpszClassName = m_Descriptor.WindowName;
-		wc.lpfnWndProc = DefWindowProc;
+		wc.lpfnWndProc = EventManager::EventHandler;
 
 		ThrowOnError(RegisterClassEx(&wc));
 

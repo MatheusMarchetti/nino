@@ -3,18 +3,22 @@
 
 namespace nino
 {
+	std::unordered_map<const char*, Window*> WindowStack::s_Windows;
+
 	void WindowStack::AddWindow(const char* windowName, Window& window)
 	{
-		m_Windows[windowName] = &window;
+		s_Windows[windowName] = &window;
 	}
 
 	void WindowStack::RemoveWindow(const char* windowName)
 	{
-		m_Windows.erase(windowName);
+		auto it = s_Windows.find(windowName);
+
+		s_Windows.erase(it);
 	}
 
 	Window* WindowStack::GetWindow(const char* windowName)
 	{
-		return m_Windows[windowName];
+		return s_Windows[windowName];
 	}
 }

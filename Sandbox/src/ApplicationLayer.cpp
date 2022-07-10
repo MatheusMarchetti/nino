@@ -130,20 +130,3 @@ void ApplicationLayer::OnUpdate(nino::Timestep ts)
 
 	m_TestScene->UpdateScene(ts);
 }
-
-void ApplicationLayer::OnEvent(nino::Event& event)
-{
-	nino::EventManager::Dispatch<PlayerMovedEvent>(BIND_EVENT(ApplicationLayer::OnPlayerMoved));
-}
-
-void ApplicationLayer::RenderUI()
-{
-	m_Layer.TestRender();
-}
-
-bool ApplicationLayer::OnPlayerMoved(PlayerMovedEvent& event)
-{
-//	NINO_TRACE(L"Player moved to: ({}, {})", event.GetPosX(), event.GetPosY());
-
-	return true;
-}

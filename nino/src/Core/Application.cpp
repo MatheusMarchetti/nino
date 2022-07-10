@@ -14,7 +14,7 @@ namespace nino
 			mainWindowDesc.WindowName = m_Descriptor.ApplicationName;
 			mainWindowDesc.Width = m_Descriptor.Width;
 			mainWindowDesc.Height = m_Descriptor.Height;
-			mainWindowDesc.Maximized = true;
+			mainWindowDesc.Maximized = false;
 
 			PushWindow(Window(mainWindowDesc));
 
@@ -43,7 +43,7 @@ namespace nino
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++)
 		{
-			if (event.Handled)
+			if (!event)
 				break;
 
 			(*it)->OnEvent(event);
@@ -59,7 +59,6 @@ namespace nino
 
 		while (shouldRun)
 		{
-			m_EventManager.CollectWindowsEvents();
 			m_EventManager.ProcessEvents();
 
 			Timestep timestep;
@@ -103,9 +102,9 @@ namespace nino
 
 	bool Application::OnWindowClose(WindowClosedEvent& event)
 	{
-		// Remove window from stack
+		m_WindowStack.RemoveWindow(event.WindowName);
 
-		if(!m_WindowStack)
+		if (!m_WindowStack)
 			shouldRun = false;
 
 		return true;

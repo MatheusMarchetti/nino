@@ -60,15 +60,6 @@
     <ClInclude Include="src\Debug\WindowInfo.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\Event.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Events\EventManager.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Events\WindowEvents.h">
-      <Filter>Events</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\Bindable\Bindable.h">
       <Filter>Renderer\Bindable</Filter>
     </ClInclude>
@@ -156,6 +147,9 @@
     <ClInclude Include="src\Renderer\Bindable\ComputeShader.h" />
     <ClInclude Include="src\Renderer\Skylight.h" />
     <ClInclude Include="src\Core\WindowStack.h" />
+    <ClInclude Include="src\Events\EventManager.h" />
+    <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\ApplicationEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -178,9 +172,6 @@
     </ClCompile>
     <ClCompile Include="src\Debug\WindowInfo.cpp">
       <Filter>Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Events\EventManager.cpp">
-      <Filter>Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Bindable\IndexBuffer.cpp">
       <Filter>Renderer\Bindable</Filter>
@@ -232,5 +223,6 @@
     <ClCompile Include="src\Renderer\Bindable\ComputeShader.cpp" />
     <ClCompile Include="src\Renderer\Skylight.cpp" />
     <ClCompile Include="src\Core\WindowStack.cpp" />
+    <ClCompile Include="src\Events\EventManager.cpp" />
   </ItemGroup>
 </Project>

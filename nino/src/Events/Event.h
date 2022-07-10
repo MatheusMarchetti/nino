@@ -5,10 +5,17 @@ namespace nino
 	class Event
 	{
 	public:
-		virtual ~Event() = default;
-		virtual std::wstring ToString() const = 0;
-		virtual size_t GetEventID() const = 0;
+		Event() = default;
 
+		operator bool() { return !Handled; }
+
+		size_t GetEventID() { return m_EventID; }
+
+	public:
 		bool Handled = false;
+
+	protected:
+		size_t m_EventID;
+
 	};
 }

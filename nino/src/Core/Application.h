@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Events/EventManager.h"
-#include "Events/WindowEvents.h"
-#include "Renderer/Renderer.h"
 #include "Core/LayerStack.h"
 #include "Core/WindowStack.h"
+#include "Events/EventManager.h"
+#include "Events/ApplicationEvents.h"
+#include "Renderer/Renderer.h"
 
 #include "Debug/GUILayer.h"
 
@@ -42,8 +42,8 @@ namespace nino
 		bool OnWindowClose(WindowClosedEvent& event);
 
 	private:
-		ApplicationDescriptor m_Descriptor;
 		bool shouldRun = true;
+		ApplicationDescriptor m_Descriptor;
 		EventManager m_EventManager;
 		Renderer m_Renderer;
 		WindowStack m_WindowStack;

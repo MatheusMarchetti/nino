@@ -139,7 +139,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\ApplicationLayer.h" />
-    <ClInclude Include="src\CustomEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ApplicationLayer.cpp" />

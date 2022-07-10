@@ -1,73 +1,78 @@
 #include "corepch.h"
 #include "EventManager.h"
 
-#include "Events/WindowEvents.h"
+#include "Events/ApplicationEvents.h"
 
 namespace nino
 {
-	std::queue<std::shared_ptr<Event>> EventManager::m_EventQueue;
-	std::shared_ptr<Event> EventManager::m_CurrentEvent = nullptr;
+	static constexpr size_t max_events = 10;
+	static size_t s_Head;
+	static size_t s_Tail;
+	static char s_WindowName[1000] = "";
+	Event* EventManager::s_currentEvent;
+	std::vector<Event*> EventManager::s_EventQueue;
 
 	EventManager::EventManager()
 	{
-		NINO_CORE_INFO(L"Event subsystem initialized!");
+		s_Head = 0;
+		s_Tail = 0;
+
+		s_EventQueue.resize(max_events);
 	}
 
-	void EventManager::CollectWindowsEvents()
+	void EventManager::QueueEvent(Event* event)
 	{
-		MSG m_Msg = {};
+		s_EventQueue[s_Tail] = event;
 
-		while (PeekMessage(&m_Msg, nullptr, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&m_Msg);
-			DispatchMessage(&m_Msg);
-		}
+		s_Tail = (s_Tail + 1) % max_events;
 	}
 
 	void EventManager::ProcessEvents()
 	{
-		while (!m_EventQueue.empty())
+		while (s_Head != s_Tail)
 		{
-			m_CurrentEvent = m_EventQueue.front();
-			m_EventQueue.pop();
- 
-			m_EventCallback(*m_CurrentEvent);
+			s_currentEvent = s_EventQueue[s_Head];
+			s_EventQueue[s_Head] = nullptr;
+			DispatchEvent(s_currentEvent);
+
+			s_Head = (s_Head + 1) % max_events;
+		}
+
+		MSG msg = {};
+		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
 	}
 
-	void EventManager::QueueEvents(const std::shared_ptr<Event>& event)
+	void EventManager::DispatchEvent(Event* event)
 	{
-		m_EventQueue.push(event);
+		m_EventCallback(*event);
 	}
 
-	LRESULT EventManager::EventHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	EventManager::~EventManager()
 	{
-		switch (uMsg)
+		for (auto& event : s_EventQueue)
 		{
-		case WM_SIZE:
-		{
-			uint32_t width = LOWORD(lParam);
-			uint32_t height = HIWORD(lParam);
-
-			Ref<WindowResizedEvent> resizedEvent = CreateRef<WindowResizedEvent>(width, height);
-			EventManager::QueueEvents(resizedEvent);
-
-			break;
+			delete event;
 		}
+	}
 
+	LRESULT EventManager::EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		switch (msg)
+		{
 		case WM_DESTROY:
 		{
-			Ref<WindowClosedEvent> closedEvent = CreateRef<WindowClosedEvent>();
-			EventManager::QueueEvents(closedEvent);
+			ThrowOnError(GetClassName(hWnd, s_WindowName, 1000));
 
-			break;
+			QueueEvent(new WindowClosedEvent(s_WindowName));
 		}
-
 		default:
-			return DefWindowProc(hWnd, uMsg, wParam, lParam);
+			return DefWindowProc(hWnd, msg, wParam, lParam);
 		}
 
 		return 0;
 	}
 }
-
