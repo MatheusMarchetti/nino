@@ -156,7 +156,7 @@
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Core\WindowStack.h" />
-    <ClInclude Include="src\Debug\GUILayer.h" />
+    <ClInclude Include="src\Debug\ImGuiLayer.h" />
     <ClInclude Include="src\Debug\GraphicsInfo.h" />
     <ClInclude Include="src\Debug\Log.h" />
     <ClInclude Include="src\Debug\WindowInfo.h" />
@@ -205,7 +205,7 @@
     <ClCompile Include="src\Core\LayerStack.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
     <ClCompile Include="src\Core\WindowStack.cpp" />
-    <ClCompile Include="src\Debug\GUILayer.cpp" />
+    <ClCompile Include="src\Debug\ImGuiLayer.cpp" />
     <ClCompile Include="src\Debug\GraphicsInfo.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />

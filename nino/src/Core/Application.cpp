@@ -20,7 +20,7 @@ namespace nino
 
 			m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 
-			m_ImGuiLayer = new GUILayer(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
+			m_ImGuiLayer = new ImGuiLayer(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 			PushOverlay(m_ImGuiLayer);
 		}
 		catch(std::exception e)
@@ -50,11 +50,12 @@ namespace nino
 			window.second->Show();
 		}
 
+		Timestep timestep;
+
 		while (shouldRun)
 		{
 			m_EventManager.ProcessEvents();
 
-			Timestep timestep;
 			timestep.Tick();
 
 			for (Layer* layer : m_LayerStack)
@@ -66,7 +67,7 @@ namespace nino
 
 			for (Layer* layer : m_LayerStack)
 			{
-				layer->RenderUI();
+				layer->RenderUserInterface();
 			}
 
 			m_ImGuiLayer->End();

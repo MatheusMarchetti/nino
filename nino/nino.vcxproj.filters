@@ -48,7 +48,7 @@
     <ClInclude Include="src\Core\Window.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Debug\GUILayer.h">
+    <ClInclude Include="src\Debug\ImGuiLayer.h">
       <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Debug\GraphicsInfo.h">
@@ -164,7 +164,7 @@
     <ClCompile Include="src\Core\Window.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Debug\GUILayer.cpp">
+    <ClCompile Include="src\Debug\ImGuiLayer.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="src\Debug\GraphicsInfo.cpp">

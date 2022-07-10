@@ -11,14 +11,7 @@ public:
 	virtual void OnAttach() override;
 	virtual void OnUpdate(nino::Timestep ts) override;
 	virtual void OnEvent(nino::Event& event) override;
-	virtual void RenderUI() override;
+	virtual void RenderUserInterface() override;
 
-private:
-	
-
-private:
-	nino::Ref<nino::Scene> m_TestScene;
-
-	nino::GUILayer m_Layer;
 };
 

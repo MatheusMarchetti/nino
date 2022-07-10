@@ -10,7 +10,7 @@
 
 #include "Renderer/Renderer.h"
 
-#include "Debug/GUILayer.h"
+#include "Debug/ImGuiLayer.h"
 
 namespace nino
 {
@@ -52,7 +52,7 @@ namespace nino
 		Renderer m_Renderer;
 		WindowStack m_WindowStack;
 		LayerStack m_LayerStack;
-		GUILayer* m_ImGuiLayer;
+		ImGuiLayer* m_ImGuiLayer;
 	};
 }
 

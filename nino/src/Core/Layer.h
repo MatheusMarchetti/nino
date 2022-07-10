@@ -16,6 +16,6 @@ namespace nino
 		virtual void OnDetach() {}
 		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnEvent(Event& event) {}
-		virtual void RenderUI() {}
+		virtual void RenderUserInterface() {}
 	};
 }
