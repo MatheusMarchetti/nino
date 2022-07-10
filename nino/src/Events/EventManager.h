@@ -9,7 +9,6 @@ namespace nino
 	{
 	public:
 		EventManager();
-		~EventManager();
 
 		void SetEventCallback(const std::function<void(Event&)>& callback) { m_EventCallback = callback; }
 

@@ -4,18 +4,20 @@ namespace nino
 {
 	class Event
 	{
-	public:
-		Event() = default;
+	friend class EventManager;
 
+	public:
 		operator bool() { return !Handled; }
 
+	protected:
+		Event() = default;
 		size_t GetEventID() { return m_EventID; }
-
-	public:
-		bool Handled = false;
 
 	protected:
 		size_t m_EventID;
+		std::string m_DebugName = "Unknown event";
 
+	private:
+		bool Handled = false;
 	};
 }
