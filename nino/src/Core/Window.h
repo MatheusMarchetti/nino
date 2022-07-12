@@ -19,9 +19,9 @@ namespace nino
 		~Window() = default;
 		void Show();
 
-		HWND& GetHandle() { return m_Window; }
+		const HWND& GetHandle() const { return m_Window; }
 
-		Microsoft::WRL::ComPtr<IDXGISwapChain4>& GetSwapChain() { return GraphicsAPI::GetSwapChain(this); }
+		const Microsoft::WRL::ComPtr<IDXGISwapChain4>& GetSwapChain() const { return GraphicsAPI::GetSwapChain(this); }
 
 		WindowDescriptor& GetDescriptor() { return m_Descriptor; }
 		const uint32_t GetWidth() { return m_Descriptor.Width; }

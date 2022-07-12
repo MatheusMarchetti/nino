@@ -21,7 +21,7 @@ namespace nino
 		CreateTexture(type, usage, width, height);
 	}
 
-	Texture::Texture(Window* window)
+	Texture::Texture(const Window* window)
 	{
 		auto device = GraphicsAPI::GetDevice();
 

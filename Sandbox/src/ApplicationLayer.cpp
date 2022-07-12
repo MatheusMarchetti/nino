@@ -7,6 +7,7 @@ using namespace nino;
 void ApplicationLayer::OnAttach()
 {
 	auto nativeWindow = ParentApplication->GetNativeWindow();
+
 	FramebufferDescriptor mainFrameDesc =
 	{
 		mainFrameDesc.Name = "Native Window",

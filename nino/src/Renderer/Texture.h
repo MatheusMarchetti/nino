@@ -28,7 +28,7 @@ namespace nino
 	public:
 		Texture(TextureType type, TextureUsage::TextureUsage usage, const std::string& filePath = {});
 		Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize = 1);
-		Texture(Window* window);
+		Texture(const Window* window);
 		~Texture() = default;
 
 		ID3D11Resource* GetResource() { return m_Resource.Get(); }

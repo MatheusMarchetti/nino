@@ -60,7 +60,7 @@ namespace nino
 		s_RenderTargets[window->GetHandle()] = dxgiSwapChain4;
 	}
 
-	Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::GetSwapChain(Window* window)
+	const Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::GetSwapChain(const Window* window)
 	{
 		return s_RenderTargets[window->GetHandle()];
 	}
