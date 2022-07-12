@@ -4,8 +4,6 @@
 #include "Core/NinoMath.h"
 
 #include "Renderer/Drawable/DrawableBase.h"
-#include "Renderer/Camera.h"
-#include "Renderer/Material.h"
 
 #include <string>
 
@@ -40,38 +38,5 @@ namespace nino
 
 			return transform;
 		}
-	};
-
-	struct DrawableComponent
-	{
-		Ref<Drawable> Model;
-		Material ModelMaterial;
-
-		DrawableComponent() = default;
-		DrawableComponent(const DrawableComponent&) = default;
-		DrawableComponent(Ref<Drawable> model, Material& material)
-			: Model(std::move(model)), ModelMaterial(material) {}
-	};
-
-	struct CameraComponent
-	{
-		Camera camera;
-		bool MainCamera = false;
-
-		CameraComponent() = default;
-		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const DirectX::XMFLOAT4X4& view)
-			: camera(view) {}
-	};
-
-	struct EnvironmentComponent
-	{
-		Ref<Drawable> Sky;
-		std::string filepath;
-
-		EnvironmentComponent() = default;
-		EnvironmentComponent(const EnvironmentComponent&) = default;
-		EnvironmentComponent(const std::string& file)
-			: filepath(file) {}
 	};
 }

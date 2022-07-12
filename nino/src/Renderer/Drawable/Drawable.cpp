@@ -29,8 +29,6 @@ namespace nino
 			staticBindable->Bind();
 		}
 
-		GraphicsAPI::BindTargets();
-
 		ThrowInfoMessage(context->DrawIndexed(m_IndexCount, 0, 0));
 	}
 

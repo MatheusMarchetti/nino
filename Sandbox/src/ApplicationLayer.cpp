@@ -4,14 +4,14 @@
 
 void ApplicationLayer::OnAttach()
 {
-
+	
 }
 
 void ApplicationLayer::OnUpdate(nino::Timestep ts)
 {
-	float color[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	float clearColor[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
-	nino::Renderer::Clear(color);
+	
 }
 
 void ApplicationLayer::RenderUserInterface()

@@ -4,15 +4,13 @@
 
 #include "Renderer/Drawable/DrawableBase.h"
 #include "Renderer/Drawable/IndexedTriangleList.h"
-#include "Renderer/Material.h"
 
 namespace nino
 {
 	class Cube : public DrawableBase<Cube>
 	{
 	public:
-		Cube() = default;
-		Cube(const Material& material);
+		Cube();
 
 		template <class T>
 		static IndexedTriangleList<T> Make()

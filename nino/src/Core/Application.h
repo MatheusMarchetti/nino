@@ -8,7 +8,7 @@
 #include "Events/KeyEvents.h"
 #include "Events/MouseEvents.h"
 
-#include "Renderer/Renderer.h"
+#include "Renderer/RenderManager.h"
 
 #include "Debug/ImGuiLayer.h"
 
@@ -49,7 +49,7 @@ namespace nino
 		bool shouldRun = true;
 		ApplicationDescriptor m_Descriptor;
 		EventManager m_EventManager;
-		Renderer m_Renderer;
+		RenderManager m_RenderManager;
 		WindowStack m_WindowStack;
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;

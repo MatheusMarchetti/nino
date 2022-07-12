@@ -5,7 +5,7 @@
 
 namespace nino
 {
-	Sphere::Sphere(const Material& material)
+	Sphere::Sphere()
 	{
 		if (!IsStaticInitialized())
 		{
@@ -19,9 +19,9 @@ namespace nino
 
 			AddStaticBind(CreateScope<VertexBuffer>(model.Vertices));
 			AddStaticBind(CreateScope<IndexBuffer>(model.Indices));
-			AddStaticBind(CreateScope<PixelShader>(material.GetShaderFile()));
+			AddStaticBind(CreateScope<PixelShader>());
 
-			auto vertexShader = CreateScope<VertexShader>(material.GetShaderFile());
+			auto vertexShader = CreateScope<VertexShader>();
 
 			BufferLayout layout = {
 				{"Position", ShaderDataType::Float3_32b},
@@ -41,20 +41,5 @@ namespace nino
 		m_ModelTransform = CreateRef<ModelConstantBuffer>();
 
 		AddBind(m_ModelTransform);
-
-		if (!material.GetAlbedoMap().empty())
-			AddBind(CreateScope<Texture>(material.GetAlbedoMap(), 0));
-
-		if (!material.GetNormalMap().empty())
-			AddBind(CreateScope<Texture>(material.GetNormalMap(), 1));
-
-		if (!material.GetMetallicMap().empty())
-			AddBind(CreateScope<Texture>(material.GetMetallicMap(), 2));
-
-		if (!material.GetRoughnessMap().empty())
-			AddBind(CreateScope<Texture>(material.GetRoughnessMap(), 3));
-
-		if (!material.GetAOMap().empty())
-			AddBind(CreateScope<Texture>(material.GetAOMap(), 4));
 	}
 }

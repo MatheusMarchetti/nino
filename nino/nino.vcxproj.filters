@@ -99,9 +99,6 @@
     <ClInclude Include="src\Renderer\Bindable\VertexShader.h">
       <Filter>Renderer\Bindable</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Camera.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\Drawable\Cube.h">
       <Filter>Renderer\Drawable</Filter>
     </ClInclude>
@@ -123,12 +120,6 @@
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h">
       <Filter>Renderer\GraphicsAPI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Material.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\Renderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Scene\Components.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -145,7 +136,6 @@
     <ClInclude Include="src\Renderer\Bindable\RasterizerState.h" />
     <ClInclude Include="src\Renderer\Bindable\DepthStencilState.h" />
     <ClInclude Include="src\Renderer\Bindable\ComputeShader.h" />
-    <ClInclude Include="src\Renderer\Skylight.h" />
     <ClInclude Include="src\Core\WindowStack.h" />
     <ClInclude Include="src\Events\EventManager.h" />
     <ClInclude Include="src\Events\Event.h" />
@@ -153,6 +143,7 @@
     <ClInclude Include="src\Events\KeyEvents.h" />
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Events\MouseEvents.h" />
+    <ClInclude Include="src\Renderer\RenderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -197,9 +188,6 @@
     <ClCompile Include="src\Renderer\Bindable\VertexShader.cpp">
       <Filter>Renderer\Bindable</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Camera.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer\Drawable\Cube.cpp">
       <Filter>Renderer\Drawable</Filter>
     </ClCompile>
@@ -208,9 +196,6 @@
     </ClCompile>
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp">
       <Filter>Renderer\GraphicsAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Renderer.cpp">
-      <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>Scene</Filter>
@@ -221,8 +206,8 @@
     <ClCompile Include="src\Renderer\Bindable\RasterizerState.cpp" />
     <ClCompile Include="src\Renderer\Bindable\DepthStencilState.cpp" />
     <ClCompile Include="src\Renderer\Bindable\ComputeShader.cpp" />
-    <ClCompile Include="src\Renderer\Skylight.cpp" />
     <ClCompile Include="src\Core\WindowStack.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
+    <ClCompile Include="src\Renderer\RenderManager.cpp" />
   </ItemGroup>
 </Project>

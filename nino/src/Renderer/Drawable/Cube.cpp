@@ -5,7 +5,7 @@
 
 namespace nino
 {
-    Cube::Cube(const Material& material)
+    Cube::Cube()
     {
         if (!IsStaticInitialized())
         {
@@ -19,9 +19,9 @@ namespace nino
 
             AddStaticBind(CreateScope<VertexBuffer>(model.Vertices));
             AddStaticBind(CreateScope<IndexBuffer>(model.Indices));
-            AddStaticBind(CreateScope<PixelShader>(material.GetShaderFile()));
+            AddStaticBind(CreateScope<PixelShader>());
 
-            auto vertexShader = CreateScope<VertexShader>(material.GetShaderFile());
+            auto vertexShader = CreateScope<VertexShader>();
 
             BufferLayout layout = {
                 {"Position", ShaderDataType::Float3_32b},
@@ -41,13 +41,5 @@ namespace nino
         m_ModelTransform = CreateRef<ModelConstantBuffer>();
 
         AddBind(m_ModelTransform);
-
-        // Texture slot 0 reserved to cubemap
-
-        AddBind(CreateScope<Texture>(material.GetAlbedoMap(), 1));
-        AddBind(CreateScope<Texture>(material.GetNormalMap(), 2));
-        AddBind(CreateScope<Texture>(material.GetMetallicMap(), 3));
-        AddBind(CreateScope<Texture>(material.GetRoughnessMap(), 4));
-//      AddBind(CreateScope<Texture>(material.GetAOMap(), 5));
     }
 }

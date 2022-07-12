@@ -13,5 +13,7 @@ public:
 	virtual void OnEvent(nino::Event& event) override;
 	virtual void RenderUserInterface() override;
 
+private:
+	
 };
 

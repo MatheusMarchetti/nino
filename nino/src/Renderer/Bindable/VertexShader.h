@@ -8,6 +8,7 @@ namespace nino
 	class VertexShader : public Shader
 	{
 	public:
+		VertexShader();
 		VertexShader(const std::string& filePath);
 		virtual ~VertexShader() = default;
 

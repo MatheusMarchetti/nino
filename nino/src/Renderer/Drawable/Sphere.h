@@ -4,7 +4,6 @@
 
 #include "Renderer/Drawable/DrawableBase.h"
 #include "Renderer/Drawable/IndexedTriangleList.h"
-#include "Renderer/Material.h"
 
 namespace nino
 {
@@ -13,8 +12,7 @@ namespace nino
 	class Sphere : public DrawableBase<Sphere>
 	{
 	public:
-		Sphere() = default;
-		Sphere(const Material& material);
+		Sphere();
 
 		template<class T>
 		static IndexedTriangleList<T> Make(int latitude, int longitude)

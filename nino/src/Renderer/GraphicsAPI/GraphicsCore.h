@@ -8,14 +8,3 @@
 #include <wrl.h>
 
 static constexpr uint32_t s_BufferCount = 3;
-
-namespace nino
-{
-	enum class PrimitiveType
-	{
-		TRIANGLE,
-		QUAD,
-		CUBE,
-		MESH
-	};
-}

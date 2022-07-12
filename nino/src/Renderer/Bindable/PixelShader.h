@@ -8,6 +8,7 @@ namespace nino
 	class PixelShader : public Shader
 	{
 	public:
+		PixelShader();
 		PixelShader(const std::string& filePath);
 		virtual ~PixelShader() = default;
 

@@ -8,6 +8,7 @@ namespace nino
 	class Shader : public Bindable
 	{
 	public:
+		Shader() : m_ShaderFilePath() {}
 		Shader(const std::string& filePath) : m_ShaderFilePath(filePath) {}
 		virtual ~Shader() = default;
 

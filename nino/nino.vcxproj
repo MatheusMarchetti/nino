@@ -181,7 +181,6 @@
     <ClInclude Include="src\Renderer\Bindable\Topology.h" />
     <ClInclude Include="src\Renderer\Bindable\VertexBuffer.h" />
     <ClInclude Include="src\Renderer\Bindable\VertexShader.h" />
-    <ClInclude Include="src\Renderer\Camera.h" />
     <ClInclude Include="src\Renderer\Drawable\Cube.h" />
     <ClInclude Include="src\Renderer\Drawable\Drawable.h" />
     <ClInclude Include="src\Renderer\Drawable\DrawableBase.h" />
@@ -191,9 +190,7 @@
     <ClInclude Include="src\Renderer\Drawable\Sphere.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
-    <ClInclude Include="src\Renderer\Material.h" />
-    <ClInclude Include="src\Renderer\Renderer.h" />
-    <ClInclude Include="src\Renderer\Skylight.h" />
+    <ClInclude Include="src\Renderer\RenderManager.h" />
     <ClInclude Include="src\Scene\Components.h" />
     <ClInclude Include="src\Scene\Entity.h" />
     <ClInclude Include="src\Scene\Scene.h" />
@@ -220,14 +217,12 @@
     <ClCompile Include="src\Renderer\Bindable\Topology.cpp" />
     <ClCompile Include="src\Renderer\Bindable\VertexBuffer.cpp" />
     <ClCompile Include="src\Renderer\Bindable\VertexShader.cpp" />
-    <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Cube.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Drawable.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Skybox.cpp" />
     <ClCompile Include="src\Renderer\Drawable\Sphere.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
-    <ClCompile Include="src\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Renderer\Skylight.cpp" />
+    <ClCompile Include="src\Renderer\RenderManager.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\corepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
