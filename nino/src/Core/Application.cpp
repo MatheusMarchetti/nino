@@ -12,7 +12,7 @@ namespace nino
 			mainWindowDesc.WindowName = m_Descriptor.ApplicationName;
 			mainWindowDesc.Width = m_Descriptor.Width;
 			mainWindowDesc.Height = m_Descriptor.Height;
-			mainWindowDesc.Maximized = false;
+			mainWindowDesc.Maximized = m_Descriptor.Maximized;
 
 			PushWindow(new Window(mainWindowDesc));
 

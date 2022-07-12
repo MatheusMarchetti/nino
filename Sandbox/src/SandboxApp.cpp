@@ -19,7 +19,8 @@ nino::ApplicationDescriptor descriptor =
 {
 	descriptor.ApplicationName = "Sandbox",
 	descriptor.Width = 1280,
-	descriptor.Height = 720
+	descriptor.Height = 720,
+	descriptor.Maximized = false
 };
 
 InitializeEngine(SandboxApp, descriptor);

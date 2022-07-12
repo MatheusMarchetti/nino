@@ -19,6 +19,7 @@ namespace nino
 		const char* ApplicationName;
 		uint32_t Width;
 		uint32_t Height;
+		bool Maximized = false;
 	};
 
 	class Application
