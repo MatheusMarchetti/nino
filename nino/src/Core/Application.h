@@ -30,6 +30,8 @@ namespace nino
 		Application(const ApplicationDescriptor& descriptor);
 		virtual ~Application() = default;
 
+		Window* GetNativeWindow() { return m_WindowStack.GetWindow(m_Descriptor.ApplicationName); }
+
 		void OnEvent(Event& event);
 
 		void Run();

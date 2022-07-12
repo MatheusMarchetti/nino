@@ -6,10 +6,13 @@
 
 namespace nino
 {
+	class Application;
+
 	class Layer
 	{
 	public:
-		Layer() {}
+		Layer() = default;
+		Layer(Application* parent) : ParentApplication(parent) {}
 		virtual ~Layer() = default;
 
 		virtual void OnAttach() {}
@@ -17,5 +20,7 @@ namespace nino
 		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnEvent(Event& event) {}
 		virtual void RenderUserInterface() {}
+
+		Application* ParentApplication = nullptr;
 	};
 }
