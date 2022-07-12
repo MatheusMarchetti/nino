@@ -7,3 +7,6 @@
 [submodule "nino/vendor/DirectXTK"]
 	path = nino/vendor/DirectXTK
 	url = https://github.com/microsoft/DirectXTK.git
+[submodule "nino/vendor/assimp"]
+	path = nino/vendor/assimp
+	url = https://github.com/assimp/assimp.git
