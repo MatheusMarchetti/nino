@@ -11,6 +11,7 @@ namespace nino
 	Microsoft::WRL::ComPtr<ID3D11Device> GraphicsAPI::s_Device;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> GraphicsAPI::s_DeviceContext;
 	std::unordered_map<HWND, Microsoft::WRL::ComPtr<IDXGISwapChain4>> GraphicsAPI::s_RenderTargets;
+	std::unordered_map<const char*, Framebuffer*> GraphicsAPI::s_Framebuffers;
 
 	using namespace Microsoft::WRL;
 
@@ -62,6 +63,26 @@ namespace nino
 	Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::GetSwapChain(Window* window)
 	{
 		return s_RenderTargets[window->GetHandle()];
+	}
+
+	void GraphicsAPI::BindFramebuffers(const std::vector<Ref<Framebuffer>>& framebuffers)
+	{
+		for (size_t i = 0; i < framebuffers.size(); i++)
+		{
+			s_Framebuffers[framebuffers[i]->GetDescriptor().Name] = framebuffers[i].get();
+		}
+
+		std::vector<D3D11_VIEWPORT> viewports(s_Framebuffers.size());
+		std::vector<ID3D11RenderTargetView*> rtvs(s_Framebuffers.size());
+
+		for (auto& framebuffer : s_Framebuffers)
+		{
+			viewports.push_back(framebuffer.second->GetViewport());
+			rtvs.push_back(framebuffer.second->GetRenderTarget());
+		}
+
+		s_DeviceContext->RSSetViewports(viewports.size(), viewports.data());
+		s_DeviceContext->OMSetRenderTargets(s_Framebuffers.size(), rtvs.data(), s_Framebuffers.begin()->second->GetDepthStencil());
 	}
 
 	void GraphicsAPI::Present(bool vSync)

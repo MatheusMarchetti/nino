@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
+#include "Renderer/Framebuffer.h"
 
 namespace nino
 {
@@ -21,6 +22,7 @@ namespace nino
 		static Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return s_DeviceContext; }
 		static Microsoft::WRL::ComPtr<IDXGISwapChain4> GetSwapChain(Window* window);
 
+		static void BindFramebuffers(const std::vector<Ref<Framebuffer>>& framebuffers);
 		static void Present(bool vSync);
 
 	private:
@@ -28,5 +30,6 @@ namespace nino
 		static Microsoft::WRL::ComPtr<ID3D11Device> s_Device;
 		static Microsoft::WRL::ComPtr<ID3D11DeviceContext> s_DeviceContext;
 		static std::unordered_map<HWND, Microsoft::WRL::ComPtr<IDXGISwapChain4>> s_RenderTargets;
+		static std::unordered_map<const char*, Framebuffer*> s_Framebuffers;
 	};
 }

@@ -20,8 +20,9 @@ namespace nino
 	{
 	}
 
-	void RenderManager::EndScene()
+	void RenderManager::EndScene(const std::vector<Ref<Framebuffer>>& framebuffers)
 	{
+		GraphicsAPI::BindFramebuffers(framebuffers);
 	}
 
 	void RenderManager::DrawPrimitive(const PrimitiveDescriptor& descriptor)

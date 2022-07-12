@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Renderer/Framebuffer.h"
+
 namespace nino
 {
 
@@ -39,7 +41,7 @@ class Window;
 		static void SetRenderTarget(Window* window);
 
 		static void BeginScene();
-		static void EndScene();
+		static void EndScene(const std::vector<Ref<Framebuffer>>& framebuffers);
 
 		//Render commands
 		static void DrawPrimitive(const PrimitiveDescriptor& descriptor);
