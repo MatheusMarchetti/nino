@@ -87,6 +87,7 @@
     <ClInclude Include="src\Renderer\RenderManager.h" />
     <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
+    <ClInclude Include="src\Renderer\Primitives\Primitives.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -119,5 +120,6 @@
     <ClCompile Include="src\Renderer\RenderManager.cpp" />
     <ClCompile Include="src\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Renderer\Primitives\Primitives.cpp" />
   </ItemGroup>
 </Project>

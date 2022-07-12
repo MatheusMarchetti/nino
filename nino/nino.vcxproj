@@ -168,6 +168,7 @@
     <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
+    <ClInclude Include="src\Renderer\Primitives\Primitives.h" />
     <ClInclude Include="src\Renderer\RenderManager.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Scene\Components.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
+    <ClCompile Include="src\Renderer\Primitives\Primitives.cpp" />
     <ClCompile Include="src\Renderer\RenderManager.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
