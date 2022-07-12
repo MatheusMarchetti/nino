@@ -20,7 +20,7 @@ namespace nino
 	{
 	}
 
-	void RenderManager::EndScene(const std::vector<Ref<Framebuffer>>& framebuffers)
+	void RenderManager::EndScene(std::initializer_list<Ref<Framebuffer>> framebuffers)
 	{
 		GraphicsAPI::BindFramebuffers(framebuffers);
 	}

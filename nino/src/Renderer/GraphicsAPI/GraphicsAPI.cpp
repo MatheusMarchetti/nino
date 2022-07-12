@@ -65,20 +65,16 @@ namespace nino
 		return s_RenderTargets[window->GetHandle()];
 	}
 
-	void GraphicsAPI::BindFramebuffers(const std::vector<Ref<Framebuffer>>& framebuffers)
+	void GraphicsAPI::BindFramebuffers(std::initializer_list<Ref<Framebuffer>> framebuffers)
 	{
-		for (size_t i = 0; i < framebuffers.size(); i++)
-		{
-			s_Framebuffers[framebuffers[i]->GetDescriptor().Name] = framebuffers[i].get();
-		}
+		std::vector<D3D11_VIEWPORT> viewports(framebuffers.size());
+		std::vector<ID3D11RenderTargetView*> rtvs(framebuffers.size());
 
-		std::vector<D3D11_VIEWPORT> viewports(s_Framebuffers.size());
-		std::vector<ID3D11RenderTargetView*> rtvs(s_Framebuffers.size());
-
-		for (auto& framebuffer : s_Framebuffers)
+		for (auto& framebuffer : framebuffers)
 		{
-			viewports.push_back(framebuffer.second->GetViewport());
-			rtvs.push_back(framebuffer.second->GetRenderTarget());
+			s_Framebuffers[framebuffer->GetDescriptor().Name] = framebuffer.get();
+			viewports.push_back(framebuffer->GetViewport());
+			rtvs.push_back(framebuffer->GetRenderTarget());
 		}
 
 		s_DeviceContext->RSSetViewports(viewports.size(), viewports.data());

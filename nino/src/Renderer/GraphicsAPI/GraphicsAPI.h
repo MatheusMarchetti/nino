@@ -22,7 +22,7 @@ namespace nino
 		static Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return s_DeviceContext; }
 		static const Microsoft::WRL::ComPtr<IDXGISwapChain4> GetSwapChain(const Window* window);
 
-		static void BindFramebuffers(const std::vector<Ref<Framebuffer>>& framebuffers);
+		static void BindFramebuffers(std::initializer_list<Ref<Framebuffer>> framebuffers);
 		static void Present(bool vSync);
 
 	private:

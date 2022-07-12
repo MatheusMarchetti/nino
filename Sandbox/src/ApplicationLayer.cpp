@@ -8,14 +8,12 @@ void ApplicationLayer::OnAttach()
 {
 	auto nativeWindow = ParentApplication->GetNativeWindow();
 
-	FramebufferDescriptor mainFrameDesc =
-	{
-		mainFrameDesc.Name = "Native Window",
-		mainFrameDesc.ColorResource = CreateRef<Texture>(nativeWindow),
-		mainFrameDesc.DepthStencilResource = CreateRef<Texture>(TextureType::Texture2D, TextureUsage::DepthBinding, nativeWindow->GetWidth(), nativeWindow->GetHeight()),
-		mainFrameDesc.Height = nativeWindow->GetHeight(),
-		mainFrameDesc.Width = nativeWindow->GetWidth()
-	};
+	FramebufferDescriptor mainFrameDesc;
+	mainFrameDesc.Name = "Native Window";
+	mainFrameDesc.ColorResource = CreateRef<Texture>(nativeWindow);
+	mainFrameDesc.DepthStencilResource = CreateRef<Texture>(TextureType::Texture2D, TextureUsage::DepthBinding, nativeWindow->GetWidth(), nativeWindow->GetHeight());
+	mainFrameDesc.Height = nativeWindow->GetHeight();
+	mainFrameDesc.Width = nativeWindow->GetWidth();
 
 	m_MainFramebuffer = CreateRef<Framebuffer>(mainFrameDesc);
 }
@@ -42,7 +40,7 @@ void ApplicationLayer::OnUpdate(Timestep ts)
 
 		RenderManager::DrawPrimitive(cube1);
 	}
-	RenderManager::EndScene({m_MainFramebuffer});
+	RenderManager::EndScene({ m_MainFramebuffer });
 
 	angle += angle * ts;
 }

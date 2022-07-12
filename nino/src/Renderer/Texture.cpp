@@ -39,7 +39,6 @@ namespace nino
 
 		D3D11_TEXTURE2D_DESC tex2Ddesc = {};
 		tex2Ddesc.ArraySize = m_ArraySize;
-		tex2Ddesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
 		tex2Ddesc.SampleDesc.Count = 1;
 		tex2Ddesc.Width = width;
 		tex2Ddesc.Height = height;
@@ -51,7 +50,7 @@ namespace nino
 			case TextureUsage::ColorBinding:	
 			{
 				tex2Ddesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-				tex2Ddesc.BindFlags |= D3D11_BIND_RENDER_TARGET;
+				tex2Ddesc.BindFlags |= D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
 				break;
 			}
 			case TextureUsage::DepthBinding:	
@@ -72,11 +71,18 @@ namespace nino
 
 		ThrowOnError(texture2D.As(&m_Resource));
 
-		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		if (TextureUsage::ColorBinding)
+		{
+			D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 
-		D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
-
-		ThrowOnError(device->CreateShaderResourceView(m_Resource.Get(), &srvDesc, &m_ShaderResourceView));
-		ThrowOnError(device->CreateUnorderedAccessView(m_Resource.Get(), &uavDesc, &m_UnorderedAccessView));
+			D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
+			ThrowOnError(device->CreateShaderResourceView(m_Resource.Get(), &srvDesc, &m_ShaderResourceView));
+			ThrowOnError(device->CreateUnorderedAccessView(m_Resource.Get(), &uavDesc, &m_UnorderedAccessView));
+		}
+		else
+		{
+			m_ShaderResourceView = nullptr;
+			m_UnorderedAccessView = nullptr;
+		}
 	}
 }

@@ -41,7 +41,7 @@ class Window;
 		static void SetRenderTarget(Window* window);
 
 		static void BeginScene();
-		static void EndScene(const std::vector<Ref<Framebuffer>>& framebuffers);
+		static void EndScene(std::initializer_list<Ref<Framebuffer>> framebuffers);
 
 		//Render commands
 		static void DrawPrimitive(const PrimitiveDescriptor& descriptor);
