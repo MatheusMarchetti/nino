@@ -16,8 +16,6 @@ namespace nino
 		Entity CreateEntity(const std::string& entityTag =  { "Unnamed entity" });
 		void DestroyEntity(Entity entity);
 
-		void CreateSky(const std::string& filepath);
-
 		void UpdateScene(Timestep ts);
 
 	private:
