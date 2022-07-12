@@ -7,7 +7,7 @@ class SandboxApp : public nino::Application
 public:
 	SandboxApp(const nino::ApplicationDescriptor& descriptor) : Application(descriptor) 
 	{
-		m_TestLayer = new ApplicationLayer();
+		m_TestLayer = new ApplicationLayer(this);
 		PushLayer(m_TestLayer);
 	}
 

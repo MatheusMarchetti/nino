@@ -5,7 +5,7 @@
 class ApplicationLayer : public nino::Layer
 {
 public:
-	ApplicationLayer() {};
+	ApplicationLayer(nino::Application* parent) : nino::Layer(parent) {};
 	virtual ~ApplicationLayer() {};
 
 	virtual void OnAttach() override;
@@ -14,6 +14,7 @@ public:
 	virtual void RenderUserInterface() override;
 
 private:
-	
+	float angle = 1.0f;
+	nino::Ref<nino::Framebuffer> m_MainFramebuffer;
 };
 
