@@ -7,6 +7,21 @@ namespace nino
 
 class Window;
 
+	enum class PrimitiveType
+	{
+		Line,
+		Triangle,
+		Quad,
+		Circle,
+		Cube,
+		Sphere,
+		Capsule,
+		Cylinder,
+		Torus,
+		Terrain,
+		Mesh
+	};
+
 	struct PrimitiveDescriptor
 	{
 		PrimitiveType Type;

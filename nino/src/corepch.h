@@ -22,6 +22,7 @@
 #include <sstream>
 #include <filesystem>
 #include <optional>
+#include <initializer_list>
 
 /*ENGINE STUFF*/
 #include "Debug/Log.h"

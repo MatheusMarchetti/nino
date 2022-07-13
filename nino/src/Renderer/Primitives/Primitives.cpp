@@ -1,6 +1,8 @@
 #include "corepch.h"
 #include "Primitives.h"
 
+#include "Renderer/GraphicsAPI/GraphicsAPI.h"
+
 namespace nino
 {
 	void Primitives::DrawLine(const float* Position, const float* Direction, float Size, const float* Color)

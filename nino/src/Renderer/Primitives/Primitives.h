@@ -1,24 +1,16 @@
 #pragma once
 
+#include "Renderer/GraphicsAPI/GraphicsCore.h"
+
 namespace nino
 {
-	enum class PrimitiveType
-	{
-		Line,
-		Triangle,
-		Quad,
-		Circle,
-		Cube,
-		Sphere,
-		Capsule,
-		Cylinder,
-		Torus,
-		Terrain,
-		Mesh
-	};
-
 	class Primitives
 	{
+		struct VertexType
+		{
+			
+		};
+
 	public:
 		//2D primitives
 		static void DrawLine(const float* Position, const float* Direction, float Size, const float* Color);
