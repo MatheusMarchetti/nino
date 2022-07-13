@@ -29,3 +29,7 @@
 #include "Debug/WindowInfo.h"
 #include "Debug/GraphicsInfo.h"
 /*ENGINE STUFF*/
+
+/*DIRECTX TK*/
+#include "SimpleMath.h"
+/*DIRECTX TK*/

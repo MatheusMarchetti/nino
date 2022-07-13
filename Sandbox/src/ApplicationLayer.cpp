@@ -12,8 +12,7 @@ void ApplicationLayer::OnAttach()
 	mainFrameDesc.Name = "Native Window";
 	mainFrameDesc.ColorResource = CreateRef<Texture>(nativeWindow);
 	mainFrameDesc.DepthStencilResource = CreateRef<Texture>(TextureType::Texture2D, TextureUsage::DepthBinding, nativeWindow->GetWidth(), nativeWindow->GetHeight());
-	mainFrameDesc.Height = nativeWindow->GetHeight();
-	mainFrameDesc.Width = nativeWindow->GetWidth();
+	mainFrameDesc.ViewportSpecification = { 0, 0, (float)nativeWindow->GetWidth(), (float)nativeWindow->GetHeight() };
 
 	m_MainFramebuffer = CreateRef<Framebuffer>(mainFrameDesc);
 }

@@ -152,12 +152,11 @@
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\Layer.h" />
     <ClInclude Include="src\Core\LayerStack.h" />
-    <ClInclude Include="src\Core\NinoMath.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Core\WindowStack.h" />
-    <ClInclude Include="src\Debug\ImGuiLayer.h" />
     <ClInclude Include="src\Debug\GraphicsInfo.h" />
+    <ClInclude Include="src\Debug\ImGuiLayer.h" />
     <ClInclude Include="src\Debug\Log.h" />
     <ClInclude Include="src\Debug\WindowInfo.h" />
     <ClInclude Include="src\Events\ApplicationEvents.h" />
@@ -182,8 +181,8 @@
     <ClCompile Include="src\Core\LayerStack.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
     <ClCompile Include="src\Core\WindowStack.cpp" />
-    <ClCompile Include="src\Debug\ImGuiLayer.cpp" />
     <ClCompile Include="src\Debug\GraphicsInfo.cpp" />
+    <ClCompile Include="src\Debug\ImGuiLayer.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
     <ClCompile Include="src\Renderer\Framebuffer.cpp" />

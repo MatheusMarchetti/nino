@@ -13,14 +13,11 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderer\Bindable">
-      <UniqueIdentifier>{DC4D400D-4864-3EA3-91DB-C9C4FD300F2B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Renderer\Drawable">
-      <UniqueIdentifier>{CDDB947D-39F2-9213-8269-1E35EEBE639B}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Renderer\GraphicsAPI">
       <UniqueIdentifier>{D6677642-C2F6-FF0B-6B15-1407578310B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Primitives">
+      <UniqueIdentifier>{D7C6EFDA-4328-CDE8-CC95-139B38F603A8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{B3F7140E-1F0C-3DBF-E88D-E01E546139F0}</UniqueIdentifier>
@@ -33,13 +30,13 @@
     <ClInclude Include="src\Core\Core.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Input.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Layer.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\LayerStack.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core\NinoMath.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
@@ -48,10 +45,13 @@
     <ClInclude Include="src\Core\Window.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Debug\ImGuiLayer.h">
-      <Filter>Debug</Filter>
+    <ClInclude Include="src\Core\WindowStack.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Debug\GraphicsInfo.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Debug\ImGuiLayer.h">
       <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="src\Debug\Log.h">
@@ -60,11 +60,38 @@
     <ClInclude Include="src\Debug\WindowInfo.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="src\Events\ApplicationEvents.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\Event.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventManager.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\KeyEvents.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\MouseEvents.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Framebuffer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h">
       <Filter>Renderer\GraphicsAPI</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h">
       <Filter>Renderer\GraphicsAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Primitives\Primitives.h">
+      <Filter>Renderer\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\RenderManager.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Texture.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Components.h">
       <Filter>Scene</Filter>
@@ -77,17 +104,6 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
-    <ClInclude Include="src\Core\WindowStack.h" />
-    <ClInclude Include="src\Events\EventManager.h" />
-    <ClInclude Include="src\Events\Event.h" />
-    <ClInclude Include="src\Events\ApplicationEvents.h" />
-    <ClInclude Include="src\Events\KeyEvents.h" />
-    <ClInclude Include="src\Core\Input.h" />
-    <ClInclude Include="src\Events\MouseEvents.h" />
-    <ClInclude Include="src\Renderer\RenderManager.h" />
-    <ClInclude Include="src\Renderer\Framebuffer.h" />
-    <ClInclude Include="src\Renderer\Texture.h" />
-    <ClInclude Include="src\Renderer\Primitives\Primitives.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -99,27 +115,39 @@
     <ClCompile Include="src\Core\Window.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Debug\ImGuiLayer.cpp">
-      <Filter>Debug</Filter>
+    <ClCompile Include="src\Core\WindowStack.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Debug\GraphicsInfo.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Debug\ImGuiLayer.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="src\Debug\Log.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
+    <ClCompile Include="src\Events\EventManager.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Framebuffer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp">
       <Filter>Renderer\GraphicsAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Primitives\Primitives.cpp">
+      <Filter>Renderer\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\RenderManager.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Texture.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
-    <ClCompile Include="src\Core\WindowStack.cpp" />
-    <ClCompile Include="src\Events\EventManager.cpp" />
-    <ClCompile Include="src\Renderer\RenderManager.cpp" />
-    <ClCompile Include="src\Renderer\Framebuffer.cpp" />
-    <ClCompile Include="src\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Renderer\Primitives\Primitives.cpp" />
   </ItemGroup>
 </Project>

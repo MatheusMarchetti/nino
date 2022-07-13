@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Core/Core.h"
-#include "Core/NinoMath.h"
 
 #include <string>
 
@@ -18,23 +17,15 @@ namespace nino
 
 	struct TransformComponent
 	{
-		DirectX::XMFLOAT3 Translation = { 0.0f, 0.0f, 0.0f };
-		DirectX::XMFLOAT3 Rotation = { 0.0f, 0.0f, 0.0f };
-		DirectX::XMFLOAT3 Scale = { 1.0f, 1.0f, 1.0f };
+		Vector3 Translation = { 0.0f, 0.0f, 0.0f };
+		Vector3 Rotation = { 0.0f, 0.0f, 0.0f };
+		Vector3 Scale = { 1.0f, 1.0f, 1.0f };
 
 		TransformComponent() = default;
 		TransformComponent(const TransformComponent&) = default;
 		TransformComponent(const float& x, const float& y, const float& z)
 			: Translation(x, y, z) {}
 
-		const DirectX::XMFLOAT4X4 GetTransform() const
-		{
-			DirectX::XMFLOAT4X4 transform;
-			DirectX::XMStoreFloat4x4(&transform, DirectX::XMMatrixScaling(Scale.x, Scale.y, Scale.z)
-				* DirectX::XMMatrixRotationQuaternion(DirectX::XMQuaternionRotationRollPitchYaw(Rotation.x, Rotation.y, Rotation.z))
-				* DirectX::XMMatrixTranslation(Translation.x, Translation.y, Translation.z));
-
-			return transform;
-		}
+		const Matrix GetTransform() const { return Matrix::CreateScale(Scale) * Matrix::CreateFromQuaternion(Quaternion::CreateFromYawPitchRoll(Rotation)) * Matrix::CreateTranslation(Translation); }
 	};
 }

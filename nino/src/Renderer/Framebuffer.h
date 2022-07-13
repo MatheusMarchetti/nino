@@ -12,12 +12,7 @@ namespace nino
 		const char* Name = "";
 		Ref<Texture> ColorResource = nullptr;
 		Ref<Texture> DepthStencilResource = nullptr;
-		float Width;
-		float Height;
-		float OriginX = 0.0f;
-		float OriginY = 0.0f;
-		float MinDepth = 0.0f;
-		float MaxDepth = 1.0f;
+		Viewport ViewportSpecification;
 	};
 
 	class Framebuffer

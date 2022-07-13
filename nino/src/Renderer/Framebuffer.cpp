@@ -28,12 +28,12 @@ namespace nino
 			m_DepthStencilView = nullptr;
 		}
 
-		m_Viewport.Width = m_Descriptor.Width;
-		m_Viewport.Height = m_Descriptor.Height;
-		m_Viewport.TopLeftX = m_Descriptor.OriginX;
-		m_Viewport.TopLeftY = m_Descriptor.OriginY;
-		m_Viewport.MinDepth = m_Descriptor.MinDepth;
-		m_Viewport.MaxDepth = m_Descriptor.MaxDepth;
+		m_Viewport.Width = m_Descriptor.ViewportSpecification.width;
+		m_Viewport.Height = m_Descriptor.ViewportSpecification.height;
+		m_Viewport.MinDepth = m_Descriptor.ViewportSpecification.minDepth;
+		m_Viewport.MaxDepth = m_Descriptor.ViewportSpecification.maxDepth;
+		m_Viewport.TopLeftX = m_Descriptor.ViewportSpecification.x;
+		m_Viewport.TopLeftY = m_Descriptor.ViewportSpecification.y;
 	}
 
 	void Framebuffer::Clear(const float* color, float depth, uint8_t stencil)
