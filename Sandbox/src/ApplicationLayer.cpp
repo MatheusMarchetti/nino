@@ -40,7 +40,6 @@ void ApplicationLayer::OnUpdate(Timestep ts)
 	float clearTest[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
 	m_MainFramebuffer->Clear(clearColor, 1.0f);
-	m_TestFramebuffer->Clear(clearTest, 1.0f);
 
 	RenderManager::DrawGrid(5.0f, 5.0f);
 
@@ -60,7 +59,15 @@ void ApplicationLayer::OnUpdate(Timestep ts)
 
 		RenderManager::DrawPrimitive(cube1);
 	}
-	RenderManager::EndScene({ m_MainFramebuffer, m_TestFramebuffer });
+	RenderManager::EndScene({ m_MainFramebuffer });
+
+	m_TestFramebuffer->Clear(clearTest, 1.0f);
+
+	RenderManager::BeginScene();
+	{
+
+	}
+	RenderManager::EndScene({ m_TestFramebuffer });
 
 	angle += angle * ts;
 }

@@ -69,8 +69,11 @@ namespace nino
 
 	void GraphicsAPI::BindFramebuffers(std::initializer_list<Ref<Framebuffer>> framebuffers)
 	{
-		std::vector<D3D11_VIEWPORT> viewports(framebuffers.size());
-		std::vector<ID3D11RenderTargetView*> rtvs(framebuffers.size());
+		std::vector<D3D11_VIEWPORT> viewports;
+		std::vector<ID3D11RenderTargetView*> rtvs;
+		viewports.reserve(framebuffers.size());
+		rtvs.reserve(framebuffers.size());
+		std::string mainFramebuffer = (*framebuffers.begin())->GetDescriptor().Name;
 
 		for (auto& framebuffer : framebuffers)
 		{
@@ -80,7 +83,7 @@ namespace nino
 		}
 
 		s_DeviceContext->RSSetViewports(viewports.size(), viewports.data());
-		s_DeviceContext->OMSetRenderTargets(s_Framebuffers.size(), rtvs.data(), s_Framebuffers.begin()->second->GetDepthStencil());
+		s_DeviceContext->OMSetRenderTargets(framebuffers.size(), rtvs.data(), s_Framebuffers[mainFramebuffer]->GetDepthStencil());
 	}
 
 	void GraphicsAPI::Present(bool vSync)
