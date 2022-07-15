@@ -19,6 +19,8 @@ namespace nino
 
 	void GraphicsAPI::CreateDeviceAndContext()
 	{
+		ComPtr<IDXGIFactory5> dxgiFactory;
+
 		ThrowOnError(CoInitialize(NULL));
 
 		UINT deviceFlags = 0;
@@ -32,9 +34,16 @@ namespace nino
 		DXGI_ADAPTER_DESC adapterDesc = {};
 		GetAdapter()->GetDesc(&adapterDesc);
 
+		ThrowOnError(GetAdapter()->GetParent(IID_PPV_ARGS(&dxgiFactory)));
+
+		if (FAILED(dxgiFactory->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING, &s_TearingSupport, sizeof(s_TearingSupport))))
+		{
+			s_TearingSupport = FALSE;
+		}
+
 		std::filesystem::path adapterName = adapterDesc.Description;
 
-		std::string vendor = "";
+		std::string vendor = "Unknown vendor";
 
 		switch (adapterDesc.VendorId)
 		{
@@ -49,6 +58,8 @@ namespace nino
 		NINO_CORE_INFO("VRAM: {} MB", adapterDesc.DedicatedVideoMemory / 1024 / 1024);
 		NINO_CORE_INFO("Shared system memory: {} MB", adapterDesc.SharedSystemMemory / 1024 / 1024);
 		NINO_CORE_INFO("System memory: {} MB", adapterDesc.DedicatedSystemMemory / 1024 / 1024);
+		NINO_CORE_INFO("Graphics Information:");
+		NINO_CORE_INFO("Screen tearing support? {}", (s_TearingSupport ? "True" : "False"));
 	}
 
 	void GraphicsAPI::CreateSwapChain(Window* window)
@@ -61,11 +72,6 @@ namespace nino
 		ThrowOnError(s_Device.As(&dxgiDevice4));
 
 		ThrowOnError(GetAdapter()->GetParent(IID_PPV_ARGS(&dxgiFactory)));
-
-		if (FAILED(dxgiFactory->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING, &s_TearingSupport, sizeof(s_TearingSupport))))
-		{
-			s_TearingSupport = FALSE;
-		}
 
 		DXGI_SWAP_CHAIN_DESC1 desc1 = {};
 		desc1.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
