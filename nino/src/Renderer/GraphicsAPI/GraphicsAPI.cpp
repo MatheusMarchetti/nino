@@ -28,19 +28,39 @@ namespace nino
 #endif
 
 		ThrowOnError(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlags, nullptr, 0, D3D11_SDK_VERSION, &s_Device, nullptr, &s_DeviceContext));
+
+		DXGI_ADAPTER_DESC adapterDesc = {};
+		GetAdapter()->GetDesc(&adapterDesc);
+
+		std::filesystem::path adapterName = adapterDesc.Description;
+
+		std::string vendor = "";
+
+		switch (adapterDesc.VendorId)
+		{
+		case 0x10de: vendor = "NVidia"; break;
+		case 0x1002: vendor = "AMD"; break;
+		}
+
+		NINO_CORE_INFO("GPU Information:");
+		NINO_CORE_INFO("Model: {}", adapterName.string());
+		NINO_CORE_INFO("Revision: {}", adapterDesc.Revision);
+		NINO_CORE_INFO("Vendor: {}", vendor);
+		NINO_CORE_INFO("VRAM: {} MB", adapterDesc.DedicatedVideoMemory / 1024 / 1024);
+		NINO_CORE_INFO("Shared system memory: {} MB", adapterDesc.SharedSystemMemory / 1024 / 1024);
+		NINO_CORE_INFO("System memory: {} MB", adapterDesc.DedicatedSystemMemory / 1024 / 1024);
 	}
 
 	void GraphicsAPI::CreateSwapChain(Window* window)
 	{
 		ComPtr<IDXGIDevice4> dxgiDevice4;
-		ComPtr<IDXGIAdapter> dxgiAdapter;
 		ComPtr<IDXGIFactory5> dxgiFactory;
 		ComPtr<IDXGISwapChain1> dxgiSwapChain1;
 		ComPtr<IDXGISwapChain4> dxgiSwapChain4;
 
 		ThrowOnError(s_Device.As(&dxgiDevice4));
-		ThrowOnError(dxgiDevice4->GetAdapter(&dxgiAdapter));
-		ThrowOnError(dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory)));
+
+		ThrowOnError(GetAdapter()->GetParent(IID_PPV_ARGS(&dxgiFactory)));
 
 		if (FAILED(dxgiFactory->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING, &s_TearingSupport, sizeof(s_TearingSupport))))
 		{
@@ -60,6 +80,17 @@ namespace nino
 		ThrowOnError(dxgiSwapChain1.As(&dxgiSwapChain4));
 
 		s_RenderTargets[window->GetHandle()] = dxgiSwapChain4;
+	}
+
+	Microsoft::WRL::ComPtr<IDXGIAdapter> GraphicsAPI::GetAdapter()
+	{
+		ComPtr<IDXGIDevice4> dxgiDevice4;
+		ComPtr<IDXGIAdapter> dxgiAdapter;
+
+		ThrowOnError(s_Device.As(&dxgiDevice4));
+		ThrowOnError(dxgiDevice4->GetAdapter(&dxgiAdapter));
+
+		return dxgiAdapter;
 	}
 
 	const Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::GetSwapChain(const Window* window)

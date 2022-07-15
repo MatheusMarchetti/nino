@@ -26,6 +26,9 @@ namespace nino
 		static void Present(bool vSync);
 
 	private:
+		static Microsoft::WRL::ComPtr<IDXGIAdapter> GetAdapter();
+
+	private:
 		static BOOL s_TearingSupport;
 		static Microsoft::WRL::ComPtr<ID3D11Device> s_Device;
 		static Microsoft::WRL::ComPtr<ID3D11DeviceContext> s_DeviceContext;
