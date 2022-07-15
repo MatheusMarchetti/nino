@@ -16,5 +16,6 @@ public:
 private:
 	float angle = 1.0f;
 	nino::Ref<nino::Framebuffer> m_MainFramebuffer;
+	nino::Ref<nino::Framebuffer> m_TestFramebuffer;
 };
 

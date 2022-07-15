@@ -15,13 +15,7 @@ private:
 	ApplicationLayer* m_TestLayer = nullptr;
 };
 
-nino::ApplicationDescriptor descriptor =
-{
-	descriptor.ApplicationName = "Sandbox",
-	descriptor.Width = 1280,
-	descriptor.Height = 720,
-	descriptor.Maximized = false
-};
+nino::ApplicationDescriptor descriptor("Sandbox", 1280, 720, false);
 
 InitializeEngine(SandboxApp, descriptor);
 

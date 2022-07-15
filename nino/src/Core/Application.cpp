@@ -16,8 +16,8 @@ namespace nino
 
 			PushWindow(new Window(mainWindowDesc));
 
-			m_RenderManager.SetRenderTarget(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 			m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+			m_RenderManager.SetRenderTarget(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 
 			m_ImGuiLayer = new ImGuiLayer(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 			PushOverlay(m_ImGuiLayer);
@@ -98,7 +98,10 @@ namespace nino
 		m_WindowStack.RemoveWindow(event.WindowName);
 
 		if (!m_WindowStack)
+		{
 			shouldRun = false;
+			NINO_CORE_INFO("All windows closed, terminating!");
+		}
 
 		return true;
 	}

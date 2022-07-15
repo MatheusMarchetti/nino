@@ -9,7 +9,7 @@ namespace nino
 {
 	struct FramebufferDescriptor
 	{
-		const char* Name = "";
+		std::string Name = "";
 		Ref<Texture> ColorResource = nullptr;
 		Ref<Texture> DepthStencilResource = nullptr;
 		Viewport ViewportSpecification;

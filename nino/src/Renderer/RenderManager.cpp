@@ -32,7 +32,7 @@ namespace nino
 		{
 		case PrimitiveType::Line: 
 		{
-			Primitives::DrawLine(descriptor.Position, descriptor.Rotation, descriptor.Scale[0], descriptor.Color);
+			Primitives::DrawLine(descriptor.Position, descriptor.Rotation, descriptor.Scale.x, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Triangle: 
@@ -85,9 +85,19 @@ namespace nino
 			Primitives::DrawMesh(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.MeshFile);
 			break;
 		}
+		case PrimitiveType::Ragdoll:
+		{
+			Primitives::DrawRagdoll(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.MeshFile);
+			break;
+		}
 		default:
 			throw std::exception("Unknown primitive primitive");
 		}
+	}
+
+	void RenderManager::DrawGrid(const float width, const float height)
+	{
+
 	}
 
 	void RenderManager::EndScenes()

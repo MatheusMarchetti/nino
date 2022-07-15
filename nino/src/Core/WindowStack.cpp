@@ -5,29 +5,31 @@ namespace nino
 {
 	WindowStack::operator bool()
 	{
-		bool valid = true;
+		bool valid = false;
 
 		for (auto& window : m_Windows)
 		{
-			if (!window.second)
-				valid = false;
+			if (window.second)
+				valid = true;
 		}
 
 		return valid;
 	}
 
-	void WindowStack::AddWindow(const char* windowName, Window* window)
+	void WindowStack::AddWindow(const std::string& windowName, Window* window)
 	{
 		m_Windows[windowName] = window;
 	}
 
-	void WindowStack::RemoveWindow(const char* windowName)
+	void WindowStack::RemoveWindow(const std::string& windowName)
 	{
 		delete m_Windows[windowName];
 		m_Windows[windowName] = nullptr;
+
+		NINO_CORE_WARN("{} window closed", windowName);
 	}
 
-	Window* WindowStack::GetWindow(const char* windowName)
+	Window* WindowStack::GetWindow(const std::string& windowName)
 	{
 		return m_Windows[windowName];
 	}

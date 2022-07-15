@@ -19,16 +19,17 @@ class Window;
 		Cylinder,
 		Torus,
 		Terrain,
-		Mesh
+		Mesh,
+		Ragdoll
 	};
 
 	struct PrimitiveDescriptor
 	{
 		PrimitiveType Type;
-		float* Position;
-		float* Rotation;
-		float* Scale;
-		float* Color;
+		Vector3 Position;
+		Vector3 Rotation;
+		Vector3 Scale;
+		Vector4 Color;
 		const char* MeshFile = nullptr;
 	};
 
@@ -44,6 +45,7 @@ class Window;
 		static void EndScene(std::initializer_list<Ref<Framebuffer>> framebuffers);
 
 		static void DrawPrimitive(const PrimitiveDescriptor& descriptor);
+		static void DrawGrid(const float width, const float height);
 
 		void EndScenes();
 

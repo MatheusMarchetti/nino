@@ -14,7 +14,7 @@ namespace nino
 		WNDCLASSEX wc = {};
 		wc.cbSize = sizeof(WNDCLASSEX);
 		wc.hInstance = hInstance;
-		wc.lpszClassName = m_Descriptor.WindowName;
+		wc.lpszClassName = m_Descriptor.WindowName.c_str();
 		wc.lpfnWndProc = EventManager::EventHandler;
 
 		ThrowOnError(RegisterClassEx(&wc));
@@ -22,7 +22,7 @@ namespace nino
 		RECT rect = { 0, 0, (LONG)m_Descriptor.Width, (LONG)m_Descriptor.Height };
 		ThrowOnError(AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE));
 
-		m_Window = ThrowOnError(CreateWindow(m_Descriptor.WindowName, m_Descriptor.WindowName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, nullptr, nullptr, hInstance, nullptr));
+		m_Window = ThrowOnError(CreateWindow(m_Descriptor.WindowName.c_str(), m_Descriptor.WindowName.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, nullptr, nullptr, hInstance, nullptr));
 
 		NINO_CORE_INFO("{} window initialized!", m_Descriptor.WindowName);
 	}

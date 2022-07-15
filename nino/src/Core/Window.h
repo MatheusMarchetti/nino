@@ -6,7 +6,7 @@ namespace nino
 {
 	struct WindowDescriptor
 	{
-		const char* WindowName;
+		std::string WindowName;
 		uint32_t Width;
 		uint32_t Height;
 		bool Maximized = false;

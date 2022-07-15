@@ -11,7 +11,7 @@ namespace nino
 	Microsoft::WRL::ComPtr<ID3D11Device> GraphicsAPI::s_Device;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> GraphicsAPI::s_DeviceContext;
 	std::unordered_map<HWND, Microsoft::WRL::ComPtr<IDXGISwapChain4>> GraphicsAPI::s_RenderTargets;
-	std::unordered_map<const char*, Framebuffer*> GraphicsAPI::s_Framebuffers;
+	std::unordered_map<std::string, Framebuffer*> GraphicsAPI::s_Framebuffers;
 
 	static constexpr uint32_t s_BufferCount = 3;
 

@@ -15,7 +15,7 @@ namespace nino
 		}
 
 	public:
-		const char* WindowName;
+		std::string WindowName;
 	};
 
 	class WindowResizedEvent : public Event

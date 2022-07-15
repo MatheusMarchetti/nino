@@ -16,10 +16,13 @@ namespace nino
 {
 	struct ApplicationDescriptor
 	{
-		const char* ApplicationName;
+		std::string ApplicationName;
 		uint32_t Width;
 		uint32_t Height;
 		bool Maximized = false;
+
+		ApplicationDescriptor(const std::string& name, uint32_t width, uint32_t height, bool maximized)
+			: ApplicationName(name), Width(width), Height(height), Maximized(maximized) {}
 	};
 
 	class Application
