@@ -17,7 +17,9 @@ namespace nino
 			PushWindow(new Window(mainWindowDesc));
 
 			m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
+
 			m_RenderManager.SetRenderTarget(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
+			m_RenderManager.ToggleVSync(m_Descriptor.vSync);
 
 			m_ImGuiLayer = new ImGuiLayer(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
 			PushOverlay(m_ImGuiLayer);
