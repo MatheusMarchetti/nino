@@ -10,3 +10,6 @@
 [submodule "nino/vendor/assimp"]
 	path = nino/vendor/assimp
 	url = https://github.com/assimp/assimp.git
+[submodule "nino/vendor/inih"]
+	path = nino/vendor/inih
+	url = https://github.com/jtilly/inih.git
