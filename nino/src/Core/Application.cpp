@@ -1,13 +1,20 @@
 #include "corepch.h"
 #include "Application.h"
 
+#include "Core/ConfigurationLoader.h"
+
 namespace nino
 {
-	Application::Application(const ApplicationDescriptor& descriptor)
-		: m_Descriptor(descriptor)
+	Application::Application()
 	{
 		try
 		{
+			m_Descriptor.ApplicationName = "Sandbox";
+			m_Descriptor.Width = 1280;
+			m_Descriptor.Height = 720;
+			m_Descriptor.Maximized = false;
+			m_Descriptor.vSync = false;
+
 			WindowDescriptor mainWindowDesc = {};
 			mainWindowDesc.WindowName = m_Descriptor.ApplicationName;
 			mainWindowDesc.Width = m_Descriptor.Width;

@@ -29,7 +29,7 @@ namespace nino
 		friend int CreateApplication(Application* app);
 
 	public:
-		Application(const ApplicationDescriptor& descriptor);
+		Application();
 		virtual ~Application() = default;
 
 		Window* GetNativeWindow() { return m_WindowStack.GetWindow(m_Descriptor.ApplicationName); }
@@ -61,17 +61,16 @@ namespace nino
 }
 
 #ifdef CORE_RELEASE
-#define InitializeEngine(appclass, descriptor) \
-	int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) \
-	{ \
-		nino::Log::Init(); \
-		return nino::CreateApplication(new appclass(descriptor)); \
+#define InitializeEngine(appclass)									\
+	int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)			\
+	{																\
+		nino::Log::Init();											\
+		return nino::CreateApplication(new appclass(descriptor));	\
 	}
 #else
-#define InitializeEngine(appclass, descriptor) \
-	int main() \
-	{ \
+#define InitializeEngine(appclass)									\
+	int main() { \
 		nino::Log::Init(); \
-		return nino::CreateApplication(new appclass(descriptor)); \
+		return nino::CreateApplication(new appclass()); \
 	}
 #endif

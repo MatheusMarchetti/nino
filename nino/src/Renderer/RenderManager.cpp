@@ -8,7 +8,6 @@ namespace nino
 {
 	RenderManager::RenderManager()
 	{
-		s_VSync = false;
 		GraphicsAPI::CreateDeviceAndContext();
 	}
 

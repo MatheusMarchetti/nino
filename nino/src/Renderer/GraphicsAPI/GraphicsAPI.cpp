@@ -51,6 +51,7 @@ namespace nino
 		case 0x1002: vendor = "AMD"; break;
 		}
 
+		NINO_CORE_INFO("--------------------");
 		NINO_CORE_INFO("GPU Information:");
 		NINO_CORE_INFO("Model: {}", adapterName.string());
 		NINO_CORE_INFO("Revision: {}", adapterDesc.Revision);
@@ -58,8 +59,10 @@ namespace nino
 		NINO_CORE_INFO("VRAM: {} MB", adapterDesc.DedicatedVideoMemory / 1024 / 1024);
 		NINO_CORE_INFO("Shared system memory: {} MB", adapterDesc.SharedSystemMemory / 1024 / 1024);
 		NINO_CORE_INFO("System memory: {} MB", adapterDesc.DedicatedSystemMemory / 1024 / 1024);
+		NINO_CORE_INFO("--------------------");
 		NINO_CORE_INFO("Graphics Information:");
 		NINO_CORE_INFO("Screen tearing support? {}", (s_TearingSupport ? "True" : "False"));
+		NINO_CORE_INFO("--------------------");
 	}
 
 	void GraphicsAPI::CreateSwapChain(Window* window)

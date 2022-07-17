@@ -152,6 +152,7 @@
     <ClInclude Include="src\Core\Input.h" />
     <ClInclude Include="src\Core\Layer.h" />
     <ClInclude Include="src\Core\LayerStack.h" />
+    <ClInclude Include="src\Core\SetupLoader.h" />
     <ClInclude Include="src\Core\Timestep.h" />
     <ClInclude Include="src\Core\Window.h" />
     <ClInclude Include="src\Core\WindowStack.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="src\Events\EventManager.h" />
     <ClInclude Include="src\Events\KeyEvents.h" />
     <ClInclude Include="src\Events\MouseEvents.h" />
+    <ClInclude Include="src\Renderer\Buffer.h" />
     <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
@@ -179,12 +181,14 @@
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Core\SetupLoader.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
     <ClCompile Include="src\Core\WindowStack.cpp" />
     <ClCompile Include="src\Debug\GraphicsInfo.cpp" />
     <ClCompile Include="src\Debug\ImGuiLayer.cpp" />
     <ClCompile Include="src\Debug\Log.cpp" />
     <ClCompile Include="src\Events\EventManager.cpp" />
+    <ClCompile Include="src\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
     <ClCompile Include="src\Renderer\Primitives\Primitives.cpp" />
