@@ -27,6 +27,9 @@
     <ClInclude Include="src\Core\Application.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\ConfigurationLoader.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Core.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="src\Events\MouseEvents.h">
       <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Buffer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Framebuffer.h">
       <Filter>Renderer</Filter>
@@ -129,6 +135,9 @@
     </ClCompile>
     <ClCompile Include="src\Events\EventManager.cpp">
       <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Buffer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Framebuffer.cpp">
       <Filter>Renderer</Filter>

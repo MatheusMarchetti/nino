@@ -9,11 +9,7 @@ namespace nino
 	{
 		try
 		{
-			m_Descriptor.ApplicationName = "Sandbox";
-			m_Descriptor.Width = 1280;
-			m_Descriptor.Height = 720;
-			m_Descriptor.Maximized = false;
-			m_Descriptor.vSync = false;
+			ConfigurationLoader loader(m_Descriptor, "config.ini");
 
 			WindowDescriptor mainWindowDesc = {};
 			mainWindowDesc.WindowName = m_Descriptor.ApplicationName;
