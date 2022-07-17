@@ -1,5 +1,5 @@
 [submodule "spdlog"]
-	path = nino-core/vendor/spdlog
+	path = nino/vendor/spdlog
 	url = https://github.com/MatheusMarchetti/spdlog
 [submodule "nino/vendor/imgui"]
 	path = nino/vendor/imgui
