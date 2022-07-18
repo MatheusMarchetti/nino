@@ -36,7 +36,8 @@ namespace nino
 
 	void Application::OnEvent(Event& event)
 	{
-		EventManager::Dispatch<WindowClosedEvent>(BIND_EVENT(Application::OnWindowClose));
+		EventManager::Dispatch<WindowClosedEvent>(BIND_EVENT(Application::OnWindowClose), &event);
+		EventManager::Dispatch<WindowResizedEvent>(BIND_EVENT(Application::OnWindowResize), &event);
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++)
 		{
@@ -54,18 +55,34 @@ namespace nino
 			window.second->Show();
 		}
 
-		Timestep timestep;
-
-		while (shouldRun)
+		while (m_ShouldRun)
 		{
-			m_EventManager.ProcessEvents();
+			Update();
+		}
 
-			timestep.Tick();
+#ifdef CORE_DEBUG
+		GraphicsInfo::Set();
+		GraphicsInfo::ReportObjects();
+		GraphicsInfo::Release();
+#endif
+	}
 
-			for (Layer* layer : m_LayerStack)
-			{
-				layer->OnUpdate(timestep);
-			}
+	void Application::Update()
+	{
+		m_EventManager.ProcessEvents();
+
+		m_Timestep.Tick();
+
+		NINO_CORE_WARN("Updating the game");
+
+		for (Layer* layer : m_LayerStack)
+		{
+			layer->OnUpdate(m_Timestep);
+		}
+
+		if(m_ShouldUpdate)
+		{
+			NINO_CORE_WARN("Rendering");
 
 			m_ImGuiLayer->Begin();
 
@@ -78,12 +95,6 @@ namespace nino
 
 			m_RenderManager.EndScenes();
 		}
-
-#ifdef CORE_DEBUG
-		GraphicsInfo::Set();
-		GraphicsInfo::ReportObjects();
-		GraphicsInfo::Release();
-#endif
 	}
 
 	void Application::PushWindow(Window* window)
@@ -104,9 +115,21 @@ namespace nino
 
 		if (!m_WindowStack)
 		{
-			shouldRun = false;
+			m_ShouldRun = false;
 			NINO_CORE_INFO("All windows closed, terminating!");
 		}
+
+		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizedEvent& event)
+	{
+		m_ShouldUpdate = true;
+
+		if (!(event.GetWidth() > 0) || !(event.GetHeight() > 0))
+			m_ShouldUpdate = false;
+
+		Update();
 
 		return true;
 	}

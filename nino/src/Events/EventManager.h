@@ -16,28 +16,28 @@ namespace nino
 		void ProcessEvents();
 		
 		template<typename T>
-		static void Dispatch(std::function<bool(T&)> func)
+		static void Dispatch(std::function<bool(T&)> func, Event* event)
 		{
-			if (s_currentEvent)
+			if (event)
 			{
-				if (typeid(T).hash_code() == s_currentEvent->GetEventID())
+				if (typeid(T).hash_code() == event->GetEventID())
 				{
-					if (!func(*(T*)&(*s_currentEvent)))
+					if (!func(*(T*)&(*event)))
 					{
-						s_currentEvent->Handled = false;
+						event->Handled = false;
 					}
 					else
 					{
-						s_currentEvent->Handled = true;
-						delete s_currentEvent;
-						s_currentEvent = nullptr;
+						event->Handled = true;
+						delete event;
+						event = nullptr;
 					}
 				}
 			}
 			else
 			{
-				delete s_currentEvent;
-				s_currentEvent = nullptr;
+				delete event;
+				event = nullptr;
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace nino
 
 	private:
 		std::function<void(Event&)> m_EventCallback;
-		inline static Event* s_currentEvent;
 		inline static std::vector<Event*> s_EventQueue;
+		inline static EventManager* s_Instance;
 	};
 }

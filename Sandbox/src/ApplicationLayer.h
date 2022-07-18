@@ -14,7 +14,7 @@ public:
 	virtual void RenderUserInterface() override;
 
 private:
-	float angle = 1.0f;
+	float angle = 360.0f;
 	nino::Ref<nino::Framebuffer> m_MainFramebuffer;
 	nino::Ref<nino::Framebuffer> m_TestFramebuffer;
 };

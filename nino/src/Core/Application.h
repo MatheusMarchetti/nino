@@ -36,8 +36,6 @@ namespace nino
 
 		void OnEvent(Event& event);
 
-		void Run();
-
 		void PushWindow(Window* window);
 		void PopWindow(Window* window);
 
@@ -47,16 +45,23 @@ namespace nino
 		void PopOverlay(Layer* overlay);
 
 	private:
-		bool OnWindowClose(WindowClosedEvent& event);
+		void Run();
+		void Update();
 
 	private:
-		bool shouldRun = true;
+		bool OnWindowClose(WindowClosedEvent& event);
+		bool OnWindowResize(WindowResizedEvent& event);
+
+	private:
+		bool m_ShouldRun = true;
+		bool m_ShouldUpdate = true;
 		ApplicationDescriptor m_Descriptor;
 		EventManager m_EventManager;
 		RenderManager m_RenderManager;
 		WindowStack m_WindowStack;
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
+		Timestep m_Timestep;
 	};
 }
 

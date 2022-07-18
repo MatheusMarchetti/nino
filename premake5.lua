@@ -28,6 +28,7 @@ workspace (solutionname)
     IncludeDir["entt"] = "%{wks.location}/"..corename.."/vendor/entt/include"
     IncludeDir["DirectXTK"] = "%{wks.location}/"..corename.."/vendor/DirectXTK/Inc"
     IncludeDir["DirectXTex"] = "%{wks.location}/"..corename.."/vendor/DirectXTex"
+    IncludeDir["inih"] = "%{wks.location}/"..corename.."/vendor/inih"
 
     include (corename.."/vendor/imgui")
     include (corename.."/vendor/DirectXTK")
@@ -74,7 +75,8 @@ project (corename)
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.DirectXTK}",
-        "%{IncludeDir.DirectXTex}"
+        "%{IncludeDir.DirectXTex}",
+        "%{IncludeDir.inih}"
     }
 
     postbuildcommands

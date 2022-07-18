@@ -20,6 +20,8 @@ namespace nino
 		s_Head = 0;
 		s_Tail = 0;
 
+        s_Instance = this;
+
 		s_EventQueue.resize(max_events);
 	}
 
@@ -34,8 +36,7 @@ namespace nino
 	{
 		while (s_Head != s_Tail)
 		{
-			s_currentEvent = s_EventQueue[s_Head];
-			DispatchEvent(s_currentEvent);
+			DispatchEvent(s_EventQueue[s_Head]);
 
 			s_Head = (s_Head + 1) % max_events;
 		}
@@ -72,12 +73,13 @@ namespace nino
 
             break;
 		}
+        case WM_MOVE:
         case WM_SIZE:
         {
             uint16_t width = LOWORD(lParam);
             uint16_t height = HIWORD(lParam);
 
-            QueueEvent(new WindowResizedEvent(width, height));
+            s_Instance->DispatchEvent(new WindowResizedEvent(width, height));
 
             break;
         }
