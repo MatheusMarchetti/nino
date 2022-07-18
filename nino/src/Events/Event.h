@@ -8,7 +8,7 @@ namespace nino
 {
 	class Event
 	{
-	friend class EventManager;
+		friend class EventManager;
 
 	public:
 		operator bool() { return !Handled; }

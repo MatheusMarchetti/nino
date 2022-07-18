@@ -73,17 +73,13 @@ namespace nino
 
 		m_Timestep.Tick();
 
-		NINO_CORE_WARN("Updating the game");
-
 		for (Layer* layer : m_LayerStack)
 		{
 			layer->OnUpdate(m_Timestep);
 		}
 
-		if(m_ShouldUpdate)
+		if(m_ShouldRender)
 		{
-			NINO_CORE_WARN("Rendering");
-
 			m_ImGuiLayer->Begin();
 
 			for (Layer* layer : m_LayerStack)
@@ -124,10 +120,10 @@ namespace nino
 
 	bool Application::OnWindowResize(WindowResizedEvent& event)
 	{
-		m_ShouldUpdate = true;
+		m_ShouldRender = true;
 
 		if (!(event.GetWidth() > 0) || !(event.GetHeight() > 0))
-			m_ShouldUpdate = false;
+			m_ShouldRender = false;
 
 		Update();
 

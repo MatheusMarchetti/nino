@@ -54,7 +54,7 @@ namespace nino
 
 	private:
 		bool m_ShouldRun = true;
-		bool m_ShouldUpdate = true;
+		bool m_ShouldRender = true;
 		ApplicationDescriptor m_Descriptor;
 		EventManager m_EventManager;
 		RenderManager m_RenderManager;

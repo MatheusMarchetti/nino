@@ -54,25 +54,25 @@ namespace nino
 		m_EventCallback(*event);
 	}
 
-	LRESULT EventManager::EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-	{
+    LRESULT EventManager::EventHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+    {
         if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
         {
             return true;
         }
 
-		switch (msg)
-		{
-		case WM_DESTROY:
-		{
-			char windowName[100] = "";
+        switch (msg)
+        {
+        case WM_DESTROY:
+        {
+            char windowName[100] = "";
 
-			ThrowOnError(GetClassName(hWnd, windowName, 100));
+            ThrowOnError(GetClassName(hWnd, windowName, 100));
 
-			QueueEvent(new WindowClosedEvent(windowName));
+            QueueEvent(new WindowClosedEvent(windowName));
 
             break;
-		}
+        }
         case WM_MOVE:
         case WM_SIZE:
         {
@@ -153,7 +153,7 @@ namespace nino
             int y = GET_Y_LPARAM(lParam);
 
             QueueEvent(new MouseButtonPressedEvent(button, x, y));
-         
+
             break;
         }
         case WM_LBUTTONUP:
@@ -173,7 +173,7 @@ namespace nino
             int y = GET_Y_LPARAM(lParam);
 
             QueueEvent(new MouseButtonReleasedEvent(button, x, y));
-          
+
             break;
         }
         case WM_MBUTTONUP:
@@ -183,7 +183,7 @@ namespace nino
             int y = GET_Y_LPARAM(lParam);
 
             QueueEvent(new MouseButtonReleasedEvent(button, x, y));
-            
+
             break;
         }
         case WM_XBUTTONUP:
@@ -199,7 +199,7 @@ namespace nino
             int y = GET_Y_LPARAM(lParam);
 
             QueueEvent(new MouseButtonReleasedEvent(button, x, y));
-            
+
             break;
         }
         case WM_MOUSEMOVE:
@@ -208,7 +208,7 @@ namespace nino
             int y = GET_Y_LPARAM(lParam);
 
             QueueEvent(new MouseMovedEvent(x, y));
-            
+
             break;
         }
         case WM_MOUSEWHEEL:
@@ -234,13 +234,13 @@ namespace nino
             }
 
             QueueEvent(new MouseScrolledEvent(x, y, wheelOffsetX, wheelOffsetY));
-            
+
             break;
         }
-		default:
-			return DefWindowProc(hWnd, msg, wParam, lParam);
-		}
+        default:
+            return DefWindowProc(hWnd, msg, wParam, lParam);
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 }
