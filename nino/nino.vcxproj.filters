@@ -110,6 +110,7 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp">
@@ -158,5 +159,6 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>

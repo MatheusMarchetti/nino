@@ -171,6 +171,7 @@
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
     <ClInclude Include="src\Renderer\Primitives\Primitives.h" />
     <ClInclude Include="src\Renderer\RenderManager.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Scene\Components.h" />
     <ClInclude Include="src\Scene\Entity.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
     <ClCompile Include="src\Renderer\Primitives\Primitives.cpp" />
     <ClCompile Include="src\Renderer\RenderManager.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\corepch.cpp">
