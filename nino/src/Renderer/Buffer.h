@@ -7,12 +7,12 @@ namespace nino
 {
 	class Buffer
 	{
-	private:
-		Buffer() = default;
-		virtual ~Buffer() = default;
-
 	public:
 		Microsoft::WRL::ComPtr<ID3D11Buffer>& GetBuffer() { return m_Buffer; }
+
+	protected:
+		Buffer() = default;
+		virtual ~Buffer() = default;
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_Buffer;
