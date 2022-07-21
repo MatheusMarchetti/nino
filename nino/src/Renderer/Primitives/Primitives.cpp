@@ -5,58 +5,40 @@
 
 namespace nino
 {
-	void Primitives::DrawLine(const float* Position, const float* Direction, float Size, const float* Color)
+	void Primitives::DrawLine(const Vector3& Position, const Vector3& Direction, float Size, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawTriangle(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawTriangle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawQuad(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawQuad(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawCircle(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawCircle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawCube(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawCube(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawSphere(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawSphere(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawCapsule(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawCapsule(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawCylinder(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawCylinder(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawTorus(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawTorus(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawTerrain(const float* Position, const float* Rotation, const float* Scale, const float* Color)
+	void Primitives::DrawTerrain(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
 	{
-
 	}
-
-	void Primitives::DrawMesh(const float* Position, const float* Rotation, const float* Scale, const char* MeshFile)
+	void Primitives::DrawMesh(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile)
 	{
-
+	}
+	void Primitives::DrawRagdoll(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile)
+	{
 	}
 }

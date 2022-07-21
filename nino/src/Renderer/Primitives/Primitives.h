@@ -6,25 +6,27 @@ namespace nino
 {
 	class Primitives
 	{
-		struct VertexType
+		struct alignas(16) VertexData
 		{
-			
+			Vector3 Position;
+			Vector4 Color;
 		};
 
 	public:
 		//2D primitives
-		static void DrawLine(const float* Position, const float* Direction, float Size, const float* Color);
-		static void DrawTriangle(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawQuad(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawCircle(const float* Position, const float* Rotation, const float* Scale, const float* Color);
+		static void DrawLine(const Vector3& Position, const Vector3& Direction, float Size, const Vector4& Color);
+		static void DrawTriangle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawQuad(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawCircle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
 
 		//3D primitives
-		static void DrawCube(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawSphere(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawCapsule(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawCylinder(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawTorus(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawTerrain(const float* Position, const float* Rotation, const float* Scale, const float* Color);
-		static void DrawMesh(const float* Position, const float* Rotation, const float* Scale, const char* MeshFile);
+		static void DrawCube(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawSphere(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawCapsule(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawCylinder(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawTorus(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawTerrain(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color);
+		static void DrawMesh(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile);
+		static void DrawRagdoll(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile);
 	};
 }
