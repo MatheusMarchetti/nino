@@ -54,4 +54,26 @@ namespace nino
 	private:
 		uint32_t m_IndexCount;
 	};
+
+	template<typename T>
+	class ConstantBuffer : public Buffer
+	{
+	public:
+		ConstantBuffer(const T& cbufferData)
+		{
+			auto device = GraphicsAPI::GetDevice();
+
+			D3D11_BUFFER_DESC constantBufferDesc = {};
+			constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+			constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+			constantBufferDesc.ByteWidth = sizeof(T);
+
+			D3D11_SUBRESOURCE_DATA bufferData = {};
+			bufferData.pSysMem = &cbufferData;
+
+			ThrowOnError(device->CreateBuffer(&constantBufferDesc, &bufferData, &m_Buffer));
+		}
+
+		virtual ~ConstantBuffer() = default;
+	};
 }
