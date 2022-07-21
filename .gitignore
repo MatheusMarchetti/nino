@@ -10,3 +10,7 @@ Sandbox/Assets/
 *.dds
 *.cso
 *.log
+*.log
+Sandbox/imgui.ini
+nino/vendor/imgui
+nino/vendor/DirectXTK
