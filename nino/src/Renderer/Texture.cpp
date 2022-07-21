@@ -9,14 +9,15 @@ namespace nino
 {
 	using namespace Microsoft::WRL;
 
-	Texture::Texture(TextureType type, TextureUsage::TextureUsage usage, const std::string& filePath)
-		: m_TexturePath(filePath), m_ArraySize(1)
+	Texture::Texture(TextureType type, TextureUsage::TextureUsage usage, const std::string& fileName)
 	{
+		SetUUID(fileName);
+
 		CreateTexture(type, usage, 1024, 1024); // Change to image dimensions
 	}
 
 	Texture::Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize)
-		: m_ArraySize(arraySize), m_TexturePath()
+		: m_ArraySize(arraySize)
 	{
 		CreateTexture(type, usage, width, height);
 	}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
+#include "Scene/Asset.h"
 
 namespace nino
 {
@@ -23,13 +24,13 @@ namespace nino
 		};
 	}
 
-	class Texture
+	class Texture : public Asset
 	{
 	public:
 		Texture(TextureType type, TextureUsage::TextureUsage usage, const std::string& filePath = {});
 		Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize = 1);
 		Texture(const Window* window);
-		~Texture() = default;
+		virtual ~Texture() = default;
 
 		ID3D11Resource* GetResource() { return m_Resource.Get(); }
 
@@ -38,7 +39,6 @@ namespace nino
 
 	private:
 		uint32_t m_ArraySize;
-		std::filesystem::path m_TexturePath;
 		Microsoft::WRL::ComPtr<ID3D11Resource> m_Resource;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_ShaderResourceView;
 		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> m_UnorderedAccessView;
