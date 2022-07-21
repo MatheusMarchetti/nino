@@ -11,7 +11,16 @@ namespace nino
 		{
 			Random rng(initialSeed);
 
-			return rng.Generate();
+			m_UUID = rng.Generate();
+
+			return m_UUID;
 		}
+
+		operator bool() { return m_UUID == 0 ? false : true; }
+		operator uint64_t() const { return m_UUID; }
+		UUID& operator = (const uint64_t& value) { m_UUID = value; return *this; }
+
+	private:
+		uint64_t m_UUID = 0;
 	};
 }
