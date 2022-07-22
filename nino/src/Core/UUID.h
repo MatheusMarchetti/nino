@@ -1,7 +1,8 @@
 #pragma once
 
+#include "Core/Random.h"
+
 #include <xhash>
-#include <random>
 
 namespace nino
 {
@@ -12,21 +13,16 @@ namespace nino
 
 		uint64_t GenerateUUID()
 		{
-			std::random_device rd;
-			std::mt19937_64 engine(rd());
-			std::uniform_int_distribution<uint64_t> distribution;
-
-			m_UUID = distribution(engine);
+			Random rng;
+			m_UUID = rng;
 
 			return m_UUID;
 		}
 
 		uint64_t GenerateUUID(size_t seed)
 		{
-			std::mt19937_64 engine(seed);
-			std::uniform_int_distribution<uint64_t> distribution;
-
-			m_UUID = distribution(engine);
+			Random rng(seed);
+			m_UUID = rng;
 
 			return m_UUID;
 		}

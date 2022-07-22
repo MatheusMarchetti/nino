@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
-#include "Scene/Asset.h"
+#include "Assets/Asset.h"
 
 namespace nino
 {

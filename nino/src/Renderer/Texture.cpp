@@ -11,8 +11,6 @@ namespace nino
 
 	Texture::Texture(TextureType type, TextureUsage::TextureUsage usage, const std::string& fileName)
 	{
-		SetUUID(fileName);
-
 		CreateTexture(type, usage, 1024, 1024); // Change to image dimensions
 	}
 
