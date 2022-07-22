@@ -6,11 +6,13 @@ namespace nino
 {
 	class Asset
 	{
+		friend class AssetManager;
 
 	public:
 		Asset() = default;
 		virtual ~Asset() = default;
 
+	private:
 		UUID GetUUID() { return m_UUID; }
 
 		void SetUUID(const std::string& fileName)
