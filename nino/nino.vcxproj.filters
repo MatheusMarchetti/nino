@@ -114,7 +114,6 @@
     <ClInclude Include="src\Renderer\PipelineState.h" />
     <ClInclude Include="src\Scene\AssetManager.h" />
     <ClInclude Include="src\Scene\Asset.h" />
-    <ClInclude Include="src\Core\Random.h" />
     <ClInclude Include="src\Core\UUID.h" />
   </ItemGroup>
   <ItemGroup>
