@@ -9,7 +9,8 @@ namespace nino
 {
 	using namespace Microsoft::WRL;
 
-	Texture::Texture(TextureType type, TextureUsage::TextureUsage usage, const std::string& fileName)
+	Texture::Texture(TextureType type, TextureUsage::TextureUsage usage, DirectX::ScratchImage& image)
+		: m_Image(std::move(image))
 	{
 		CreateTexture(type, usage, 1024, 1024); // Change to image dimensions
 	}
