@@ -126,7 +126,8 @@ project (appname)
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.DirectXTK}"
+        "%{IncludeDir.DirectXTK}",
+        "%{IncludeDir.DirectXTex}"
     }
 
     filter "configurations:Debug"

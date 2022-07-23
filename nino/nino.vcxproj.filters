@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{3824E0A7-24C6-0A7E-0D81-1ED2F9C191CE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
@@ -24,6 +27,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Assets\Asset.h">
+      <Filter>Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Assets\AssetLoader.h">
+      <Filter>Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Assets\AssetManager.h">
+      <Filter>Assets</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Application.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -42,7 +54,13 @@
     <ClInclude Include="src\Core\LayerStack.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Random.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Timestep.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\UUID.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Window.h">
@@ -90,10 +108,16 @@
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h">
       <Filter>Renderer\GraphicsAPI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\PipelineState.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\Primitives\Primitives.h">
       <Filter>Renderer\Primitives</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\RenderManager.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Shader.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Texture.h">
@@ -110,14 +134,14 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
-    <ClInclude Include="src\Renderer\Shader.h" />
-    <ClInclude Include="src\Renderer\PipelineState.h" />
-    <ClInclude Include="src\Assets\AssetManager.h" />
-    <ClInclude Include="src\Assets\Asset.h" />
-    <ClInclude Include="src\Core\UUID.h" />
-    <ClInclude Include="src\Core\Random.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Assets\AssetLoader.cpp">
+      <Filter>Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Assets\AssetManager.cpp">
+      <Filter>Assets</Filter>
+    </ClCompile>
     <ClCompile Include="src\Core\Application.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -151,10 +175,16 @@
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp">
       <Filter>Renderer\GraphicsAPI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\PipelineState.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\Primitives\Primitives.cpp">
       <Filter>Renderer\Primitives</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\RenderManager.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Shader.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Texture.cpp">
@@ -164,8 +194,5 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
-    <ClCompile Include="src\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Renderer\PipelineState.cpp" />
-    <ClCompile Include="src\Assets\AssetManager.cpp" />
   </ItemGroup>
 </Project>

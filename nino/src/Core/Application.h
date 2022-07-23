@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Assets/AssetManager.h"
+
 #include "Core/LayerStack.h"
 #include "Core/WindowStack.h"
 
@@ -56,6 +58,7 @@ namespace nino
 		bool m_ShouldRun = true;
 		bool m_ShouldRender = true;
 		ApplicationDescriptor m_Descriptor;
+		AssetManager m_AssetManager;
 		EventManager m_EventManager;
 		RenderManager m_RenderManager;
 		WindowStack m_WindowStack;
