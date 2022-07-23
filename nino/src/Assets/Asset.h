@@ -15,16 +15,8 @@ namespace nino
 	private:
 		UUID GetUUID() { return m_UUID; }
 
-		void SetUUID(const std::string& fileName)
-		{
-			std::hash<std::string> hasher;
-
-			size_t hashedString = hasher(fileName);
-
-			m_UUID = m_UUID.GenerateUUID(hashedString);
-		}
-
 		void SetUUID() { m_UUID = m_UUID.GenerateUUID(); }
+		void SetUUID(size_t seed) { m_UUID = m_UUID.GenerateUUID(seed); }
 
 	private:
 		UUID m_UUID;
