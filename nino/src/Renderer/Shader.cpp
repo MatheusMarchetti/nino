@@ -52,11 +52,10 @@ namespace nino
 #endif
 
 		std::filesystem::path csoShaderPath = m_ShaderFilePath;
-
-		csoShaderPath = csoShaderPath.replace_extension().string() + appendType;
-		
 		std::hash<std::string> hasher;
 
+
+		csoShaderPath = csoShaderPath.replace_extension().string() + appendType;
 		csoShaderPath = std::to_string(hasher(csoShaderPath.string()));
 
 		std::filesystem::directory_entry csoShader{ csoShaderPath.replace_extension(".cso") };

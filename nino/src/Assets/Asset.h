@@ -15,8 +15,7 @@ namespace nino
 	private:
 		UUID GetUUID() { return m_UUID; }
 
-		void SetUUID() { m_UUID = m_UUID.GenerateUUID(); }
-		void SetUUID(size_t seed) { m_UUID = m_UUID.GenerateUUID(seed); }
+		void SetUUID(UUID assetID) { m_UUID = assetID; }
 
 	private:
 		UUID m_UUID;

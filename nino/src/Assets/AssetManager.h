@@ -16,6 +16,6 @@ namespace nino
 		static void UnloadAsset(Ref<Asset> asset);
 
 	private:
-		inline static std::unordered_map<UUID, std::weak_ptr<Asset>> s_AssetCache;
+		inline static std::unordered_map<uint64_t, Ref<Asset>> s_AssetCache;
 	};
 }
