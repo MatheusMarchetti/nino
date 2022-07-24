@@ -5,6 +5,8 @@
 
 namespace nino
 {
+	using namespace Microsoft::WRL;
+
 	Framebuffer::Framebuffer(const FramebufferDescriptor& descriptor)
 		: m_Descriptor(descriptor)
 	{
@@ -21,7 +23,14 @@ namespace nino
 		}
 		if(m_Descriptor.DepthStencilResource)
 		{
-			ThrowOnError(device->CreateDepthStencilView(m_Descriptor.DepthStencilResource->GetResource(), nullptr, &m_DepthStencilView));
+			D3D11_TEXTURE2D_DESC textureDesc;
+			m_Descriptor.DepthStencilResource->GetResource()->GetDesc(&textureDesc);
+
+			D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
+			dsvDesc.Format = textureDesc.Format == DXGI_FORMAT_R32_TYPELESS ? DXGI_FORMAT_D32_FLOAT : DXGI_FORMAT_D24_UNORM_S8_UINT;
+			dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+
+			ThrowOnError(device->CreateDepthStencilView(m_Descriptor.DepthStencilResource->GetResource(), &dsvDesc, &m_DepthStencilView));
 		}
 		else
 		{
@@ -36,7 +45,7 @@ namespace nino
 		m_Viewport.TopLeftY = m_Descriptor.ViewportSpecification.y;
 	}
 
-	void Framebuffer::Clear(const float* color, float depth, uint8_t stencil)
+	void Framebuffer::Clear(const Color& color, float depth, uint8_t stencil)
 	{
 		auto context = GraphicsAPI::GetContext();
 

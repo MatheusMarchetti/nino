@@ -19,7 +19,7 @@ void ApplicationLayer::OnAttach()
 
 void ApplicationLayer::OnUpdate(Timestep ts)
 {
-	float clearColor[] = { 0.4f, 0.5f, 0.8f, 1.0f };
+	Color clearColor = { 0.4f, 0.5f, 0.8f, 1.0f };
 
 	m_MainFramebuffer->Clear(clearColor, 1.0f);
 

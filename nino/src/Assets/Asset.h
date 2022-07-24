@@ -12,7 +12,6 @@ namespace nino
 		Asset() = default;
 		virtual ~Asset() = default;
 
-	private:
 		UUID GetUUID() { return m_UUID; }
 
 		void SetUUID(UUID assetID) { m_UUID = assetID; }

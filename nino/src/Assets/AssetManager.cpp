@@ -1,8 +1,6 @@
 #include "corepch.h"
 #include "AssetManager.h"
 
-#include "Renderer/Texture.h"
-
 namespace nino
 {
     AssetManager::AssetManager()
@@ -13,7 +11,7 @@ namespace nino
 //        AssetLoader::CreateBinaryTexture(teste.GenerateUUID(), loadedImage);
     }
 
-    void AssetManager::LoadAsset(const std::string& filePath, Ref<Asset> asset)
+    void AssetManager::LoadAsset(const std::string& filePath, Ref<Texture>& texture)
     {
         std::filesystem::path assetFilePath = filePath;
         std::hash<std::string> hasher;
@@ -22,35 +20,31 @@ namespace nino
 
         UUID comparison;
         comparison = comparison.GenerateUUID(hasher(stringToHash));
-        asset->SetUUID(comparison);
 
-        if (s_AssetCache.find(comparison) != s_AssetCache.end())
+        if (s_TextureCache.find(comparison) != s_TextureCache.end())
         {
-            asset = s_AssetCache[comparison];
+            texture = s_TextureCache[comparison];
+            texture->SetUUID(comparison);
 
             return;
         }
 
-
-
-        if (assetFilePath.extension() == ".dds" || assetFilePath.extension() == ".tga" || assetFilePath.extension() == ".hdr" || assetFilePath.extension() == ".bmp" || assetFilePath.extension() == ".jpg" || assetFilePath.extension() == ".png" || assetFilePath.extension() == ".tiff" || assetFilePath.extension() == ".gif")
-        {
-            DirectX::ScratchImage loadedImage = AssetLoader::LoadTexture(filePath);
+        DirectX::ScratchImage loadedImage = AssetLoader::LoadTexture(filePath);
             
-            TextureType type = TextureType::Texture2D;
+        TextureType type = TextureType::Texture2D;
 
-            if (loadedImage.GetImageCount() > 1)
-            {
-                type = TextureType::Texture2DArray;
+        if (loadedImage.GetImageCount() > 1)
+        {
+            type = TextureType::Texture2DArray;
 
-                if (loadedImage.GetImageCount() % 6 == 0)
-                    type = TextureType::TextureCube;
-            }
-
-            asset = CreateRef<Texture>(type, TextureUsage::ColorBinding, loadedImage);
-
-            s_AssetCache[asset->GetUUID()] = asset;
+            if (loadedImage.GetImageCount() % 6 == 0)
+                type = TextureType::TextureCube;
         }
+
+        texture = CreateRef<Texture>(type, TextureUsage::ColorBinding, loadedImage);
+        texture->SetUUID(comparison);
+
+        s_TextureCache[comparison] = texture;
     }
 
     void AssetManager::UnloadAsset(Ref<Asset> asset)

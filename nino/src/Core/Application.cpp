@@ -89,7 +89,7 @@ namespace nino
 
 			m_ImGuiLayer->End();
 
-			m_RenderManager.EndScenes();
+			m_RenderManager.EndFrame();
 		}
 	}
 

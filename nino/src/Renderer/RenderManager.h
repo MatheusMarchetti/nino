@@ -48,7 +48,7 @@ class Window;
 		static void DrawPrimitive(const PrimitiveDescriptor& descriptor);
 		static void DrawGrid(const float width, const float height);
 
-		void EndScenes();
+		void EndFrame();
 
 	private:
 		inline static bool s_VSync;

@@ -20,7 +20,7 @@ namespace nino
 	public:
 		Framebuffer(const FramebufferDescriptor& descriptor);
 
-		void Clear(const float* color, float depth, uint8_t stencil = 0);
+		void Clear(const Color& color, float depth, uint8_t stencil = 0);
 
 		ID3D11RenderTargetView* GetRenderTarget() { return m_RenderTargetView.Get(); }
 		ID3D11DepthStencilView* GetDepthStencil() { return m_DepthStencilView.Get(); }

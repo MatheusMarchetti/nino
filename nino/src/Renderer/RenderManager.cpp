@@ -99,7 +99,7 @@ namespace nino
 
 	}
 
-	void RenderManager::EndScenes()
+	void RenderManager::EndFrame()
 	{
 		GraphicsAPI::Present(s_VSync);
 	}
