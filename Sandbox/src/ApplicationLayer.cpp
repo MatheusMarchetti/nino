@@ -15,6 +15,10 @@ void ApplicationLayer::OnAttach()
 	mainFrameDesc.ViewportSpecification = { 0, 0, (float)nativeWindow->GetWidth(), (float)nativeWindow->GetHeight() };
 
 	m_MainFramebuffer = CreateRef<Framebuffer>(mainFrameDesc);
+
+	Ref<Texture> test;
+
+	AssetManager::LoadAsset("Assets/Textures/Bricks.jpg", test);
 }
 
 void ApplicationLayer::OnUpdate(Timestep ts)

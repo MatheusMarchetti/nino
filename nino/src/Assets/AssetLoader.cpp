@@ -3,8 +3,9 @@
 
 namespace nino
 {
-	void AssetLoader::LoadAssetBinary(uint64_t assetID)
+	bool AssetLoader::HasAssetBinary(uint64_t assetID)
 	{
+		return false;
 	}
 
 	DirectX::ScratchImage AssetLoader::LoadTexture(const std::string& filePath)
@@ -39,25 +40,13 @@ namespace nino
 		return loadedImage;
 	}
 
+	DirectX::ScratchImage AssetLoader::LoadTexture(uint64_t assetID)
+	{
+		return DirectX::ScratchImage();
+	}
+
 	void AssetLoader::CreateBinaryTexture(uint64_t assetID, DirectX::ScratchImage& image)
 	{
-		using namespace DirectX;
 
-		std::string fileName = std::to_string(assetID) + ".bin";
-
-		std::ofstream fs(fileName, std::fstream::binary);
-		
-
-		for (size_t i = 0; i < image.GetImageCount(); i++)
-		{
-			std::string header = "Image " + std::to_string(i) + ":" + std::to_string(image.GetImages()[i].width) + "x" + std::to_string(image.GetImages()[i].height) + '\n';
-
-			fs.write(header.c_str(), header.size());
-			fs.write(reinterpret_cast<const char*>(image.GetImages()[i].pixels), image.GetImages()[i].rowPitch * image.GetImages()[i].height);
-		}
-
-		fs.close();
-
-		NINO_CORE_WARN("File created!");
 	}
 }
