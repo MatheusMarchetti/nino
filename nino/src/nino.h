@@ -2,6 +2,8 @@
 
 #include "corepch.h"
 
+#include "Assets/AssetManager.h"
+
 #include "Core/Core.h"
 #include "Core/Application.h"
 
