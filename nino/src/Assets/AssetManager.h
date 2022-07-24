@@ -15,7 +15,8 @@ namespace nino
 		~AssetManager() = default;
 
 		static void LoadAsset(const std::string& filePath, Ref<Texture>& texture);
-		static void UnloadAsset(Ref<Asset> asset);
+
+		static void UnloadAsset(const Ref<Asset>& asset);
 
 	private:
 		inline static std::unordered_map<UUID, Ref<Texture>> s_TextureCache;

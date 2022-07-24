@@ -29,10 +29,10 @@ namespace nino
 		static Microsoft::WRL::ComPtr<IDXGIAdapter> GetAdapter();
 
 	private:
-		static BOOL s_TearingSupport;
-		static Microsoft::WRL::ComPtr<ID3D11Device> s_Device;
-		static Microsoft::WRL::ComPtr<ID3D11DeviceContext> s_DeviceContext;
-		static std::unordered_map<HWND, Microsoft::WRL::ComPtr<IDXGISwapChain4>> s_RenderTargets;
-		static std::unordered_map<std::string, Framebuffer*> s_Framebuffers;
+		inline static BOOL s_TearingSupport = TRUE;
+		inline static Microsoft::WRL::ComPtr<ID3D11Device> s_Device;
+		inline static Microsoft::WRL::ComPtr<ID3D11DeviceContext> s_DeviceContext;
+		inline static std::unordered_map<HWND, Microsoft::WRL::ComPtr<IDXGISwapChain4>> s_RenderTargets;
+		inline static std::unordered_map<std::string, Framebuffer*> s_Framebuffers;
 	};
 }

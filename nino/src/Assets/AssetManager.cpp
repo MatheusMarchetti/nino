@@ -47,8 +47,11 @@ namespace nino
         s_TextureCache[comparison] = texture;
     }
 
-    void AssetManager::UnloadAsset(Ref<Asset> asset)
+    void AssetManager::UnloadAsset(const Ref<Asset>& asset)
     {
-
+        if (s_TextureCache.find(asset->GetUUID()) != s_TextureCache.end())
+        {
+            s_TextureCache.erase(asset->GetUUID());
+        }
     }
 }
