@@ -49,9 +49,27 @@ void ApplicationLayer::OnUpdate(Timestep ts)
 
 	angle += ts;
 
+	int x, y, offset;
+
 	if (Input::IsKeyDown(KeyCode::KEY_A))
 	{
 		NINO_WARN("A pressed!");
+	}
+	if (Input::IsKeyUp(KeyCode::KEY_A))
+	{
+		NINO_WARN("A released!");
+	}
+	if (Input::IsMouseDown(MouseCode::MOUSE_LEFT))
+	{
+		NINO_WARN("Mouse left pressed!");
+	}
+	if (Input::IsMouseUp(MouseCode::MOUSE_RIGHT, &x, &y))
+	{
+		NINO_WARN("Mouse right released at {}, {}!", x, y);
+	}
+	if (Input::IsMouseScrolled(&offset, &x, &y))
+	{
+		NINO_WARN("Mouse scrolled by {} at {}, {}!", offset, x, y);
 	}
 }
 
