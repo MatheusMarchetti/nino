@@ -237,9 +237,12 @@ namespace nino
         }
         case WM_MOUSEWHEEL:
         {
+            POINT pt;
             int offset = GET_WHEEL_DELTA_WPARAM(wParam);
-            int x = GET_X_LPARAM(lParam);
-            int y = GET_Y_LPARAM(lParam);
+            pt.x = GET_X_LPARAM(lParam);
+            pt.y = GET_Y_LPARAM(lParam);
+
+            ScreenToClient(hWnd, &pt);
 
             int wheelOffsetX = 0; // currently not implemented
             int wheelOffsetY = 0;
@@ -257,7 +260,7 @@ namespace nino
                 wheelOffsetY--;
             }
 
-            QueueEvent(new MouseScrolledEvent(x, y, wheelOffsetX, wheelOffsetY));
+            QueueEvent(new MouseScrolledEvent(pt.x, pt.y, wheelOffsetX, wheelOffsetY));
 
             break;
         }
