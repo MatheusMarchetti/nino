@@ -11,12 +11,11 @@ namespace nino
 		friend class EventManager;
 
 	public:
-		operator bool() { return !Handled; }
-
-	protected:
 		Event() = default;
 		virtual ~Event() = default;
-		const size_t& GetEventID() { return m_EventID; }
+
+		operator bool() { return !Handled; }
+		const size_t GetEventID() { return m_EventID; }
 
 	protected:
 		size_t m_EventID;

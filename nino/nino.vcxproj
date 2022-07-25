@@ -153,7 +153,7 @@
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\ConfigurationLoader.h" />
     <ClInclude Include="src\Core\Core.h" />
-    <ClInclude Include="src\Core\Input.h" />
+    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Core\Layer.h" />
     <ClInclude Include="src\Core\LayerStack.h" />
     <ClInclude Include="src\Core\Random.h" />
@@ -170,6 +170,9 @@
     <ClInclude Include="src\Events\EventManager.h" />
     <ClInclude Include="src\Events\KeyEvents.h" />
     <ClInclude Include="src\Events\MouseEvents.h" />
+    <ClInclude Include="src\Input\ControllerCodes.h" />
+    <ClInclude Include="src\Input\KeyCodes.h" />
+    <ClInclude Include="src\Input\MouseCodes.h" />
     <ClInclude Include="src\Renderer\Buffer.h" />
     <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />

@@ -14,6 +14,8 @@ namespace nino
 
 		static void QueueEvent(Event* event);
 		void ProcessEvents();
+
+		static Event* SearchForEvent(size_t eventID);
 		
 		template<typename T>
 		static void Dispatch(std::function<bool(T&)> func, Event* event)

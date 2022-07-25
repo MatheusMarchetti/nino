@@ -1,24 +1,5 @@
 #pragma once
 
-/*************************** CONTROLLER(CHANGE) ****************************/
-
-#define CONTROLLER_UP				XINPUT_GAMEPAD_DPAD_UP
-#define CONTROLLER_DOWN				XINPUT_GAMEPAD_DPAD_DOWN
-#define CONTROLLER_LEFT				XINPUT_GAMEPAD_DPAD_LEFT
-#define CONTROLLER_RIGHT			XINPUT_GAMEPAD_DPAD_RIGHT
-#define CONTROLLER_START			XINPUT_GAMEPAD_START
-#define CONTROLLER_BACK				XINPUT_GAMEPAD_BACK
-#define CONTROLLER_LEFT_THUMB		XINPUT_GAMEPAD_LEFT_THUMB
-#define CONTROLLER_RIGHT_THUMB		XINPUT_GAMEPAD_RIGHT_THUMB
-#define CONTROLLER_LEFT_SHOULDER	XINPUT_GAMEPAD_LEFT_SHOULDER
-#define CONTROLLER_RIGHT_SHOULDER	XINPUT_GAMEPAD_RIGHT_SHOULDER
-#define CONTROLLER_A				XINPUT_GAMEPAD_A
-#define CONTROLLER_B				XINPUT_GAMEPAD_B
-#define CONTROLLER_X				XINPUT_GAMEPAD_X
-#define CONTROLLER_Y				XINPUT_GAMEPAD_Y
-
-/*******************************************************************/
-
 namespace nino
 {
 	enum KeyCode
@@ -82,19 +63,41 @@ namespace nino
 		KEY_RSHIFT = VK_RSHIFT,
 		KEY_LCONTROL = VK_LCONTROL,
 		KEY_RCONTROL = VK_RCONTROL,
-	};
-
-	enum MouseCode
-	{
-		MOUSE_LEFT = VK_LBUTTON,
-		MOUSE_RIGHT = VK_RBUTTON,
-		MOUSE_WHEEL = VK_MBUTTON,
-		MOUSE_EXTRA1 = VK_XBUTTON1,
-		MOUSE_EXTRA2 = VK_XBUTTON2,
-	};
-
-	enum JoystickBinding
-	{
-
+		KEY_0 = 0x30,
+		KEY_1 = 0x31,
+		KEY_2 = 0x32,
+		KEY_3 = 0x33,
+		KEY_4 = 0x34,
+		KEY_5 = 0x35,
+		KEY_6 = 0x36,
+		KEY_7 = 0x37,
+		KEY_8 = 0x38,
+		KEY_9 = 0x39,
+		KEY_A = 0x41,
+		KEY_B = 0x42,
+		KEY_C = 0x43,
+		KEY_D = 0x44,
+		KEY_E = 0x45,
+		KEY_F = 0x46,
+		KEY_G = 0x47,
+		KEY_H = 0x48,
+		KEY_I = 0x49,
+		KEY_J = 0x4A,
+		KEY_K = 0x4B,
+		KEY_L = 0x4C,
+		KEY_M = 0x4D,
+		KEY_N = 0x4E,
+		KEY_O = 0x4F,
+		KEY_P = 0x50,
+		KEY_Q = 0x51,
+		KEY_R = 0x52,
+		KEY_S = 0x53,
+		KEY_T = 0x54,
+		KEY_U = 0x55,
+		KEY_V = 0x56,
+		KEY_W = 0x57,
+		KEY_X = 0x58,
+		KEY_Y = 0x59,
+		KEY_Z = 0x5A,
 	};
 }

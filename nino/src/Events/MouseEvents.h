@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Core/Input.h"
 #include "Events/Event.h"
+
+#include "Input/MouseCodes.h"
 
 namespace nino
 {

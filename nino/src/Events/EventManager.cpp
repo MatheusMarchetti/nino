@@ -14,11 +14,13 @@ namespace nino
 	static constexpr size_t max_events = 10;
 	static size_t s_Head;
 	static size_t s_Tail;
+    static size_t s_Search;
 
 	EventManager::EventManager()
 	{
 		s_Head = 0;
 		s_Tail = 0;
+        s_Search = 0;
 
         s_Instance = this;
 
@@ -48,6 +50,28 @@ namespace nino
 			DispatchMessage(&msg);
 		}
 	}
+
+    Event* EventManager::SearchForEvent(size_t eventID)
+    {
+        size_t loop = 0;
+        size_t startPosition = s_Search;
+
+        while (loop == 0)
+        {
+            if(s_EventQueue[s_Search])
+            {
+                if (s_EventQueue[s_Search]->GetEventID() == eventID)
+                    return s_EventQueue[s_Search];
+            }
+
+            s_Search = (s_Search + 1) % max_events;
+
+            if (s_Search == startPosition)
+                loop++;
+        }
+
+        return nullptr;
+    }
 
 	void EventManager::DispatchEvent(Event* event)
 	{

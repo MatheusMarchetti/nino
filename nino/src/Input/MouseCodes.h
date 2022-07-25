@@ -1,0 +1,13 @@
+#pragma once
+
+namespace nino
+{
+	enum MouseCode
+	{
+		MOUSE_LEFT = VK_LBUTTON,
+		MOUSE_RIGHT = VK_RBUTTON,
+		MOUSE_WHEEL = VK_MBUTTON,
+		MOUSE_EXTRA1 = VK_XBUTTON1,
+		MOUSE_EXTRA2 = VK_XBUTTON2,
+	};
+}

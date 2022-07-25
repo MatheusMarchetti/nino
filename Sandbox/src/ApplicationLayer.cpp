@@ -48,6 +48,11 @@ void ApplicationLayer::OnUpdate(Timestep ts)
 	RenderManager::EndScene({ m_MainFramebuffer });
 
 	angle += ts;
+
+	if (Input::IsKeyDown(KeyCode::KEY_A))
+	{
+		NINO_WARN("A pressed!");
+	}
 }
 
 void ApplicationLayer::RenderUserInterface()

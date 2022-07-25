@@ -45,7 +45,7 @@
     <ClInclude Include="src\Core\Core.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Core\Input.h">
+    <ClInclude Include="src\Input\Input.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Layer.h">
@@ -134,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
+    <ClInclude Include="src\Input\KeyCodes.h" />
+    <ClInclude Include="src\Input\MouseCodes.h" />
+    <ClInclude Include="src\Input\ControllerCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Assets\AssetLoader.cpp">
