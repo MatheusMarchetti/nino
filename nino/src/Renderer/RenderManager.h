@@ -4,6 +4,11 @@
 
 namespace nino
 {
+	struct GraphicsDescriptor
+	{
+		float TextureQuality;
+		bool vSync;
+	};
 
 class Window;
 
@@ -39,6 +44,8 @@ class Window;
 		RenderManager();
 		~RenderManager() = default;
 
+		void SetGraphicsConfiguration(GraphicsDescriptor& descriptor);
+
 		static void SetRenderTarget(Window* window);
 		static void ToggleVSync(bool vsync) { s_VSync = vsync; }
 
@@ -51,6 +58,7 @@ class Window;
 		void EndFrame();
 
 	private:
+		GraphicsDescriptor m_Descriptor;
 		inline static bool s_VSync;
 	};
 }

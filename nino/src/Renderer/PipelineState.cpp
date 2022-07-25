@@ -20,6 +20,8 @@ namespace nino
 		samplerDesc.BorderColor[1] = borderColor[1];
 		samplerDesc.BorderColor[2] = borderColor[2];
 		samplerDesc.BorderColor[3] = borderColor[3];
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 		ThrowOnError(device->CreateSamplerState(&samplerDesc, &m_SamplerState));
 	}

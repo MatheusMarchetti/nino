@@ -11,20 +11,14 @@ namespace nino
 		{
 			ConfigurationLoader loader(m_Descriptor, "config.ini");
 
-			WindowDescriptor mainWindowDesc = {};
-			mainWindowDesc.WindowName = m_Descriptor.ApplicationName;
-			mainWindowDesc.Width = m_Descriptor.Width;
-			mainWindowDesc.Height = m_Descriptor.Height;
-			mainWindowDesc.Maximized = m_Descriptor.Maximized;
-
-			PushWindow(new Window(mainWindowDesc));
+			PushWindow(new Window(m_Descriptor.Window));
 
 			m_EventManager.SetEventCallback(BIND_EVENT(Application::OnEvent));
 
-			m_RenderManager.SetRenderTarget(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
-			m_RenderManager.ToggleVSync(m_Descriptor.vSync);
+			m_RenderManager.SetGraphicsConfiguration(m_Descriptor.Graphics);
+			m_RenderManager.SetRenderTarget(m_WindowStack.GetWindow(m_Descriptor.ApplicationName));
 
-			m_ImGuiLayer = new ImGuiLayer(m_WindowStack.GetWindow(mainWindowDesc.WindowName));
+			m_ImGuiLayer = new ImGuiLayer(m_WindowStack.GetWindow(m_Descriptor.ApplicationName));
 			PushOverlay(m_ImGuiLayer);
 		}
 		catch(std::exception e)

@@ -11,6 +11,14 @@ namespace nino
 		GraphicsAPI::CreateDeviceAndContext();
 	}
 
+	void RenderManager::SetGraphicsConfiguration(GraphicsDescriptor& descriptor)
+	{
+		m_Descriptor = descriptor;
+		s_VSync = m_Descriptor.vSync;
+
+		GraphicsAPI::SetTextureQuality(m_Descriptor.TextureQuality);
+	}
+
 	void RenderManager::SetRenderTarget(Window* window)
 	{
 		GraphicsAPI::CreateSwapChain(window);

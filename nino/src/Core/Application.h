@@ -19,10 +19,9 @@ namespace nino
 	struct ApplicationDescriptor
 	{
 		std::string ApplicationName;
-		uint32_t Width;
-		uint32_t Height;
-		bool Maximized = false;
-		bool vSync = true;
+		
+		WindowDescriptor Window;
+		GraphicsDescriptor Graphics;
 	};
 
 	class Application

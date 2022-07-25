@@ -15,10 +15,13 @@ namespace nino
 				throw std::exception("Error loading config.ini file");
 
 			descriptor.ApplicationName = reader.Get("Application", "Name", "nino engine Application");
-			descriptor.Width = reader.GetInteger("Application", "Width", 800);
-			descriptor.Height = reader.GetInteger("Application", "Height", 600);
-			descriptor.Maximized = reader.GetBoolean("Application", "Maximized", false);
-			descriptor.vSync = reader.GetBoolean("Application", "vSync", true);
+			descriptor.Window.Width = reader.GetInteger("Application", "Width", 800);
+			descriptor.Window.Height = reader.GetInteger("Application", "Height", 600);
+			descriptor.Window.Maximized = reader.GetBoolean("Application", "Maximized", false);
+			descriptor.Graphics.TextureQuality = reader.GetFloat("Graphics", "TextureQuality", 1.0f);
+			descriptor.Graphics.vSync = reader.GetBoolean("Graphics", "vSync", true);
+
+			descriptor.Window.WindowName = descriptor.ApplicationName;
 		}
 	};
 }

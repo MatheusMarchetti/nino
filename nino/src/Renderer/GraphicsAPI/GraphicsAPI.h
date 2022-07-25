@@ -22,6 +22,8 @@ namespace nino
 		static Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetContext() { return s_DeviceContext; }
 		static const Microsoft::WRL::ComPtr<IDXGISwapChain4> GetSwapChain(const Window* window);
 
+		static void SetTextureQuality(float quality) { s_TextureQuality = quality; }
+
 		static void BindFramebuffers(std::initializer_list<Ref<Framebuffer>> framebuffers);
 		static void Present(bool vSync);
 
@@ -29,6 +31,7 @@ namespace nino
 		static Microsoft::WRL::ComPtr<IDXGIAdapter> GetAdapter();
 
 	private:
+		inline static float s_TextureQuality;
 		inline static BOOL s_TearingSupport = TRUE;
 		inline static Microsoft::WRL::ComPtr<ID3D11Device> s_Device;
 		inline static Microsoft::WRL::ComPtr<ID3D11DeviceContext> s_DeviceContext;

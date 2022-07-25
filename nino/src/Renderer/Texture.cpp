@@ -4,6 +4,7 @@
 #include "Core/Window.h"
 
 #include "Renderer/GraphicsAPI/GraphicsAPI.h"
+#include "Renderer/Shader.h"
 
 #include "DirectXTex.h"
 
@@ -44,6 +45,9 @@ namespace nino
 		tex2Ddesc.Height = height;
 		tex2Ddesc.MipLevels = 1;
 		tex2Ddesc.Usage = D3D11_USAGE_DEFAULT;
+
+		if (type == TextureType::TextureCube)
+			tex2Ddesc.MiscFlags |= D3D11_RESOURCE_MISC_TEXTURECUBE;
 		
 		switch (usage)
 		{
@@ -140,6 +144,7 @@ namespace nino
 		tex2Ddesc.MipLevels = image.GetMetadata().mipLevels;
 		tex2Ddesc.Format = image.GetMetadata().format;
 		tex2Ddesc.Usage = D3D11_USAGE_DEFAULT;
+		tex2Ddesc.MiscFlags = D3D11_RESOURCE_MISC_RESOURCE_CLAMP;
 
 		switch (usage)
 		{
@@ -152,6 +157,9 @@ namespace nino
 			throw std::exception("Only color binding usage supported for textures created from images.");
 			break;
 		}
+
+		if (type == TextureType::TextureCube)
+			tex2Ddesc.MiscFlags |= D3D11_RESOURCE_MISC_TEXTURECUBE;
 
 		ThrowOnError(device->CreateTexture2D(&tex2Ddesc, nullptr, &m_Resource));
 
@@ -212,6 +220,11 @@ namespace nino
 		{
 			m_ShaderResourceView = nullptr;
 			m_UnorderedAccessView = nullptr;
+		}
+
+		if (image.GetMetadata().mipLevels == 1)
+		{
+			ComputeShader generateMips("Assets/Shaders/GenerateMips.hlsl");
 		}
 	}
 }
