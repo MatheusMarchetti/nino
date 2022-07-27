@@ -17,7 +17,7 @@ namespace nino
 		if(!roughness.empty())
 			AssetManager::LoadAsset(roughness, m_RoughnessMap);
 
-		m_Shader = CreateRef<PixelShader>(shader);
+		AssetManager::LoadAsset(shader, m_Shader);
 	}
 }
 
