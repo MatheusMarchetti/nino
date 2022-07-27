@@ -52,6 +52,30 @@ namespace nino
         s_TextureCache[comparison] = texture;
     }
 
+    void AssetManager::LoadAsset(const std::string& filePath, Ref<PixelShader>& shader)
+    {
+        std::filesystem::path assetFilePath = filePath;
+        std::hash<std::string> hasher;
+
+        std::string stringToHash = assetFilePath.filename().string();
+
+        UUID comparison;
+        comparison = comparison.GenerateUUID(hasher(stringToHash));
+
+        if (s_ShaderCache.find(comparison) != s_ShaderCache.end())
+        {
+            shader = s_ShaderCache[comparison];
+            shader->SetUUID(comparison);
+
+            return;
+        }
+
+        shader = CreateRef<PixelShader>(filePath);
+        shader->SetUUID(comparison);
+
+        s_ShaderCache[comparison] = shader;
+    }
+
     void AssetManager::UnloadAsset(const Ref<Asset>& asset)
     {
         if (s_TextureCache.find(asset->GetUUID()) != s_TextureCache.end())

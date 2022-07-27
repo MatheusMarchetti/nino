@@ -55,15 +55,8 @@ namespace nino
 		std::hash<std::string> hasher;
 
 		csoShaderPath = csoShaderPath.replace_extension().string() + appendType;
-		m_UUID = m_UUID.GenerateUUID(hasher(csoShaderPath.string()));
 
-		if (s_ShaderCache.find(m_UUID) != s_ShaderCache.end())
-		{
-			*this = *(s_ShaderCache[m_UUID].get());
-			return;
-		}
-
-		csoShaderPath = std::to_string(m_UUID);
+		csoShaderPath = std::to_string(hasher(csoShaderPath.string()));
 
 		std::filesystem::directory_entry csoShader{ csoShaderPath.replace_extension(".cso") };
 
@@ -113,35 +106,26 @@ namespace nino
 	}
 
 	VertexShader::VertexShader(const std::string& filePath)
+		: Shader(filePath, ShaderType::VertexShader)
 	{
 		auto device = GraphicsAPI::GetDevice();
 
-		Ref<Shader> shader = CreateRef<Shader>(filePath, ShaderType::VertexShader);
-
-		s_ShaderCache[shader->GetUUID()] = shader;
-
-		ThrowOnError(device->CreateVertexShader(shader->GetShaderByteCode()->GetBufferPointer(), shader->GetShaderByteCode()->GetBufferSize(), nullptr, &m_VertexShader));
+		ThrowOnError(device->CreateVertexShader(m_ShaderBlob->GetBufferPointer(), m_ShaderBlob->GetBufferSize(), nullptr, &m_VertexShader));
 	}
 
 	PixelShader::PixelShader(const std::string& filePath)
+		: Shader(filePath, ShaderType::PixelShader)
 	{
 		auto device = GraphicsAPI::GetDevice();
 
-		Ref<Shader> shader = CreateRef<Shader>(filePath, ShaderType::PixelShader);
-
-		s_ShaderCache[shader->GetUUID()] = shader;
-
-		ThrowOnError(device->CreatePixelShader(shader->GetShaderByteCode()->GetBufferPointer(), shader->GetShaderByteCode()->GetBufferSize(), nullptr, &m_PixelShader));
+		ThrowOnError(device->CreatePixelShader(m_ShaderBlob->GetBufferPointer(), m_ShaderBlob->GetBufferSize(), nullptr, &m_PixelShader));
 	}
 
 	ComputeShader::ComputeShader(const std::string& filePath)
+		: Shader(filePath, ShaderType::ComputeShader)
 	{
 		auto device = GraphicsAPI::GetDevice();
 
-		Ref<Shader> shader = CreateRef<Shader>(filePath, ShaderType::ComputeShader);
-
-		s_ShaderCache[shader->GetUUID()] = shader;
-
-		ThrowOnError(device->CreateComputeShader(shader->GetShaderByteCode()->GetBufferPointer(), shader->GetShaderByteCode()->GetBufferSize(), nullptr, &m_ComputeShader));
+		ThrowOnError(device->CreateComputeShader(m_ShaderBlob->GetBufferPointer(), m_ShaderBlob->GetBufferSize(), nullptr, &m_ComputeShader));
 	}
 }

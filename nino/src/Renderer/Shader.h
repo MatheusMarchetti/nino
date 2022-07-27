@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Assets/Asset.h"
+
 #include "Core/Core.h"
 #include "Core/UUID.h"
 
@@ -7,7 +9,7 @@
 
 namespace nino
 {
-	class Shader : public std::enable_shared_from_this<Shader>
+	class Shader : public Asset
 	{
 	protected:
 		enum class ShaderType
@@ -17,19 +19,17 @@ namespace nino
 			ComputeShader
 		};
 
-	public:
-		Shader() = default;
+	protected:
 		Shader(const std::string& filePath, ShaderType type);
 		virtual ~Shader() = default;
 
+	public:
 		ID3DBlob* GetShaderByteCode() { return m_ShaderBlob.Get(); }
-		UUID GetUUID() { return m_UUID; }
 
 	protected:
-		UUID m_UUID;
 		std::filesystem::path m_ShaderFilePath;
 		Microsoft::WRL::ComPtr<ID3DBlob> m_ShaderBlob;
-		inline static std::unordered_map<UUID, Ref<Shader>> s_ShaderCache;
+		inline static std::unordered_map<UUID, Shader*> s_ShaderCache;
 	};
 
 	class VertexShader : public Shader
