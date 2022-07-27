@@ -15,6 +15,10 @@ void ApplicationLayer::OnAttach()
 	mainFrameDesc.ViewportSpecification = { 0, 0, (float)nativeWindow->GetWidth(), (float)nativeWindow->GetHeight() };
 
 	m_MainFramebuffer = CreateRef<Framebuffer>(mainFrameDesc);
+
+	m_MainCamera.ChangeCameraType(CameraType::Perspective);
+	m_MainCamera.SetViewportSize((float)nativeWindow->GetWidth(), (float)nativeWindow->GetHeight());
+	m_MainCamera.SetFieldOfView(45.0f);
 }
 
 void ApplicationLayer::OnUpdate(Timestep ts)
@@ -25,7 +29,7 @@ void ApplicationLayer::OnUpdate(Timestep ts)
 
 	RenderManager::DrawGrid(5.0f, 5.0f);
 
-	RenderManager::BeginScene();
+	RenderManager::BeginScene(m_MainCamera);
 	{
 		Vector3 position = { 0.0f, 1.0f, 0.0f };
 		Vector3 rotation = { angle, angle, angle };

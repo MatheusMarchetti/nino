@@ -60,19 +60,44 @@ namespace nino
 	class ConstantBuffer : public Buffer
 	{
 	public:
+		ConstantBuffer()
+		{
+			auto device = GraphicsAPI::GetDevice();
+
+			D3D11_BUFFER_DESC constantBufferDesc = {};
+			constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+			constantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+			constantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+			constantBufferDesc.ByteWidth = sizeof(T);
+
+			ThrowOnError(device->CreateBuffer(&constantBufferDesc, nullptr, &m_Buffer));
+		}
+
 		ConstantBuffer(const T& cbufferData)
 		{
 			auto device = GraphicsAPI::GetDevice();
 
 			D3D11_BUFFER_DESC constantBufferDesc = {};
 			constantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-			constantBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+			constantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+			constantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 			constantBufferDesc.ByteWidth = sizeof(T);
 
 			D3D11_SUBRESOURCE_DATA bufferData = {};
 			bufferData.pSysMem = &cbufferData;
 
 			ThrowOnError(device->CreateBuffer(&constantBufferDesc, &bufferData, &m_Buffer));
+		}
+
+		void SetData(const T& cbufferData)
+		{
+			auto context = GraphicsAPI::GetContext();
+
+			D3D11_MAPPED_SUBRESOURCE bufferData = {};
+
+			context->Map(m_Buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, NULL, &bufferData);
+			memcpy(bufferData.pData, &cbufferData, sizeof(T));
+			context->Unmap(m_Buffer.Get(), 0);
 		}
 
 		virtual ~ConstantBuffer() = default;

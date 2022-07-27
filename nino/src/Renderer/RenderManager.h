@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Renderer/Camera.h"
 #include "Renderer/Framebuffer.h"
 
 namespace nino
@@ -50,7 +51,7 @@ class Window;
 		static void SetRenderTarget(Window* window);
 		static void ToggleVSync(bool vsync) { s_VSync = vsync; }
 
-		static void BeginScene();
+		static void BeginScene(const Camera& camera);
 		static void EndScene(std::initializer_list<Ref<Framebuffer>> framebuffers);
 
 		static void DrawPrimitive(const PrimitiveDescriptor& descriptor);

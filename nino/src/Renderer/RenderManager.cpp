@@ -25,8 +25,10 @@ namespace nino
 		GraphicsAPI::CreateSwapChain(window);
 	}
 
-	void RenderManager::BeginScene()
+	void RenderManager::BeginScene(const Camera& camera)
 	{
+		auto& cameraCB = camera.GetShaderBuffer();
+		
 	}
 
 	void RenderManager::EndScene(std::initializer_list<Ref<Framebuffer>> framebuffers)
