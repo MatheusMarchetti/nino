@@ -138,6 +138,7 @@
     <ClInclude Include="src\Input\MouseCodes.h" />
     <ClInclude Include="src\Input\ControllerCodes.h" />
     <ClInclude Include="src\Renderer\Material.h" />
+    <ClInclude Include="src\Renderer\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Assets\AssetLoader.cpp">
@@ -199,5 +200,6 @@
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
     <ClCompile Include="src\Renderer\Material.cpp" />
+    <ClCompile Include="src\Renderer\Camera.cpp" />
   </ItemGroup>
 </Project>
