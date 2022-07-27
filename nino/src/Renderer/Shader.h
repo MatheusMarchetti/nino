@@ -1,10 +1,13 @@
 #pragma once
 
+#include "Core/Core.h"
+#include "Core/UUID.h"
+
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
 
 namespace nino
 {
-	class Shader
+	class Shader : public std::enable_shared_from_this<Shader>
 	{
 	protected:
 		enum class ShaderType
@@ -14,16 +17,19 @@ namespace nino
 			ComputeShader
 		};
 
-	protected:
+	public:
+		Shader() = default;
 		Shader(const std::string& filePath, ShaderType type);
 		virtual ~Shader() = default;
 
-	public:
 		ID3DBlob* GetShaderByteCode() { return m_ShaderBlob.Get(); }
+		UUID GetUUID() { return m_UUID; }
 
 	protected:
+		UUID m_UUID;
 		std::filesystem::path m_ShaderFilePath;
 		Microsoft::WRL::ComPtr<ID3DBlob> m_ShaderBlob;
+		inline static std::unordered_map<UUID, Ref<Shader>> s_ShaderCache;
 	};
 
 	class VertexShader : public Shader
