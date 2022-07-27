@@ -141,10 +141,10 @@ namespace nino
 		tex2Ddesc.SampleDesc.Count = 1;
 		tex2Ddesc.Width = image.GetMetadata().width;
 		tex2Ddesc.Height = image.GetMetadata().height;
-		tex2Ddesc.MipLevels = image.GetMetadata().mipLevels;
+		tex2Ddesc.MipLevels = image.GetMetadata().mipLevels == 1 ? 0 : image.GetMetadata().mipLevels;
 		tex2Ddesc.Format = image.GetMetadata().format;
 		tex2Ddesc.Usage = D3D11_USAGE_DEFAULT;
-		tex2Ddesc.MiscFlags = D3D11_RESOURCE_MISC_RESOURCE_CLAMP;
+		tex2Ddesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 
 		switch (usage)
 		{
@@ -187,7 +187,7 @@ namespace nino
 			case nino::TextureType::Texture2D:
 			{
 				srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-				srvDesc.Texture2D.MipLevels = image.GetMetadata().mipLevels;
+				srvDesc.Texture2D.MipLevels = -1;
 				srvDesc.Texture2D.MostDetailedMip = 0;
 
 				uavDesc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
@@ -197,7 +197,7 @@ namespace nino
 			{
 				srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
 				srvDesc.Texture2DArray.ArraySize = image.GetMetadata().arraySize;
-				srvDesc.Texture2DArray.MipLevels = image.GetMetadata().mipLevels;
+				srvDesc.Texture2DArray.MipLevels = -1;
 				srvDesc.Texture2DArray.MostDetailedMip = 0;
 
 				uavDesc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2DARRAY;
@@ -206,7 +206,7 @@ namespace nino
 			case nino::TextureType::TextureCube:
 			{
 				srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
-				srvDesc.TextureCube.MipLevels = image.GetMetadata().mipLevels;
+				srvDesc.TextureCube.MipLevels = -1;
 				srvDesc.TextureCube.MostDetailedMip = 0;
 				break;
 			}
@@ -224,7 +224,7 @@ namespace nino
 
 		if (image.GetMetadata().mipLevels == 1)
 		{
-			ComputeShader generateMips("Assets/Shaders/GenerateMips.hlsl");
+			context->GenerateMips(m_ShaderResourceView.Get());
 		}
 	}
 }

@@ -15,6 +15,7 @@ namespace nino
 	{
 		m_Descriptor = descriptor;
 		s_VSync = m_Descriptor.vSync;
+		m_AnisotropicFiltering = m_Descriptor.AnisotropyLevel;
 
 		GraphicsAPI::SetTextureQuality(m_Descriptor.TextureQuality);
 	}

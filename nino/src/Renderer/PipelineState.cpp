@@ -5,7 +5,7 @@
 
 namespace nino
 {
-	SamplerState::SamplerState(Filter samplingFilter, TextureMode textureMode, ComparisonFunction comparisonFunc, uint32_t anisotropyLevel, const float* borderColor)
+	SamplerState::SamplerState(Filter samplingFilter, TextureMode textureMode, ComparisonFunction comparisonFunc, uint32_t anisotropyLevel, const Color& borderColor)
 	{
 		auto device = GraphicsAPI::GetDevice();
 
@@ -16,10 +16,10 @@ namespace nino
 		samplerDesc.AddressW = (D3D11_TEXTURE_ADDRESS_MODE)textureMode;
 		samplerDesc.ComparisonFunc = (D3D11_COMPARISON_FUNC)comparisonFunc;
 		samplerDesc.MaxAnisotropy = anisotropyLevel;
-		samplerDesc.BorderColor[0] = borderColor[0];
-		samplerDesc.BorderColor[1] = borderColor[1];
-		samplerDesc.BorderColor[2] = borderColor[2];
-		samplerDesc.BorderColor[3] = borderColor[3];
+		samplerDesc.BorderColor[0] = borderColor.x;
+		samplerDesc.BorderColor[1] = borderColor.y;
+		samplerDesc.BorderColor[2] = borderColor.z;
+		samplerDesc.BorderColor[3] = borderColor.w;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 

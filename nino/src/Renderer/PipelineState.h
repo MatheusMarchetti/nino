@@ -22,7 +22,8 @@ namespace nino
 		enum class Filter
 		{
 			Point = D3D11_FILTER_MIN_MAG_MIP_POINT,
-			Linear = D3D11_FILTER_MIN_MAG_MIP_LINEAR,
+			Bilinear = D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT,
+			Trilinear = D3D11_FILTER_MIN_MAG_MIP_LINEAR,
 			Anisotropic = D3D11_FILTER_ANISOTROPIC,
 		};
 
@@ -34,7 +35,7 @@ namespace nino
 		};
 
 	public:
-		SamplerState(Filter samplingFilter, TextureMode textureMode, ComparisonFunction comparisonFunc, uint32_t anisotropyLevel = D3D11_MAX_MAXANISOTROPY, const float* borderColor = {});
+		SamplerState(Filter samplingFilter, TextureMode textureMode, ComparisonFunction comparisonFunc, uint32_t anisotropyLevel = D3D11_MAX_MAXANISOTROPY, const Color& borderColor = {});
 		~SamplerState() = default;
 
 	private:

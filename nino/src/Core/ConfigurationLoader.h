@@ -19,6 +19,7 @@ namespace nino
 			descriptor.Window.Height = reader.GetInteger("Application", "Height", 600);
 			descriptor.Window.Maximized = reader.GetBoolean("Application", "Maximized", false);
 			descriptor.Graphics.TextureQuality = reader.GetFloat("Graphics", "TextureQuality", 1.0f);
+			descriptor.Graphics.AnisotropyLevel = reader.GetInteger("Graphics", "AnisotropyLevel", 0);
 			descriptor.Graphics.vSync = reader.GetBoolean("Graphics", "vSync", true);
 
 			descriptor.Window.WindowName = descriptor.ApplicationName;

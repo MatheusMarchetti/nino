@@ -6,6 +6,7 @@ namespace nino
 {
 	struct GraphicsDescriptor
 	{
+		uint32_t AnisotropyLevel;
 		float TextureQuality;
 		bool vSync;
 	};
@@ -59,6 +60,7 @@ class Window;
 
 	private:
 		GraphicsDescriptor m_Descriptor;
+		uint32_t m_AnisotropicFiltering;
 		inline static bool s_VSync;
 	};
 }
