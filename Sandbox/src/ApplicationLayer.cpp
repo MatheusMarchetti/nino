@@ -15,10 +15,6 @@ void ApplicationLayer::OnAttach()
 	mainFrameDesc.ViewportSpecification = { 0, 0, (float)nativeWindow->GetWidth(), (float)nativeWindow->GetHeight() };
 
 	m_MainFramebuffer = CreateRef<Framebuffer>(mainFrameDesc);
-
-	Ref<Texture> test;
-
-	AssetManager::LoadAsset("Assets/Textures/Bricks.jpg", test);
 }
 
 void ApplicationLayer::OnUpdate(Timestep ts)
@@ -42,6 +38,8 @@ void ApplicationLayer::OnUpdate(Timestep ts)
 		cube1.Rotation = rotation;
 		cube1.Scale = scale;
 		cube1.Color = color;
+
+		Material testMaterial("Assets/Textures/environment.hdr", "Assets/Shaders/BasicPBR.hlsl");
 
 		RenderManager::DrawPrimitive(cube1);
 	}

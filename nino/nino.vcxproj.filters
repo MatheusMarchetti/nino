@@ -137,6 +137,7 @@
     <ClInclude Include="src\Input\KeyCodes.h" />
     <ClInclude Include="src\Input\MouseCodes.h" />
     <ClInclude Include="src\Input\ControllerCodes.h" />
+    <ClInclude Include="src\Renderer\Material.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Assets\AssetLoader.cpp">
@@ -197,5 +198,6 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
+    <ClCompile Include="src\Renderer\Material.cpp" />
   </ItemGroup>
 </Project>

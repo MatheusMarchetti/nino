@@ -15,6 +15,7 @@
 #include "Input/MouseCodes.h"
 
 #include "Renderer/Framebuffer.h"
+#include "Renderer/Material.h"
 #include "Renderer/RenderManager.h"
 #include "Renderer/Texture.h"
 
