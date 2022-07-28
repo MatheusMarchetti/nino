@@ -85,7 +85,7 @@ namespace nino
 		{
 		case nino::CameraType::Orthographic:
 		{
-			m_Projection = Matrix::CreatePerspectiveFieldOfView(m_FOV, m_AspectRatio, m_NearPlane, m_FarPlane);
+			m_Projection = Matrix::CreatePerspectiveFieldOfView(Radians(m_FOV), m_AspectRatio, m_NearPlane, m_FarPlane);
 			break;
 		}
 		case nino::CameraType::Perspective:
