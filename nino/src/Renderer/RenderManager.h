@@ -2,6 +2,7 @@
 
 #include "Renderer/Camera.h"
 #include "Renderer/Framebuffer.h"
+#include "Renderer/RenderPass.h"
 
 namespace nino
 {
@@ -52,7 +53,7 @@ class Window;
 		static void ToggleVSync(bool vsync) { s_VSync = vsync; }
 
 		static void BeginScene(const Camera& camera);
-		static void EndScene(std::initializer_list<Ref<Framebuffer>> framebuffers);
+		static void EndScene(std::initializer_list<Ref<RenderPass>> renderPasses);
 
 		static void DrawPrimitive(const PrimitiveDescriptor& descriptor);
 		static void DrawGrid(const float width, const float height);
@@ -60,8 +61,13 @@ class Window;
 		void EndFrame();
 
 	private:
+		void ComposeFrame();
+
+	private:
+		inline static RenderManager* s_Instance;
 		GraphicsDescriptor m_Descriptor;
 		uint32_t m_AnisotropicFiltering;
 		inline static bool s_VSync;
+		inline static std::vector<Ref<RenderPass>> s_RenderPasses;
 	};
 }

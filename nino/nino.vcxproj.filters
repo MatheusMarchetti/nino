@@ -139,6 +139,11 @@
     <ClInclude Include="src\Input\ControllerCodes.h" />
     <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\Camera.h" />
+    <ClInclude Include="src\Renderer\RenderPass.h" />
+    <ClInclude Include="src\Renderer\RenderPasses\DepthPrepass.h" />
+    <ClInclude Include="src\Renderer\RenderPasses\LightCulling.h" />
+    <ClInclude Include="src\Renderer\RenderPasses\Shading.h" />
+    <ClInclude Include="src\Renderer\RenderPasses\HDRTonemap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Assets\AssetLoader.cpp">
@@ -201,5 +206,9 @@
     <ClCompile Include="src\corepch.cpp" />
     <ClCompile Include="src\Renderer\Material.cpp" />
     <ClCompile Include="src\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Renderer\RenderPasses\DepthPrepass.cpp" />
+    <ClCompile Include="src\Renderer\RenderPasses\HDRTonemap.cpp" />
+    <ClCompile Include="src\Renderer\RenderPasses\LightCulling.cpp" />
+    <ClCompile Include="src\Renderer\RenderPasses\Shading.cpp" />
   </ItemGroup>
 </Project>

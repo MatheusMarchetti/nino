@@ -9,6 +9,8 @@ namespace nino
 	RenderManager::RenderManager()
 	{
 		GraphicsAPI::CreateDeviceAndContext();
+
+		s_Instance = this;
 	}
 
 	void RenderManager::SetGraphicsConfiguration(GraphicsDescriptor& descriptor)
@@ -31,9 +33,10 @@ namespace nino
 		
 	}
 
-	void RenderManager::EndScene(std::initializer_list<Ref<Framebuffer>> framebuffers)
+	void RenderManager::EndScene(std::initializer_list<Ref<RenderPass>> renderPasses)
 	{
-		GraphicsAPI::BindFramebuffers(framebuffers);
+		s_RenderPasses = { renderPasses };
+		s_Instance->ComposeFrame();
 	}
 
 	void RenderManager::DrawPrimitive(const PrimitiveDescriptor& descriptor)
@@ -42,62 +45,63 @@ namespace nino
 		{
 		case PrimitiveType::Line: 
 		{
-			Primitives::DrawLine(descriptor.Position, descriptor.Rotation, descriptor.Scale.x, descriptor.Color);
+			auto data = Primitives::DrawLine(descriptor.Position, descriptor.Rotation, descriptor.Scale.x, descriptor.Color);
+
 			break;
 		}
 		case PrimitiveType::Triangle: 
 		{
-			Primitives::DrawTriangle(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawTriangle(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Quad: 
 		{
-			Primitives::DrawQuad(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawQuad(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Circle: 
 		{
-			Primitives::DrawCircle(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawCircle(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Cube: 
 		{
-			Primitives::DrawCube(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawCube(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Sphere: 
 		{
-			Primitives::DrawSphere(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawSphere(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Capsule: 
 		{
-			Primitives::DrawCapsule(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawCapsule(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Cylinder: 
 		{
-			Primitives::DrawCylinder(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawCylinder(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Torus: 
 		{
-			Primitives::DrawTorus(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawTorus(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Terrain: 
 		{
-			Primitives::DrawTerrain(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
+			auto data = Primitives::DrawTerrain(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.Color);
 			break;
 		}
 		case PrimitiveType::Mesh: 
 		{
-			Primitives::DrawMesh(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.MeshFile);
+			auto data = Primitives::DrawMesh(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.MeshFile);
 			break;
 		}
 		case PrimitiveType::Ragdoll:
 		{
-			Primitives::DrawRagdoll(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.MeshFile);
+			auto data = Primitives::DrawRagdoll(descriptor.Position, descriptor.Rotation, descriptor.Scale, descriptor.MeshFile);
 			break;
 		}
 		default:
@@ -113,5 +117,10 @@ namespace nino
 	void RenderManager::EndFrame()
 	{
 		GraphicsAPI::Present(s_VSync);
+	}
+
+	void RenderManager::ComposeFrame()
+	{
+
 	}
 }
