@@ -5,40 +5,79 @@
 
 namespace nino
 {
-	void Primitives::DrawLine(const Vector3& Position, const Vector3& Direction, float Size, const Vector4& Color)
+	std::pair<std::vector<Vertex2DData>, std::vector<unsigned short>> Primitives::DrawLine(const Vector3& Position, const Vector3& Direction, float Size, const Color& Color)
 	{
+		std::vector<Vertex2DData> vertexData(2);
+		std::vector<unsigned short> indices(2);
+
+		vertexData[0].Position = { -0.5f, 0.0f, 0.0f };
+		vertexData[1].Position = { 0.5f, 0.0f, 0.0f };
+		vertexData[0].Color = Color;
+		vertexData[1].Color = Color;
+		vertexData[0].TextureCoordinate = {};
+		vertexData[1].TextureCoordinate = {};
+
+		indices[0] = 0;
+		indices[1] = 1;
+
+		vertexData[0].Position = Matrix::CreateTranslation(Position) * Matrix::CreateFromYawPitchRoll(Direction) * vertexData[0].Position;
+		vertexData[1].Position = Matrix::CreateTranslation(Position) * Matrix::CreateFromYawPitchRoll(Direction) * vertexData[1].Position;
+
+		vertexData[0].Position.Normalize();
+		vertexData[1].Position.Normalize();
+
+		vertexData[0].Position = vertexData[0].Position * Size;
+		vertexData[1].Position = vertexData[1].Position * Size;
+
+		return { vertexData, indices };
 	}
-	void Primitives::DrawTriangle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+
+	std::pair<std::vector<Vertex2DData>, std::vector<unsigned short>> Primitives::DrawTriangle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawQuad(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+
+	std::pair<std::vector<Vertex2DData>, std::vector<unsigned short>> Primitives::DrawQuad(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawCircle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+
+	std::pair<std::vector<Vertex2DData>, std::vector<unsigned short>> Primitives::DrawCircle(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawCube(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+
+	std::pair<std::vector<Vertex2DData>, std::vector<unsigned short>> Primitives::DrawTerrain(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawSphere(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+
+	std::pair<std::vector<Vertex3DData>, std::vector<unsigned short>> Primitives::DrawCube(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawCapsule(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+	std::pair<std::vector<Vertex3DData>, std::vector<unsigned short>> Primitives::DrawSphere(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawCylinder(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+	std::pair<std::vector<Vertex3DData>, std::vector<unsigned short>> Primitives::DrawCapsule(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawTorus(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+	std::pair<std::vector<Vertex3DData>, std::vector<unsigned short>> Primitives::DrawCylinder(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawTerrain(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Vector4& Color)
+	std::pair<std::vector<Vertex3DData>, std::vector<unsigned short>> Primitives::DrawTorus(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const Color& Color)
 	{
+		return {};
 	}
-	void Primitives::DrawMesh(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile)
+	std::pair<std::vector<Vertex3DData>, std::vector<unsigned short>> Primitives::DrawMesh(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile)
 	{
+		return {};
 	}
-	void Primitives::DrawRagdoll(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile)
+	std::pair<std::vector<Vertex3DData>, std::vector<unsigned short>> Primitives::DrawRagdoll(const Vector3& Position, const Vector3& Rotation, const Vector3& Scale, const char* MeshFile)
 	{
+		return {};
 	}
 }
