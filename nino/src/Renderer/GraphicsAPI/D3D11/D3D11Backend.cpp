@@ -1,5 +1,5 @@
 #include "corepch.h"
-#include "GraphicsAPI.h"
+#include "D3D11Backend.h"
 
 #include "Core/Window.h"
 
@@ -7,15 +7,11 @@
 
 namespace nino
 {
-	static constexpr uint32_t s_BufferCount = 3;
-
 	using namespace Microsoft::WRL;
 
-	void GraphicsAPI::CreateDeviceAndContext()
+	D3D11Backend::D3D11Backend()
 	{
 		ComPtr<IDXGIFactory5> dxgiFactory;
-
-		ThrowOnError(CoInitialize(NULL));
 
 		UINT deviceFlags = 0;
 
@@ -23,7 +19,7 @@ namespace nino
 		deviceFlags = D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-		ThrowOnError(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlags, nullptr, 0, D3D11_SDK_VERSION, &s_Device, nullptr, &s_DeviceContext));
+		ThrowOnError(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlags, nullptr, 0, D3D11_SDK_VERSION, &m_Device, nullptr, &m_DeviceContext));
 
 		DXGI_ADAPTER_DESC adapterDesc = {};
 		GetAdapter()->GetDesc(&adapterDesc);
@@ -47,6 +43,7 @@ namespace nino
 
 		NINO_CORE_INFO("--------------------");
 		NINO_CORE_INFO("GPU Information:");
+		NINO_CORE_INFO("Current API: Direct3D 11.4");
 		NINO_CORE_INFO("Model: {}", adapterName.string());
 		NINO_CORE_INFO("Revision: {}", adapterDesc.Revision);
 		NINO_CORE_INFO("Vendor: {}", vendor);
@@ -59,14 +56,14 @@ namespace nino
 		NINO_CORE_INFO("--------------------");
 	}
 
-	void GraphicsAPI::CreateSwapChain(Window* window)
+	void D3D11Backend::CreateSwapChain(Window* window)
 	{
 		ComPtr<IDXGIDevice4> dxgiDevice4;
 		ComPtr<IDXGIFactory5> dxgiFactory;
 		ComPtr<IDXGISwapChain1> dxgiSwapChain1;
 		ComPtr<IDXGISwapChain4> dxgiSwapChain4;
 
-		ThrowOnError(s_Device.As(&dxgiDevice4));
+		ThrowOnError(m_Device.As(&dxgiDevice4));
 
 		ThrowOnError(GetAdapter()->GetParent(IID_PPV_ARGS(&dxgiFactory)));
 
@@ -85,42 +82,7 @@ namespace nino
 		s_RenderTargets[window->GetHandle()] = dxgiSwapChain4;
 	}
 
-	Microsoft::WRL::ComPtr<IDXGIAdapter> GraphicsAPI::GetAdapter()
-	{
-		ComPtr<IDXGIDevice4> dxgiDevice4;
-		ComPtr<IDXGIAdapter> dxgiAdapter;
-
-		ThrowOnError(s_Device.As(&dxgiDevice4));
-		ThrowOnError(dxgiDevice4->GetAdapter(&dxgiAdapter));
-
-		return dxgiAdapter;
-	}
-
-	const Microsoft::WRL::ComPtr<IDXGISwapChain4> GraphicsAPI::GetSwapChain(const Window* window)
-	{
-		return s_RenderTargets[window->GetHandle()];
-	}
-
-	void GraphicsAPI::BindFramebuffers(std::initializer_list<Ref<Framebuffer>> framebuffers)
-	{
-		std::vector<D3D11_VIEWPORT> viewports;
-		std::vector<ID3D11RenderTargetView*> rtvs;
-		viewports.reserve(framebuffers.size());
-		rtvs.reserve(framebuffers.size());
-		std::string mainFramebuffer = (*framebuffers.begin())->GetDescriptor().Name;
-
-		for (auto& framebuffer : framebuffers)
-		{
-			s_Framebuffers[framebuffer->GetDescriptor().Name] = framebuffer.get();
-			viewports.push_back(framebuffer->GetViewport());
-			rtvs.push_back(framebuffer->GetRenderTarget());
-		}
-
-		s_DeviceContext->RSSetViewports(viewports.size(), viewports.data());
-		s_DeviceContext->OMSetRenderTargets(framebuffers.size(), rtvs.data(), s_Framebuffers[mainFramebuffer]->GetDepthStencil());
-	}
-
-	void GraphicsAPI::Present(bool vSync)
+	void D3D11Backend::Present(bool vSync)
 	{
 		UINT syncInterval = vSync ? 1 : 0;
 		UINT flags = (s_TearingSupport == TRUE && vSync == false) ? DXGI_PRESENT_ALLOW_TEARING : 0;
@@ -131,8 +93,14 @@ namespace nino
 		}
 	}
 
-	GraphicsAPI::~GraphicsAPI()
+	Microsoft::WRL::ComPtr<IDXGIAdapter> D3D11Backend::GetAdapter()
 	{
-		CoUninitialize();
+		ComPtr<IDXGIDevice4> dxgiDevice4;
+		ComPtr<IDXGIAdapter> dxgiAdapter;
+
+		ThrowOnError(m_Device.As(&dxgiDevice4));
+		ThrowOnError(dxgiDevice4->GetAdapter(&dxgiAdapter));
+
+		return dxgiAdapter;
 	}
 }

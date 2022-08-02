@@ -48,7 +48,7 @@ project (corename)
     
     defines 
     {
-        
+        "NINO_API_D3D11"
     }
 
     links
