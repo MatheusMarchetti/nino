@@ -30,11 +30,6 @@ namespace nino
 	{
 	public:
 		Texture() = default;
-		Texture(TextureType type, TextureUsage::TextureUsage usage, DirectX::ScratchImage& image);
-		Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize = 1);
 		virtual ~Texture() = default;
-
-	private:
-		DirectX::ScratchImage m_Image;
 	};
 }

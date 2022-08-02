@@ -3,6 +3,7 @@
 
 #ifdef NINO_API_D3D11
     #include "Renderer/GraphicsAPI/D3D11/D3D11Shader.h"
+    #include "Renderer/GraphicsAPI/D3D11/D3D11Texture.h"
 #else
 
 #endif
@@ -52,7 +53,12 @@ namespace nino
                 type = TextureType::TextureCube;
         }
 
-        texture = CreateRef<Texture>(type, TextureUsage::ColorBinding, loadedImage);
+#ifdef NINO_API_D3D11
+        texture = CreateRef<D3D11Texture>(type, TextureUsage::ColorBinding, loadedImage);
+#else
+
+#endif
+
         texture->SetUUID(comparison);
 
         s_TextureCache[comparison] = texture;

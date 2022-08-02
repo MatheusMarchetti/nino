@@ -212,7 +212,6 @@
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11PipelineState.cpp" />
     <ClCompile Include="src\Renderer\RenderManager.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\corepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

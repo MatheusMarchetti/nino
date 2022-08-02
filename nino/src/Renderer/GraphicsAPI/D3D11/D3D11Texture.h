@@ -7,7 +7,7 @@
 
 namespace nino
 {
-	class D3D11Texture
+	class D3D11Texture : public Texture
 	{
 	public:
 		D3D11Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize = 1);
