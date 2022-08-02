@@ -3,9 +3,6 @@
 
 namespace nino
 {
-	auto device = D3D11Backend::GetDevice();
-	auto context = D3D11Backend::GetContext();
-
 	SamplerState::SamplerState(Filter samplingFilter, TextureMode textureMode, ComparisonFunction comparisonFunc, uint32_t anisotropyLevel, const Color& borderColor)
 	{
 		D3D11_SAMPLER_DESC samplerDesc = {};
@@ -22,6 +19,7 @@ namespace nino
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
+		auto device = D3D11Backend::GetDevice();
 		ThrowOnError(device->CreateSamplerState(&samplerDesc, &m_SamplerState));
 	}
 
@@ -31,6 +29,7 @@ namespace nino
 		rasterizerDesc.FillMode = (D3D11_FILL_MODE)fillMode;
 		rasterizerDesc.CullMode = (D3D11_CULL_MODE)cullMode;
 
+		auto device = D3D11Backend::GetDevice();
 		ThrowOnError(device->CreateRasterizerState(&rasterizerDesc, &m_RasterizerState));
 	}
 
@@ -44,12 +43,13 @@ namespace nino
 		depthStencilDesc.StencilReadMask = stencilRead;
 		depthStencilDesc.StencilWriteMask = stencilWrite;
 
+		auto device = D3D11Backend::GetDevice();
 		ThrowOnError(device->CreateDepthStencilState(&depthStencilDesc, &m_DepthStencilState));
 	}
 
 	PrimitiveTopology::PrimitiveTopology(TopologyType type)
 	{
-
+		auto context = D3D11Backend::GetContext();
 		context->IASetPrimitiveTopology((D3D11_PRIMITIVE_TOPOLOGY)type);
 	}
 
@@ -67,6 +67,7 @@ namespace nino
 			elementDescs.push_back(desc);
 		}
 
+		auto device = D3D11Backend::GetDevice();
 		ThrowOnError(device->CreateInputLayout(elementDescs.data(), elementDescs.size(), VertexShaderBytecode->GetBufferPointer(), VertexShaderBytecode->GetBufferSize(), &m_InputLayout));
 	}
 }

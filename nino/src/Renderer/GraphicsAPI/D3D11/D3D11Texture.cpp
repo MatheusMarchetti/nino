@@ -3,9 +3,6 @@
 
 namespace nino
 {
-	auto device = D3D11Backend::GetDevice();
-	auto context = D3D11Backend::GetContext();
-
 	D3D11Texture::D3D11Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize)
 	{
 		D3D11_TEXTURE2D_DESC tex2Ddesc = {};
@@ -41,6 +38,7 @@ namespace nino
 		}
 		}
 
+		auto device = D3D11Backend::GetDevice();
 		ThrowOnError(device->CreateTexture2D(&tex2Ddesc, nullptr, &m_Resource));
 
 		if (usage == TextureUsage::ColorBinding)
@@ -128,8 +126,10 @@ namespace nino
 		if (type == TextureType::TextureCube)
 			tex2Ddesc.MiscFlags |= D3D11_RESOURCE_MISC_TEXTURECUBE;
 
+		auto device = D3D11Backend::GetDevice();
 		ThrowOnError(device->CreateTexture2D(&tex2Ddesc, nullptr, &m_Resource));
 
+		auto context = D3D11Backend::GetContext();
 		std::vector<D3D11_SUBRESOURCE_DATA> imageData(image.GetImageCount());
 
 		for (size_t i = 0; i < image.GetImageCount(); i++)
