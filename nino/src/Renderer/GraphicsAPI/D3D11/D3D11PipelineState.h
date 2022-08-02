@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
+#include "Renderer/GraphicsAPI/D3D11/D3D11Backend.h"
 
 namespace nino
 {

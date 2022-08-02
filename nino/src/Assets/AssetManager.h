@@ -2,6 +2,7 @@
 
 #include "Assets/Asset.h"
 #include "Assets/AssetLoader.h"
+
 #include "Core/Core.h"
 
 #include "Renderer/Texture.h"
@@ -16,12 +17,12 @@ namespace nino
 		~AssetManager() = default;
 
 		static void LoadAsset(const std::string& filePath, Ref<Texture>& texture);
-		static void LoadAsset(const std::string& filePath, Ref<PixelShader>& shader);
+		static void LoadAsset(const std::string& filePath, Ref<Shader>& shader);
 
 		static void UnloadAsset(const Ref<Asset>& asset);
 
 	private:
 		inline static std::unordered_map<UUID, Ref<Texture>> s_TextureCache;
-		inline static std::unordered_map<UUID, Ref<PixelShader>> s_ShaderCache;
+		inline static std::unordered_map<UUID, Ref<Shader>> s_ShaderCache;
 	};
 }

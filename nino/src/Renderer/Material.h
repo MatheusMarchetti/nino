@@ -28,6 +28,6 @@ namespace nino
 		Ref<Texture> m_NormalMap;
 		Ref<Texture> m_MetalnessMap;
 		Ref<Texture> m_RoughnessMap;
-		Ref<PixelShader> m_Shader;
+		Ref<Shader> m_Shader;
 	};
 }

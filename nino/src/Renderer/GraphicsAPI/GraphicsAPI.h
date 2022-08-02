@@ -1,17 +1,18 @@
 #pragma once
 
-#include "Core/Window.h"
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
 
 namespace nino
 {
+	class Window;
+
 	class GraphicsAPI
 	{
 	public:
 		GraphicsAPI() { ThrowOnError(CoInitialize(NULL)); }
 		virtual ~GraphicsAPI() { CoUninitialize(); }
 
-		static const Microsoft::WRL::ComPtr<IDXGISwapChain4> GetSwapChain(const Window* window) { return s_RenderTargets[window->GetHandle()]; }
+		static const Microsoft::WRL::ComPtr<IDXGISwapChain4> GetSwapChain(const Window* window);
 
 		void SetTextureQuality(float quality) { s_TextureQuality = quality; }
 

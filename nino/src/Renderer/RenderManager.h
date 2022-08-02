@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Renderer/Camera.h"
-#include "Renderer/Framebuffer.h"
 
 namespace nino
 {

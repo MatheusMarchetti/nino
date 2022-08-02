@@ -1,12 +1,12 @@
 #include "corepch.h"
-#include "Buffer.h"
+#include "D3D11Buffer.h"
 
 namespace nino
 {
-	IndexBuffer::IndexBuffer(const std::vector<unsigned short>& indexData)
+	D3D11IndexBuffer::D3D11IndexBuffer(const std::vector<unsigned short>& indexData)
 		: m_IndexCount(indexData.size())
 	{
-		auto device = GraphicsAPI::GetDevice();
+		auto device = D3D11Backend::GetDevice();
 
 		D3D11_BUFFER_DESC indexBufferDesc = {};
 		indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;

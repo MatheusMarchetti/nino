@@ -1,14 +1,13 @@
 #include "corepch.h"
-#include "PipelineState.h"
-
-#include "Renderer/GraphicsAPI/GraphicsAPI.h"
+#include "D3D11PipelineState.h"
 
 namespace nino
 {
+	auto device = D3D11Backend::GetDevice();
+	auto context = D3D11Backend::GetContext();
+
 	SamplerState::SamplerState(Filter samplingFilter, TextureMode textureMode, ComparisonFunction comparisonFunc, uint32_t anisotropyLevel, const Color& borderColor)
 	{
-		auto device = GraphicsAPI::GetDevice();
-
 		D3D11_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.Filter = (D3D11_FILTER)samplingFilter;
 		samplerDesc.AddressU = (D3D11_TEXTURE_ADDRESS_MODE)textureMode;
@@ -28,8 +27,6 @@ namespace nino
 
 	RasterizerState::RasterizerState(FillMode fillMode, CullMode cullMode)
 	{
-		auto device = GraphicsAPI::GetDevice();
-
 		D3D11_RASTERIZER_DESC rasterizerDesc = {};
 		rasterizerDesc.FillMode = (D3D11_FILL_MODE)fillMode;
 		rasterizerDesc.CullMode = (D3D11_CULL_MODE)cullMode;
@@ -39,8 +36,6 @@ namespace nino
 
 	DepthStencilState::DepthStencilState(bool depthEnabled, bool depthWrite, ComparisonFunction comparisonFunc, bool stencilEnabled, uint8_t stencilRead, uint8_t stencilWrite)
 	{
-		auto device = GraphicsAPI::GetDevice();
-
 		D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
 		depthStencilDesc.DepthEnable = depthEnabled;
 		depthStencilDesc.StencilEnable = stencilEnabled;
@@ -54,14 +49,12 @@ namespace nino
 
 	PrimitiveTopology::PrimitiveTopology(TopologyType type)
 	{
-		auto context = GraphicsAPI::GetContext();
 
 		context->IASetPrimitiveTopology((D3D11_PRIMITIVE_TOPOLOGY)type);
 	}
 
 	InputLayout::InputLayout(ID3DBlob* VertexShaderBytecode, const BufferLayout& layout)
 	{
-		auto device = GraphicsAPI::GetDevice();
 		std::vector<D3D11_INPUT_ELEMENT_DESC> elementDescs;
 
 		for (const auto& entry : layout)

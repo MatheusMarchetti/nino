@@ -1,28 +1,28 @@
 #pragma once
 
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
-#include "Renderer/GraphicsAPI/GraphicsAPI.h"
+#include "Renderer/GraphicsAPI/D3D11/D3D11Backend.h"
 
 namespace nino
 {
-	class Buffer
+	class D3D11Buffer
 	{
 	public:
 		Microsoft::WRL::ComPtr<ID3D11Buffer>& GetBuffer() { return m_Buffer; }
 
 	protected:
-		Buffer() = default;
-		virtual ~Buffer() = default;
+		D3D11Buffer() = default;
+		virtual ~D3D11Buffer() = default;
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_Buffer;
 	};
 
 	template<typename T>
-	class VertexBuffer : public Buffer
+	class D3D11VertexBuffer : public D3D11Buffer
 	{
 	public:
-		VertexBuffer(const std::vector<T>& vertexData)
+		D3D11VertexBuffer(const std::vector<T>& vertexData)
 			: m_Stride(sizeof(T))
 		{
 			auto device = GraphicsAPI::GetDevice();
@@ -39,28 +39,28 @@ namespace nino
 			ThrowOnError(device->CreateBuffer(&vertexBufferDesc, &bufferData, &m_Buffer));
 		}
 
-		virtual ~VertexBuffer() = default;
+		virtual ~D3D11VertexBuffer() = default;
 
 	private:
 		uint32_t m_Stride;
 		uint32_t m_Offset;
 	};
 
-	class IndexBuffer : public Buffer
+	class D3D11IndexBuffer : public D3D11Buffer
 	{
 	public:
-		IndexBuffer(const std::vector<unsigned short>& indexData);
-		virtual ~IndexBuffer() = default;
+		D3D11IndexBuffer(const std::vector<unsigned short>& indexData);
+		virtual ~D3D11IndexBuffer() = default;
 
 	private:
 		uint32_t m_IndexCount;
 	};
 
 	template<typename T>
-	class ConstantBuffer : public Buffer
+	class D3D11ConstantBuffer : public D3D11Buffer
 	{
 	public:
-		ConstantBuffer()
+		D3D11ConstantBuffer()
 		{
 			auto device = GraphicsAPI::GetDevice();
 
@@ -73,7 +73,7 @@ namespace nino
 			ThrowOnError(device->CreateBuffer(&constantBufferDesc, nullptr, &m_Buffer));
 		}
 
-		ConstantBuffer(const T& cbufferData)
+		D3D11ConstantBuffer(const T& cbufferData)
 		{
 			auto device = GraphicsAPI::GetDevice();
 
@@ -100,6 +100,6 @@ namespace nino
 			context->Unmap(m_Buffer.Get(), 0);
 		}
 
-		virtual ~ConstantBuffer() = default;
+		virtual ~D3D11ConstantBuffer() = default;
 	};
 }

@@ -19,7 +19,7 @@ namespace nino
 		deviceFlags = D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-		ThrowOnError(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlags, nullptr, 0, D3D11_SDK_VERSION, &m_Device, nullptr, &m_DeviceContext));
+		ThrowOnError(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlags, nullptr, 0, D3D11_SDK_VERSION, &s_Device, nullptr, &s_DeviceContext));
 
 		DXGI_ADAPTER_DESC adapterDesc = {};
 		GetAdapter()->GetDesc(&adapterDesc);
@@ -63,7 +63,7 @@ namespace nino
 		ComPtr<IDXGISwapChain1> dxgiSwapChain1;
 		ComPtr<IDXGISwapChain4> dxgiSwapChain4;
 
-		ThrowOnError(m_Device.As(&dxgiDevice4));
+		ThrowOnError(s_Device.As(&dxgiDevice4));
 
 		ThrowOnError(GetAdapter()->GetParent(IID_PPV_ARGS(&dxgiFactory)));
 
@@ -98,7 +98,7 @@ namespace nino
 		ComPtr<IDXGIDevice4> dxgiDevice4;
 		ComPtr<IDXGIAdapter> dxgiAdapter;
 
-		ThrowOnError(m_Device.As(&dxgiDevice4));
+		ThrowOnError(s_Device.As(&dxgiDevice4));
 		ThrowOnError(dxgiDevice4->GetAdapter(&dxgiAdapter));
 
 		return dxgiAdapter;

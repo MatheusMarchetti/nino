@@ -1,6 +1,12 @@
 #include "corepch.h"
 #include "AssetManager.h"
 
+#ifdef NINO_API_D3D11
+    #include "Renderer/GraphicsAPI/D3D11/D3D11Shader.h"
+#else
+
+#endif
+
 namespace nino
 {
     AssetManager::AssetManager()
@@ -52,7 +58,7 @@ namespace nino
         s_TextureCache[comparison] = texture;
     }
 
-    void AssetManager::LoadAsset(const std::string& filePath, Ref<PixelShader>& shader)
+    void AssetManager::LoadAsset(const std::string& filePath, Ref<Shader>& shader)
     {
         std::filesystem::path assetFilePath = filePath;
         std::hash<std::string> hasher;
@@ -70,7 +76,12 @@ namespace nino
             return;
         }
 
-        shader = CreateRef<PixelShader>(filePath);
+#ifdef NINO_API_D3D11
+        shader = CreateRef<D3D11PixelShader>(filePath);
+#else
+
+#endif
+
         shader->SetUUID(comparison);
 
         s_ShaderCache[comparison] = shader;

@@ -42,7 +42,6 @@ namespace nino
 			throw std::exception("Unknown shader type");
 		}
 
-		auto device = GraphicsAPI::GetDevice();
 		ComPtr<ID3DBlob> errorBlob;
 
 		UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -103,29 +102,5 @@ namespace nino
 		{
 			throw std::exception("Unsupported shader file format. Only supports HLSL or CSO files");
 		}
-	}
-
-	VertexShader::VertexShader(const std::string& filePath)
-		: Shader(filePath, ShaderType::VertexShader)
-	{
-		auto device = GraphicsAPI::GetDevice();
-
-		ThrowOnError(device->CreateVertexShader(m_ShaderBlob->GetBufferPointer(), m_ShaderBlob->GetBufferSize(), nullptr, &m_VertexShader));
-	}
-
-	PixelShader::PixelShader(const std::string& filePath)
-		: Shader(filePath, ShaderType::PixelShader)
-	{
-		auto device = GraphicsAPI::GetDevice();
-
-		ThrowOnError(device->CreatePixelShader(m_ShaderBlob->GetBufferPointer(), m_ShaderBlob->GetBufferSize(), nullptr, &m_PixelShader));
-	}
-
-	ComputeShader::ComputeShader(const std::string& filePath)
-		: Shader(filePath, ShaderType::ComputeShader)
-	{
-		auto device = GraphicsAPI::GetDevice();
-
-		ThrowOnError(device->CreateComputeShader(m_ShaderBlob->GetBufferPointer(), m_ShaderBlob->GetBufferSize(), nullptr, &m_ComputeShader));
 	}
 }

@@ -6,7 +6,6 @@ namespace nino
 	Camera::Camera()
 	{
 		m_Type = CameraType::Perspective;
-		m_ConstantBuffer = CreateRef<ConstantBuffer<CameraCBuf>>();
 
 		UpdateProjection();
 		UpdateView();
@@ -16,7 +15,6 @@ namespace nino
 		: m_FOV(fov), m_AspectRatio(aspectRatio), m_NearPlane(nearPlane), m_FarPlane(farPlane)
 	{
 		m_Type = CameraType::Perspective;
-		m_ConstantBuffer = CreateRef<ConstantBuffer<CameraCBuf>>();
 
 		UpdateProjection();
 		UpdateView();
@@ -96,9 +94,6 @@ namespace nino
 		default:
 			break;
 		}
-
-		CameraCBuf VPmatrix = { m_View * m_Projection };
-		m_ConstantBuffer->SetData(VPmatrix);
 	}
 
 	void Camera::UpdateView()
@@ -111,7 +106,6 @@ namespace nino
 		m_View = m_View.Invert();
 
 		CameraCBuf VPmatrix = { m_View * m_Projection };
-		m_ConstantBuffer->SetData(VPmatrix);
 	}
 
 	Vector3 Camera::CalculatePosition()

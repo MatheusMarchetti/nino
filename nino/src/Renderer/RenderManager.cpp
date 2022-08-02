@@ -38,7 +38,7 @@ namespace nino
 
 	void RenderManager::BeginScene(const Camera& camera)
 	{
-		auto& cameraCB = camera.GetShaderBuffer();
+
 	}
 
 	void RenderManager::EndScene()

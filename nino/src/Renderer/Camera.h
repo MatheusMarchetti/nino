@@ -2,8 +2,6 @@
 
 #include "Core/Core.h"
 
-#include "Renderer/Buffer.h"
-
 namespace nino
 {
 	struct CameraCBuf
@@ -40,8 +38,6 @@ namespace nino
 		Vector3& GetPosition() { return m_Position; }
 		Quaternion& GetOrientation();
 
-		const Ref<ConstantBuffer<CameraCBuf>>& GetShaderBuffer() const { return m_ConstantBuffer; }
-
 	private:
 		void UpdateProjection();
 		void UpdateView();
@@ -66,7 +62,5 @@ namespace nino
 
 		Matrix m_Projection;
 		Matrix m_View;
-
-		Ref<ConstantBuffer<CameraCBuf>> m_ConstantBuffer;
 	};
 }
