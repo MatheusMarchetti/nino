@@ -7,11 +7,16 @@
 
 namespace nino
 {
+	class Window;
+
 	class D3D11Texture : public Texture
 	{
 	public:
 		D3D11Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize = 1);
 		D3D11Texture(TextureType type, TextureUsage::TextureUsage usage, DirectX::ScratchImage& image);
+		D3D11Texture(const Window* window);
+
+		ID3D11Texture2D* GetResource() { return m_Resource.Get(); }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> m_Resource;

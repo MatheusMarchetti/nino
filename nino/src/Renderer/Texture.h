@@ -1,14 +1,13 @@
 #pragma once
 
 #include "Assets/Asset.h"
+
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
 
 #include "DirectXTex.h"
 
 namespace nino
 {
-	class Window;
-
 	enum class TextureType
 	{
 		Texture2D,

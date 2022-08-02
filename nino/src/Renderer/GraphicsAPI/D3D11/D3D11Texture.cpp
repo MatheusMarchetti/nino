@@ -3,6 +3,16 @@
 
 namespace nino
 {
+	D3D11Texture::D3D11Texture(const Window* window)
+	{
+		auto device = D3D11Backend::GetDevice();
+
+		ThrowOnError(GraphicsAPI::GetSwapChain(window)->GetBuffer(0, IID_PPV_ARGS(&m_Resource)));
+
+		m_ShaderResourceView = nullptr;
+		m_UnorderedAccessView = nullptr;
+	}
+
 	D3D11Texture::D3D11Texture(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize)
 	{
 		D3D11_TEXTURE2D_DESC tex2Ddesc = {};

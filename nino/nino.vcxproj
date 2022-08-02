@@ -174,8 +174,10 @@
     <ClInclude Include="src\Input\KeyCodes.h" />
     <ClInclude Include="src\Input\MouseCodes.h" />
     <ClInclude Include="src\Renderer\Camera.h" />
+    <ClInclude Include="src\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Backend.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Buffer.h" />
+    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Framebuffer.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
@@ -183,6 +185,7 @@
     <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11PipelineState.h" />
     <ClInclude Include="src\Renderer\RenderManager.h" />
+    <ClInclude Include="src\Renderer\RenderPass.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Scene\Components.h" />
@@ -205,6 +208,7 @@
     <ClCompile Include="src\Renderer\Camera.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Backend.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Buffer.cpp" />
+    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Framebuffer.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
