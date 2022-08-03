@@ -26,6 +26,8 @@ namespace nino
 
 		const FramebufferDescriptor& GetDescriptor() const { return m_Descriptor; }
 
+		static Ref<Framebuffer> Create(const FramebufferDescriptor& descriptor);
+
 	protected:
 		FramebufferDescriptor m_Descriptor;
 	};

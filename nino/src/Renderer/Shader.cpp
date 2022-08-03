@@ -4,9 +4,42 @@
 #include "Renderer/GraphicsAPI/GraphicsAPI.h"
 #include "Core/Timestep.h"
 
+#ifdef NINO_API_D3D11
+#include "Renderer/GraphicsAPI/D3D11/D3D11Shader.h"
+#else
+
+#endif
+
 namespace nino
 {
 	using namespace Microsoft::WRL;
+
+	Ref<Shader> Shader::CreateVertexShader(const std::string& filePath)
+	{
+#ifdef NINO_API_D3D11
+		return CreateRef<D3D11VertexShader>(filePath);
+#else
+
+#endif
+	}
+
+	Ref<Shader> Shader::CreatePixelShader(const std::string& filePath)
+	{
+#ifdef NINO_API_D3D11
+		return CreateRef<D3D11PixelShader>(filePath);
+#else
+
+#endif
+	}
+
+	Ref<Shader> Shader::CreateComputeShader(const std::string& filePath)
+	{
+#ifdef NINO_API_D3D11
+		return CreateRef<D3D11ComputeShader>(filePath);
+#else
+
+#endif
+	}
 
 	Shader::Shader(const std::string& filePath, ShaderType type)
 		: m_ShaderFilePath(filePath)

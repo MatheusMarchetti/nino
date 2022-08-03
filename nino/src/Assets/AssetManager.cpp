@@ -1,13 +1,6 @@
 #include "corepch.h"
 #include "AssetManager.h"
 
-#ifdef NINO_API_D3D11
-    #include "Renderer/GraphicsAPI/D3D11/D3D11Shader.h"
-    #include "Renderer/GraphicsAPI/D3D11/D3D11Texture.h"
-#else
-
-#endif
-
 namespace nino
 {
     AssetManager::AssetManager()
@@ -53,12 +46,7 @@ namespace nino
                 type = TextureType::TextureCube;
         }
 
-#ifdef NINO_API_D3D11
-        texture = CreateRef<D3D11Texture>(type, TextureUsage::ColorBinding, loadedImage);
-#else
-
-#endif
-
+        texture = Texture::Create(type, TextureUsage::ColorBinding, loadedImage);
         texture->SetUUID(comparison);
 
         s_TextureCache[comparison] = texture;
@@ -82,12 +70,7 @@ namespace nino
             return;
         }
 
-#ifdef NINO_API_D3D11
-        shader = CreateRef<D3D11PixelShader>(filePath);
-#else
-
-#endif
-
+        shader = Shader::CreatePixelShader(filePath);
         shader->SetUUID(comparison);
 
         s_ShaderCache[comparison] = shader;

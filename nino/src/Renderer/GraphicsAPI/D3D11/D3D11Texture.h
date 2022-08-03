@@ -7,8 +7,6 @@
 
 namespace nino
 {
-	class Window;
-
 	class D3D11Texture : public Texture
 	{
 	public:

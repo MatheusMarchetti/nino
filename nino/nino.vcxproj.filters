@@ -211,5 +211,7 @@
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Framebuffer.cpp" />
+    <ClCompile Include="src\Renderer\Framebuffer.cpp" />
+    <ClCompile Include="src\Renderer\Texture.cpp" />
   </ItemGroup>
 </Project>

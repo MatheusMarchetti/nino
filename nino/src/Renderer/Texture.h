@@ -2,12 +2,16 @@
 
 #include "Assets/Asset.h"
 
+#include "Core/Core.h"
+
 #include "Renderer/GraphicsAPI/GraphicsCore.h"
 
 #include "DirectXTex.h"
 
 namespace nino
 {
+	class Window;
+
 	enum class TextureType
 	{
 		Texture2D,
@@ -30,5 +34,9 @@ namespace nino
 	public:
 		Texture() = default;
 		virtual ~Texture() = default;
+
+		static Ref<Texture> Create(TextureType type, TextureUsage::TextureUsage usage, uint32_t width, uint32_t height, uint32_t arraySize = 1);
+		static Ref<Texture> Create(TextureType type, TextureUsage::TextureUsage usage, DirectX::ScratchImage& image);
+		static Ref<Texture> Create(const Window* window);
 	};
 }

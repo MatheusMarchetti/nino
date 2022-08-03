@@ -14,8 +14,12 @@
 #include "Input/KeyCodes.h"
 #include "Input/MouseCodes.h"
 
+#include "Renderer/Camera.h"
+#include "Renderer/Framebuffer.h"
 #include "Renderer/Material.h"
 #include "Renderer/RenderManager.h"
+#include "Renderer/RenderPass.h"
+#include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
 
 #include "Scene/Components.h"

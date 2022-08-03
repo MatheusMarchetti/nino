@@ -11,6 +11,13 @@ namespace nino
 {
 	class Shader : public Asset
 	{
+	public:
+		ID3DBlob* GetShaderByteCode() { return m_ShaderBlob.Get(); }
+
+		static Ref<Shader> CreateVertexShader(const std::string& filePath);
+		static Ref<Shader> CreatePixelShader(const std::string& filePath);
+		static Ref<Shader> CreateComputeShader(const std::string& filePath);
+
 	protected:
 		enum class ShaderType
 		{
@@ -22,9 +29,6 @@ namespace nino
 	protected:
 		Shader(const std::string& filePath, ShaderType type);
 		virtual ~Shader() = default;
-
-	public:
-		ID3DBlob* GetShaderByteCode() { return m_ShaderBlob.Get(); }
 
 	protected:
 		std::filesystem::path m_ShaderFilePath;
