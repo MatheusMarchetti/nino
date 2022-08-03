@@ -14,7 +14,7 @@ namespace nino
 	class RenderPass
 	{
 	public:
-		RenderPass(const PassDescriptor& descriptor);
+		RenderPass(const PassDescriptor& descriptor) : m_Descriptor(descriptor) {}
 		virtual ~RenderPass() = default;
 
 		PassDescriptor& GetDescriptor() { return m_Descriptor; }
