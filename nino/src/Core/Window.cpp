@@ -16,13 +16,14 @@ namespace nino
 		wc.hInstance = hInstance;
 		wc.lpszClassName = m_Descriptor.WindowName.c_str();
 		wc.lpfnWndProc = EventManager::EventHandler;
+		wc.style = CS_HREDRAW | CS_VREDRAW;
 
 		ThrowOnError(RegisterClassEx(&wc));
 
 		RECT rect = { 0, 0, (LONG)m_Descriptor.Width, (LONG)m_Descriptor.Height };
 		ThrowOnError(AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE));
 
-		m_Window = ThrowOnError(CreateWindow(m_Descriptor.WindowName.c_str(), m_Descriptor.WindowName.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, nullptr, nullptr, hInstance, nullptr));
+		m_Window = ThrowOnError(CreateWindowEx(0, m_Descriptor.WindowName.c_str(), m_Descriptor.WindowName.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, nullptr, nullptr, hInstance, nullptr));
 
 		NINO_CORE_INFO("{} window initialized!", m_Descriptor.WindowName);
 	}

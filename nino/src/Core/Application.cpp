@@ -148,6 +148,9 @@ namespace nino
 
 	int CreateApplication(Application* app)
 	{
+		if (!DirectX::XMVerifyCPUSupport())
+			return 1;
+
 		try
 		{
 			app->Run();
