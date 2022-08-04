@@ -29,10 +29,12 @@ workspace (solutionname)
     IncludeDir["DirectXTK"] = "%{wks.location}/"..corename.."/vendor/DirectXTK/Inc"
     IncludeDir["DirectXTex"] = "%{wks.location}/"..corename.."/vendor/DirectXTex"
     IncludeDir["inih"] = "%{wks.location}/"..corename.."/vendor/inih"
+    IncludeDir["assimp"] = "%{wks.location}/"..corename.."/vendor/assimp/include"
 
     include (corename.."/vendor/imgui")
     include (corename.."/vendor/DirectXTK")
     include (corename.."/vendor/DirectXTex")
+    include (corename.."/vendor/assimp")
 
 project (corename)
     kind "StaticLib"
@@ -59,7 +61,8 @@ project (corename)
         "dxguid",
         "ImGui",
         "DirectXTK",
-        "DirectXTex"
+        "DirectXTex",
+        "assimp"
     }
 
     files
@@ -76,7 +79,8 @@ project (corename)
         "%{IncludeDir.entt}",
         "%{IncludeDir.DirectXTK}",
         "%{IncludeDir.DirectXTex}",
-        "%{IncludeDir.inih}"
+        "%{IncludeDir.inih}",
+        "%{IncludeDir.assimp}"
     }
 
     postbuildcommands
