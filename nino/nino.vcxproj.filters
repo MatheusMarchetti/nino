@@ -111,7 +111,25 @@
     <ClInclude Include="src\Renderer\Camera.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Framebuffer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Backend.h">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Buffer.h">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Framebuffer.h">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11PipelineState.h">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.h">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.h">
       <Filter>Renderer\GraphicsAPI\D3D11</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h">
@@ -123,10 +141,10 @@
     <ClInclude Include="src\Renderer\Material.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11PipelineState.h">
+    <ClInclude Include="src\Renderer\RenderManager.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\RenderManager.h">
+    <ClInclude Include="src\Renderer\RenderPass.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Shader.h">
@@ -146,12 +164,6 @@
     </ClInclude>
     <ClInclude Include="src\corepch.h" />
     <ClInclude Include="src\nino.h" />
-    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Buffer.h" />
-    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.h" />
-    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.h" />
-    <ClInclude Include="src\Renderer\Framebuffer.h" />
-    <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Framebuffer.h" />
-    <ClInclude Include="src\Renderer\RenderPass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Assets\AssetLoader.cpp">
@@ -187,13 +199,31 @@
     <ClCompile Include="src\Renderer\Camera.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Framebuffer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Backend.cpp">
       <Filter>Renderer\GraphicsAPI\D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Material.cpp">
-      <Filter>Renderer</Filter>
+    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Buffer.cpp">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Framebuffer.cpp">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11PipelineState.cpp">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.cpp">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.cpp">
+      <Filter>Renderer\GraphicsAPI\D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp">
+      <Filter>Renderer\GraphicsAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Material.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\RenderManager.cpp">
@@ -202,16 +232,12 @@
     <ClCompile Include="src\Renderer\Shader.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\Texture.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\corepch.cpp" />
-    <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
-    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Buffer.cpp" />
-    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.cpp" />
-    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.cpp" />
-    <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Framebuffer.cpp" />
-    <ClCompile Include="src\Renderer\Framebuffer.cpp" />
-    <ClCompile Include="src\Renderer\Texture.cpp" />
   </ItemGroup>
 </Project>
