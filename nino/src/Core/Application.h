@@ -72,7 +72,7 @@ namespace nino
 	int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)			\
 	{																\
 		nino::Log::Init();											\
-		return nino::CreateApplication(new appclass(descriptor));	\
+		return nino::CreateApplication(new appclass());	\
 	}
 #else
 #define InitializeEngine(appclass)									\
