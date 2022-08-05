@@ -40,7 +40,6 @@ project (corename)
     kind "StaticLib"
     staticruntime "On"
     location (corename)
-    buildoptions "/MTd"
     
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
@@ -92,22 +91,25 @@ project (corename)
         defines "CORE_DEBUG"
         runtime "Debug"
         symbols "On"
+        buildoptions "/MTd"
 
     filter "configurations:Profiling"
         defines "CORE_PROFILING"
         runtime "Release"
         optimize "On"
+        buildoptions "/MT"
 
     filter "configurations:Release"
         defines "CORE_RELEASE"
         runtime "Release"
         optimize "On"
+        buildoptions "/MT"
 
 project (appname)
     kind "ConsoleApp"
     staticruntime "On"
     location (appname)
-    buildoptions "/MTd"
+    buildoptions "/MT"
 
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
@@ -138,14 +140,17 @@ project (appname)
     defines "CORE_DEBUG"
     runtime "Debug"
     symbols "On"
+    buildoptions "/MTd"
 
 filter "configurations:Profiling"
     defines "CORE_PROFILING"
     runtime "Release"
     optimize "On"
+    buildoptions "/MT"
 
 filter "configurations:Release"
     kind "WindowedApp"
     defines "CORE_RELEASE"
     runtime "Release"
     optimize "On"
+    buildoptions "/MT"
