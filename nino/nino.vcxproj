@@ -108,7 +108,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MT %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalOptions>/MTd %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MT %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -183,7 +183,6 @@
     <ClInclude Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsAPI.h" />
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h" />
-    <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\RenderManager.h" />
     <ClInclude Include="src\Renderer\RenderPass.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
@@ -214,7 +213,6 @@
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Shader.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\D3D11\D3D11Texture.cpp" />
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp" />
-    <ClCompile Include="src\Renderer\Material.cpp" />
     <ClCompile Include="src\Renderer\RenderManager.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />

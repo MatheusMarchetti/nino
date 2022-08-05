@@ -3,6 +3,10 @@
 
 #include "Core/Timestep.h"
 
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+
 namespace nino
 {
 	bool AssetLoader::HasAssetBinary(uint64_t assetID)

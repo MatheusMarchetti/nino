@@ -4,7 +4,6 @@ project "DirectXTex"
     cppdialect "C++17"
     systemversion "latest"
     staticruntime "On"
-    buildoptions "/MTd"
     
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
@@ -29,3 +28,18 @@ project "DirectXTex"
         "BC4BC5.cpp",
         "BC6HBC7.cpp"
     }
+
+    filter "configurations:Debug"
+    runtime "Debug"
+    symbols "On"
+    buildoptions "/MTd"
+
+filter "configurations:Profiling"
+    runtime "Release"
+    optimize "On"
+    buildoptions "/MT"
+
+filter "configurations:Release"
+    runtime "Release"
+    optimize "On"
+    buildoptions "/MT"

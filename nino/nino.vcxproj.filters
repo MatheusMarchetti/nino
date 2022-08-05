@@ -138,9 +138,6 @@
     <ClInclude Include="src\Renderer\GraphicsAPI\GraphicsCore.h">
       <Filter>Renderer\GraphicsAPI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Material.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\RenderManager.h">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -222,9 +219,6 @@
     </ClCompile>
     <ClCompile Include="src\Renderer\GraphicsAPI\GraphicsAPI.cpp">
       <Filter>Renderer\GraphicsAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Material.cpp">
-      <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\RenderManager.cpp">
       <Filter>Renderer</Filter>

@@ -1,6 +1,8 @@
 #include "corepch.h"
 #include "AssetManager.h"
 
+#include "Assets/AssetLoader.h"
+
 namespace nino
 {
     AssetManager::AssetManager()
@@ -9,13 +11,8 @@ namespace nino
 
     void AssetManager::LoadAsset(const std::string& filePath, Ref<Texture>& texture)
     {
-        std::filesystem::path assetFilePath = filePath;
-        std::hash<std::string> hasher;
-
-        std::string stringToHash = assetFilePath.filename().string() + std::to_string(std::filesystem::last_write_time(assetFilePath).time_since_epoch().count());
-
         UUID comparison;
-        comparison = comparison.GenerateUUID(hasher(stringToHash));
+        comparison = GenerateAssetUUID(filePath);
 
         if (s_TextureCache.find(comparison) != s_TextureCache.end())
         {
@@ -54,13 +51,8 @@ namespace nino
 
     void AssetManager::LoadAsset(const std::string& filePath, Ref<Shader>& shader)
     {
-        std::filesystem::path assetFilePath = filePath;
-        std::hash<std::string> hasher;
-
-        std::string stringToHash = assetFilePath.filename().string();
-
         UUID comparison;
-        comparison = comparison.GenerateUUID(hasher(stringToHash));
+        comparison = GenerateAssetUUID(filePath);
 
         if (s_ShaderCache.find(comparison) != s_ShaderCache.end())
         {
@@ -82,5 +74,19 @@ namespace nino
         {
             s_TextureCache.erase(asset->GetUUID());
         }
+    }
+
+    UUID AssetManager::GenerateAssetUUID(const std::string& filePath)
+    {
+        std::filesystem::path assetFilePath = filePath;
+        std::hash<std::string> hasher;
+
+        std::string stringToHash = assetFilePath.filename().string();
+
+        UUID comparison;
+        
+        comparison = comparison.GenerateUUID(hasher(stringToHash));
+
+        return comparison;
     }
 }
